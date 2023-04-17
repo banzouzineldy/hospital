@@ -64,8 +64,7 @@ class DoctorController extends AbstractController
          $brochureFile = $request->files->get('file');
                 
              $data =$request->request->all()  ;                                     
-        
-
+    
            // return $this->json(['nom'=> $request->request->all()['nom']]);
             $user=new Doctors();
             $user->setNom($data['nom']);

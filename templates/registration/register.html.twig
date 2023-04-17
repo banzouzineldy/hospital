@@ -1,17 +1,45 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <title>Hospital</title>
+    <link rel="stylesheet" type="text/css" href="/assts/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/style.css">
+    <!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+    
+    <body>
+    <h1>Inscription</h1>
+       <div class="container">
 
-{% block body %}
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
+        {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+      {#   {{ form_row(registrationForm.agreeTerms) }} #}
+       {{ form_row(registrationForm.roles) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn btn-primary mt-4">Soumettre</button>
     {{ form_end(registrationForm) }}
-{% endblock %}
+       
+       
+       </div>
+
+   
+
+
+    </body>
+
+
+<!-- patients23:19-->
+</html>
+
