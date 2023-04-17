@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- add-patient24:06-->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="assts/img/favicon.ico">
+    <title> Hospital</title>
+    <link rel="stylesheet" type="text/css" href="assts/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assts/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assts/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="assts/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="assts/css/style.css">
+    <!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+    <div class="main-wrapper">
+        <div class="header">
+			<div class="header-left">
+				<a href="index-2.html" class="logo">
+					<img src="assts/img/logo.png" width="35" height="35" alt=""> <span>Hopital</span>
+				</a>
+			</div>
+			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        <div class="drop-scroll">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="activities.html">
+                                        <div class="media">
+											<span class="avatar">
+												<img alt="John Doe" src="assets/img/user.jpg" class="img-fluid rounded-circle">
+											</span>
+											<div class="media-body">
+												<p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
+												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+											</div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities.html">
+                                        <div class="media">
+											<span class="avatar">V</span>
+											<div class="media-body">
+												<p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
+												<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+											</div>
+                                        </div>
+                                    </a>
+                                </li> 
+    
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities.html">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
+                </li>
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                        <span class="user-img"><img class="rounded-circle" src="assts/img/user.jpg" width="40" alt="Admin">
+							<span class="status online"></span></span>
+                        <span>Admin</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="dropdown mobile-user-menu float-right">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="profile.html">My Profile</a>
+                    <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
+                    <a class="dropdown-item" href="settings.html">Settings</a>
+                    <a class="dropdown-item" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li>
+                            <a href="index-2.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+						<li>
+                            <a href="doctors.html"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
+                        </li>
+                        <li class="active">
+                            <a href="patients.html"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+                        </li>
+                        <li>
+                            <a href="appointments.html"><i class="fa fa-calendar"></i> <span>Appointments</span></a>
+                        </li>
+                        <li>
+                            <a href="schedule.html"><i class="fa fa-calendar-check-o"></i> <span>Hospitalisationss</span></a>
+                        </li>
+                        <li>
+                            <a href="departments.html"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
+                        </li>
+			
+                        <li>
+                            <a href="settings.html"><i class="fa fa-cog"></i> <span>Settings</span></a>
+                        </li>
+                        <li>
+                            <a href="calendar.html"><i class="fa fa-calendar"></i> <span>Calendar</span></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <h4 class="page-title">Edit Patient</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <form id="form">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>NOM <span class="text-danger"></span></label>
+                                        <input class="form-control" type="text" id="nom" value="{% if data|default(null) != null %}{{data.nom}}{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Prenom</label>
+                                        <input class="form-control" type="text" id="prenom" value="{% if data|default(null) != null %}{{data.prenom}}{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Genre <span class="text-danger"></span></label>
+                                        <input class="form-control" type="text" id="genre" value="{% if data|default(null) != null %}{{data.genre}}{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Age <span class="text-danger"></span></label>
+                                        <input class="form-control" type="number" min="0" max="100" id="age" value="{% if data|default(null) != null %}{{data.prenom}}{% endif %}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Telephone</label>
+                                        <input class="form-control" type="text" id="telephone" value="{% if data|default(null) != null %}{{data.telephone}}{% endif %}"
+                                        
+                                        >
+                                    </div>
+                                </div>
+								{# <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Date Naissance</label>
+                                        <div class="cal-icon">
+                                            <input type="text" class="form-control datetimepicker">
+                                        </div>
+                                    </div>
+                                </div> #}
+{#                                 <div class="col-sm-6">
+									<div class="form-group gender-select">
+										<label class="gen-label">Genre:</label>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" name="gender" class="form-check-input">Male
+											</label>
+										</div>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" name="gender" class="form-check-input">Female
+											</label>
+										</div>
+									</div>
+                                </div>
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label>Telephone</label>
+												<input type="text" class="form-control ">
+											</div>
+										</div> #}
+										{# <div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>Nationalite</label>
+												<select class="form-control select">
+													<option>USA</option>
+													<option>United Kingdom</option>
+												</select>
+											</div>
+										</div> #}
+										{# <div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>City</label>
+												<input type="text" class="form-control">
+											</div>
+										</div> #}
+									
+										{# <div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>Postal Code</label>
+												<input type="text" class="form-control">
+											</div>
+										</div> #}
+									</div>
+								</div>
+                                {# <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Phone </label>
+                                        <input class="form-control" type="text">
+                                    </div>
+                                </div> #}
+                                
+                            </div>
+                            <div class="form-group">
+                                <label class="display-block">Status</label>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="status" id="patient_active" value="option1" checked>
+									<label class="form-check-label" for="patient_active">
+									Active
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="status" id="patient_inactive" value="option2">
+									<label class="form-check-label" for="patient_inactive">
+									Inactive
+									</label>
+								</div>
+                            </div>
+                            <div class="m-t-20 text-center">
+                                <button class="btn btn-primary" id="modifier">Modifier</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="assts/js/jquery-3.2.1.min.js"></script>
+	<script src="assts/js/popper.min.js"></script>
+    <script src="assts/js/bootstrap.min.js"></script>
+    <script src="assts/js/jquery.slimscroll.js"></script>
+    <script src="assts/js/select2.min.js"></script>
+	<script src="assts/js/moment.min.js"></script>
+	<script src="assts/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="assts/js/app.js"></script>
+
+  <script>
+
+   $(document).ready(function(){ 
+	$('#form').submit(function(e){
+	   e.preventDefault();
+		//var formData = new FormData($(this)[0]);
+	  var nom_doctor=$('#form #nom').val();
+	   var prenom_doctor=$('#form #prenom').val();
+	   var datenaissance_doctor=$('#form #datenaissance').val();
+	   var email_doctor=$('#form #email').val();
+	   var pays_doctor=$('#form #pays').val();
+	   var capitale_doctor=$('#capitale').val();
+	   var adresse_doctor=$('#form #adresse').val();
+	   var telephone_doctor=$('#telephones').val();
+		var genre_doctor=$('#form #genre').val();  
+       // var image_doctor=$('#form #files').val(); 
+		 let url ="{{path('app_doctores')}}";
+			   $.ajax({
+			   method:'POST',
+			  dataType:'json',
+			   url:url,
+			   data:{
+		     nom:nom_doctor,
+			   prenom :prenom_doctor,
+			  datenaissance: datenaissance_doctor,
+			   email:email_doctor,
+			  pays:pays_doctor,
+			   capitale:capitale_doctor,
+			    adresse :adresse_doctor,
+				telephone:telephone_doctor,
+				genre:genre_doctor,
+               // image:image_doctor
+				  }, 
+			   success:function(data){ 
+				alert(data.message)
+		   },
+		   error:function(error) {
+			   console.log(error.responseText)   
+		   }
+
+	   });
+
+   });  	
+		 
+
+}); 
+
+  </script>
+
+</body>
+
+
+<!-- add-patient24:07-->
+</html>
