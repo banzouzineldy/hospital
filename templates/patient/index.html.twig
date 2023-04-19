@@ -154,7 +154,7 @@
 									</tr>
 								</thead>
 								<tbody>
-								  {#    {% for patients in patient %}
+								    {% for patients in patient %}
 									 <tr>
 				           				<td>{{patients.nom}}</td>
 										<td>{{patients.prenom}}</td>
@@ -176,7 +176,7 @@
 											<a class="btn btn-danger delete" href="#delete_patient" data-toggle="modal" data-target="" id="{{patients.id}}"><i class="fa fa-trash-o m-r-5"></i>Supprimer</a>
 										</td>
 									</tr>
-									{% endfor %} #}
+									{% endfor %} 
 								</tbody>
 							</table>
 						</div>

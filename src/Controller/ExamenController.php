@@ -21,7 +21,7 @@ class ExamenController extends AbstractController
         ]);
     }
 
-    #[Route('/ajout', name: 'app_examen_ajout')]
+    #[Route('/ajout/examen', name: 'app_examen_ajout')]
     public function ajout(EntityManagerInterface $entitymanager,Request $request,$id,ExamenRepository $repository): Response
     {   $user=$entitymanager->getRepository(Examen::class)->findOneBy([
         "nom" =>$request->request->all()['nom'],

@@ -14,10 +14,19 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
-</head>
-    
+</head> 
     <body>
-    <h1>Inscription</h1>
+    <style>
+      .h1{
+        font-size:20px;
+        color:blue;
+        text-align:center;
+      }
+      
+    
+    </style>
+  
+    <p class="h1">Inscription</p>
        <div class="container">
 
         {{ form_start(registrationForm) }}
@@ -25,8 +34,9 @@
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password'
         }) }}
-      {#   {{ form_row(registrationForm.agreeTerms) }} #}
+      
        {{ form_row(registrationForm.roles) }}
+      {#   {{ form_row(registrationForm.agreeTerms) }} #} 
 
         <button type="submit" class="btn btn-primary mt-4">Soumettre</button>
     {{ form_end(registrationForm) }}

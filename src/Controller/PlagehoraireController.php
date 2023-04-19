@@ -2,102 +2,112 @@
 
 namespace App\Controller;
 
-use App\Entity\Rendezvous;
-use App\Repository\DoctorsRepository;
-use App\Repository\PatientRepository;
-use App\Repository\RendezvousRepository;
-use App\Repository\SpecialiteRepository;
+use App\Entity\Plagehoraire;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\PlagehoraireRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PlagehoraireController extends AbstractController
 {
-
-
-    #[Route('/plagehoraire', name: 'app_plagehoraire')]
-    public function index(EntityManagerInterface $entityManager,PatientRepository $patientRepository,DoctorsRepository $doctors,SpecialiteRepository $specialiteRepository, RendezvousRepository $rdvrepository): Response
-    {  $patient=$patientRepository->findAll();
-        $doctor=$doctors->findAll();
-        $specialite=$specialiteRepository->findAll();
-        $rdv=$rdvrepository->findAll();
+    #[Route('/plagehoraire', name: 'app_plagehoraire_liste')]
+    public function index(): Response
+    {
         return $this->render('plagehoraire/index.html.twig', [
-            'patient'=>$patient,
-             'doctor'=>$doctor,
-             'specialite'=>$specialite,
-             'rdv'=>$rdv
-            
+           
         ]);
-       
     }
+
+
+
+    #[Route('/plage/horaire', name: 'app_plage_horaire', methods: ['GET'])]
+    public function liste(EntityManagerInterface $entityManager,PlagehoraireRepository $plagehoraireRepository,Security $security): Response
+      
+    {
+        //on verifie si l'utilisateur est connectée
+        if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return new RedirectResponse($this->generateUrl('app_login'));
+        }else   
+            $comptes = $security->getUser();
+            // Récupérez le login de l'utilisateur connecté
+            $login = $comptes->getUserIdentifier();
+           // $entityManager = $doctrine->getManager();
+            //on recupere tous les evenements de la base de données
+            $plage_horaire =  $plagehoraireRepository->findAll();
+            $records = $plagehoraireRepository->findBy(['utilisateur' => $login]);
+            $events           = []; // tableau pour stocker les événements
+            foreach ($records as $result) {
+                $event = [
+                    'id' => $result->getId(),
+                    'title' => $result->getTitle(),
     
-    #[Route('/ajouthoraire', name: 'app_plagehoraires',methods:['POST'])]
-    public function ajout(EntityManagerInterface $entityManager, Request $request): Response
-    { 
-       $rendezvous= new Rendezvous();
-      /*  $datestart= new \DateTime($request->get('start'));
-       $dateString=$datestart->format('Y-m-d H:i:s');
-       $dateEnd=new \DateTime($request->get('end'));
-       $dateEndString= $dateEnd->format('Y-m-d H:i:s'); */
-        $rendezvous->setTitle($request->request->all()['title']);
-        $rendezvous->setStart( new \DateTime ($request->request->all()['start']));
-        $rendezvous->setEnd( new \DateTime ($request->request->all()[ 'end']));
-        $rendezvous->setPatient($request->request->all()['patient']);
-        $rendezvous->setSpecialite($request->request->all()['specialite']);
-        $rendezvous->setDoctor($request->request->all()['doctor']);
-        $rendezvous->setMotif($request->request->all()['motif']);
-        $rendezvous->setBackground($request->request->all()['background']);
-        $rendezvous->setTextcolor($request->request->all()['textcolor']);
-        $entityManager->persist($rendezvous);
-        $entityManager->flush();
-        return $this->json([
-            'code' =>1 ,
-            'message' => 'insertion effectuée'
-        ]); 
-    }
-
-    #[Route('/plageajout', name: 'app_plagehoraireajout')]
-    public function formulaire(EntityManagerInterface $entityManager,PatientRepository $patientRepository,DoctorsRepository $doctors,SpecialiteRepository $specialiteRepository): Response
-    {  $patient=$patientRepository->findAll();
-        $doctor=$doctors->findAll();
-        $specialite=$specialiteRepository->findAll();
-       // dd($doctor);
-        return $this->render('plagehoraire/ajout.html.twig', [
-            'patient'=>$patient,
-             'doctor'=>$doctor,
-               'specialite'=>$specialite
-            
-        ]);
+                    'start' => $result->getStart()->format('Y-m-d H:i:s'),
+                    'end' => $result->getEnd()->format('Y-m-d H:i:s'),
+                    
+                    //'url' => $this->generateUrl('app_plage_horaire', ['id' => $result->getId()])
+                    ];
+                $events[] = $event;
+            }
+       
+            $jsonEvents = json_encode($events);
+            //dd($jsonEvents);
+            return $this->render('plage_horaire/index.html.twig', [
+                'jsonEvents'    => $jsonEvents,
+                'plage_horaire' => $plage_horaire,
+                'records'       => $records,   
+            ]);  
     }
 
 
-    #[Route('/{id}/rdv', name: 'app_rendevoushoraire')]
-    public function edit(EntityManagerInterface $entity,Request $request,RendezvousRepository $repository,$id): Response
+
+
+
+
+
+
+
+
+    #[Route('/plagehoraire/add', name: 'app_plagehoraire_add',methods:['POST'])]
+    public function add(EntityManagerInterface $entityManager,Request $request): Response
+    {
+       if (!empty($request->request->all()) && $request->request->all()['start']) {
+            $plage=new Plagehoraire();
+            $data=$request->request->all();
+            $plage->setTitle($data['title']);
+            $plage->setStart(new \DateTime($data['start']));
+            $plage->setEnd(new \DateTime($data['end']));
+            $entityManager->persist($plage);
+            $entityManager->flush();
+            return $this->json(
+                ['code'=>'succes',
+                 'message'=>'insertion effectué']); 
+       }
+
+    }
+
+    #[Route('/{id}/edit', name: 'app_horaire_edit')]
+    public function edit(EntityManagerInterface $entity,Request $request,PlagehoraireRepository $repository,$id): Response
 
     {   
-         $rendezvous=$repository->find($id);
+          $plage=$repository->find($id);
 
-        if  (!$rendezvous) {
+        if  (! $plage) {
            
             throw $this->createNotFoundException(
                 'No product found for id '.$id
             );
         }
-        $datestart= new \DateTime($request->get('start'));
-        $dateString=$datestart->format('Y-m-d H:i:s');
-        $dateEnd=new \DateTime($request->get('end'));
-        $dateEndString= $dateEnd->format('Y-m-d H:i:s');
-         $rendezvous->setTitle($request->request->all()['title']);
-        // $rendezvous->setStart($request->request->all()[$dateString]);
-        // $rendezvous->setEnd($request->request->all()[ $dateEndString]);
-         $rendezvous->setPatient($request->request->all()['patient']);
-         $rendezvous->setSpecialite($request->request->all()['specialite']);
-         $rendezvous->setDoctor($request->request->all()['doctor']);
-         $rendezvous->setMotif($request->request->all()['motif']);
-         $rendezvous->setBackground($request->request->all()['background']);
-         $rendezvous->setTextcolor($request->request->all()['textcolor']);
+        $data=$request->request->all();
+        $plage->setTitle($data['title']);
+        $plage->setStart(new \DateTime($data['start']));
+        $plage->setEnd(new \DateTime($data['end']));
+       
           $entity->flush();
         return $this->json([
             'code'=>1,
@@ -107,65 +117,64 @@ class PlagehoraireController extends AbstractController
 
     }
 
-    #[Route('/{id}/plage/rendevous', name: 'app_rendez_vousliste')]
-    public function forme(EntityManagerInterface $entityManager,PatientRepository $patientRepository,DoctorsRepository $doctors,SpecialiteRepository $specialiteRepository,RendezvousRepository $rdv,$id): Response
-    {  $patient=$patientRepository->findAll();
-        $doctor=$doctors->findAll();
+    #[Route('/{id}/plage/edit', name: 'app_rendez_vousliste')]
+    public function forme(EntityManagerInterface $entityManager,PlagehoraireRepository $rdv,$id): Response
+    {  
         $data=$rdv->findBy(['id' => $id]);
-       $specialite=$specialiteRepository->findAll();
+
         return $this->render('plagehoraire/edit.html.twig', [
-            'patient'=>$patient,
-             'doctor'=>$doctor,
-            'specialite'=>$specialite,
                'data'=>$data[0]
             
         ]);
         
     }
 
-    #[Route('/deleterendezvous', name: 'app_delete_rendez_vous')]
+    
+    #[Route('/delete', name: 'app_delete_plage_horaire')]
  public function delete(EntityManagerInterface $entityManager,Request $request): Response
            
      {  
-         $rendezvous=$entityManager->getRepository(Rendezvous::class)->find(
+         $rendezvous=$entityManager->getRepository(Plagehoraire::class)->find(
         ['id'=>$request->request->get('id')]) ;
-       $entityManager->remove($rendezvous);
-       $entityManager->flush();
+        $entityManager->remove($rendezvous);
+        $entityManager->flush();
      
         return $this->json([
         'code'=>1,
-         'message'=>'Mise a jour effectué'
+         'message'=>'suppression effectué'
 
          ]);
      
      }
 
 
-     #[Route('/modalhoraire', name: 'app_plagehoraires_modal',methods:['POST'])]
-     public function modalhoraire(EntityManagerInterface $entityManager, Request $request): Response
-     { 
-        $rendezvous= new Rendezvous();
-       /*  $datestart= new \DateTime($request->get('start'));
-        $dateString=$datestart->format('Y-m-d H:i:s');
-        $dateEnd=new \DateTime($request->get('end'));
-        $dateEndString= $dateEnd->format('Y-m-d H:i:s'); */
-         $rendezvous->setTitle($request->request->all()['title']);
-         $rendezvous->setStart( new \DateTime ($request->request->all()['start']));
-         $rendezvous->setEnd( new \DateTime ($request->request->all()[ 'end']));
-         $rendezvous->setPatient($request->request->all()['patient']);
-         $rendezvous->setSpecialite($request->request->all()['specialite']);
-         $rendezvous->setDoctor($request->request->all()['doctor']);
-         $rendezvous->setMotif($request->request->all()['motif']);
-         $rendezvous->setBackground($request->request->all()['']);
-         $rendezvous->setTextcolor($request->request->all()['']);
-         $entityManager->persist($rendezvous);
-         $entityManager->flush();
-         return $this->json([
-             'code' =>1 ,
-             'message' => 'insertion effectuée'
-         ]); 
+     #[Route('/plage/horaire/new', name: 'app_plage_horaire_new', methods: ['GET', 'POST'])]
+     public function addEvent( Request $request,ManagerRegistry $doctrine, 
+     PlageHoraireRepository $PlageHoraireRepository, PlageHoraire $PlageHoraire): Response
+     {
+         
+         if (!empty($request->request->all()) && $request->request->all()['titre']) {
+             
+             $entityManager = $doctrine->getManager();
+             $user = $this->getUser();
+             $plage_horaire = new PlageHoraire();
+             $plage_horaire->setUtilisateur($user->mail);
+             $plage_horaire->setStart(new \DateTime($request->request->all()['start']));
+             $plage_horaire->setEnd(new \DateTime($request->request->all()['end']));
+             $plage_horaire->setTitle($request->request->all()['title']);
+             $entityManager->persist($plage_horaire);
+             $entityManager->flush();
+             $entityManager = $doctrine->getManager();
+             $response = new JsonResponse(['status' => "ok"]);
+             return $response;
+         }  
+         $plage_horaire = $PlageHoraireRepository->findAll();
+         
+         return $this->render('plage_horaire/_form.html.twig', [
+             'plage_horaire' => $plage_horaire,
+             
+         ]);
      }
-
 
 
 

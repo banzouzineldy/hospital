@@ -13,10 +13,6 @@
     <link rel="stylesheet" type="text/css" href="assts/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="assts/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" type="text/css" href="assts/css/style.css">
-    <!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
 </head>
 
 <body>
@@ -29,105 +25,7 @@
 			</div>
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
-            <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
-                    <div class="dropdown-menu notifications">
-                        <div class="topnav-dropdown-header">
-                            <span>Notifications</span>
-                        </div>
-                        <div class="drop-scroll">
-                            <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">
-												<img alt="John Doe" src="assets/img/user.jpg" class="img-fluid rounded-circle">
-											</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
-												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">V</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
-												<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">L</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
-												<p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">G</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
-												<p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">V</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
-												<p class="noti-time"><span class="notification-time">2 days ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="topnav-dropdown-footer">
-                            <a href="activities.html">View all Notifications</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
-                </li>
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
-							<span class="status online"></span></span>
-                        <span>Admin</span>
-                    </a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="profile.html">My Profile</a>
-						<a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-						<a class="dropdown-item" href="settings.html">Settings</a>
-						<a class="dropdown-item" href="login.html">Logout</a>
-					</div>
-                </li>
-            </ul>
             <div class="dropdown mobile-user-menu float-right">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
-                </div>
-            </div>
         </div>
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
@@ -162,7 +60,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <form id="form">
+                        <form id="formp">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -228,99 +126,10 @@
                                         </div>
                                     {% endfor %}
                                 </div>    
-
-                          {#        <div class="col-sm-6">
-                                        <label>Nationalite</label>
-                                       <div class="form-group">
-                                               <select
-        
-                                                <option *disabled selected>selectionner la classe</option>
-                    
-                                                    {% for nationalites in nationalite %}
-                                                            <option value = "{{nationalites.nom }}">{{nationalites.nom }} </option>  
-                                                        {% endfor %}
-                                          </select>                                 
-                                    </div>
-                                </div> #}
-								{# <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Date Naissance</label>
-                                        <div class="cal-icon">
-                                            <input type="text" class="form-control datetimepicker">
-                                        </div>
-                                    </div>
-                                </div> #}
-{#                                 <div class="col-sm-6">
-									<div class="form-group gender-select">
-										<label class="gen-label">Genre:</label>
-										<div class="form-check-inline">
-											<label class="form-check-label">
-												<input type="radio" name="gender" class="form-check-input">Male
-											</label>
-										</div>
-										<div class="form-check-inline">
-											<label class="form-check-label">
-												<input type="radio" name="gender" class="form-check-input">Female
-											</label>
-										</div>
-									</div>
-                                </div>
-								<div class="col-sm-12">
-									<div class="row">
-										<div class="col-sm-12">
-											<div class="form-group">
-												<label>Telephone</label>
-												<input type="text" class="form-control ">
-											</div>
-										</div> #}
-										{# <div class="col-sm-6 col-md-6 col-lg-3">
-											<div class="form-group">
-												<label>Nationalite</label>
-												<select class="form-control select">
-													<option>USA</option>
-													<option>United Kingdom</option>
-												</select>
-											</div>
-										</div> #}
-										{# <div class="col-sm-6 col-md-6 col-lg-3">
-											<div class="form-group">
-												<label>City</label>
-												<input type="text" class="form-control">
-											</div>
-										</div> #}
-									
-										{# <div class="col-sm-6 col-md-6 col-lg-3">
-											<div class="form-group">
-												<label>Postal Code</label>
-												<input type="text" class="form-control">
-											</div>
-										</div> #}
 									</div>
 								</div>
-                                {# <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Phone </label>
-                                        <input class="form-control" type="text">
-                                    </div>
-                                </div> #}
-                                
                             </div>
-                            <div class="form-group">
-                                <label class="display-block">Status</label>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="status" id="patient_active" value="option1" checked>
-									<label class="form-check-label" for="patient_active">
-									{# Active #}
-									</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="status" id="patient_inactive" value="option2">
-									<label class="form-check-label" for="patient_inactive">
-									{# Inactive #}
-									</label>
-								</div>
-                            </div>
-                            <div class="m-t-20 text-center">
+                            <div class="m-t-5 text-center ml-9">
                                 <button class="btn btn-primary submit-btn" type="submit">Enregistre Patient</button>
                             </div>
                         </form>
@@ -343,47 +152,64 @@
     <script src="assts/js/jquery-3.2.1.min.js"></script>
     <script>
 
-      $(document).ready(function(){ 
-	 $('#form').submit(function(e){
-		e.preventDefault();
-		var nom_patient=$('#form #nom').val();
-		var prenom_patient=$('#form #prenom').val();
-		var genre_patient=$('#form #genre').val();
-		var age_patient=$('#form #age').val();
-		var telephone_patient=$('#form #telephone').val();
-        var nationalite_patient=$('.religion_ckb').val(); 
-		var $form={
-			nom:nom_patient,
-			prenom:prenom_patient,
-			genre:genre_patient,
-			 age:age_patient,
-			 telephone:telephone_patient,
-             nationalite:nationalite_patient
+ $(document).ready(function(){ 
 
-		   };
-		 /* var url_patient="{{path('app_patientad')}}"; */
+	  $('#formp').submit(function(e){
+
+		e.preventDefault();
+
+		var nom_patient       =    $('#formp #nom').val();
+
+		var prenom_patient    =    $('#formp #prenom').val();
+
+		var genre_patient     =    $('#formp #genre').val();
+
+		var age_patient        =    $('#formp #age').val();
+
+		var telephone_patient  =    $('#formp #telephone').val();
+
+        var nationalite_patient =   $('.religion_ckb').val(); 
+
 		console.log(prenom_patient)
-		$.ajax({
+
+	$.ajax({
 			method:'POST',
+
 			dataType:'json',
+
 			url:'/ajout',
-			 data:JSON.stringify($form),
-			 success:function(data) { 
-				if (data.code==1) {
-				window.location.href='/patient' 
+
+			data:{
+                nom:nom_patient,
+
+                prenom:prenom_patient,
+
+                genre:genre_patient,
+
+                age:age_patient,
+
+                telephone:telephone_patient,
+                
+                nationalite:nationalite_patient
+
+		     },
+
+			success:function(data) { 
+				  if (data.code==1) {
+				 window.location.href='/patient' 
 					
-				}	    
-			},
-			error:function(error) {
+				  }	    
+			   },
+		   error:function(error) {
 				console.log(error.responseText)   
 			}
 
 		});
 
-	}); 	 
+	 }); 	 
 
 });  
-    </script>
+ </script>
 </body>
 
 

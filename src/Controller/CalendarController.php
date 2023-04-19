@@ -22,35 +22,30 @@ class CalendarController extends AbstractController
     } 
 
 
-    #[Route('/calendar', name: 'app_calendar_liste')]
+    #[Route('/calendar', name: 'app_calendar_liste_rendezvous')]
     public function calendar(EntityManagerInterface $entityManager,Request $request,RendezvousRepository $calendar): Response
     {   
         $events=$calendar->findAll();
         $rdv=[];
         foreach ($events as $event) {
             $rdv[]=[
-               /*  'id'=>$event->getId(),
-                'date'=>$event->getDate(),
-                 'heure'=>$event->getHeure(),
-                 'patient'=>$event->getPatient(),
-               */
 
                  'id'=>$event->getId(),
                 'title'=>$event->getTitle(),
                 'start'=>$event->getStart()->format('Y-m-d H:i'),
                 'end'=>$event->getEnd()->format('Y-m-d H:i'),
                 'patient'=>$event->getPatient(),
-                 'motif'=>$event->getMotif(),
-                 'background'=>$event->getBackground(),
-                 'textcolor'=>$event->getTextcolor() 
+                'motif'=>$event->getMotif(),
+                'background'=>$event->getBackground(),
+                'textcolor'=>$event->getTextcolor() 
      
             
              ]; 
         }
-        $data=json_encode($rdv);
-        return $this->render('calendar/index.html.twig',
-         ['data'=>$data] 
-        );
+          $data=json_encode($rdv);
+          return $this->render('calendar/index.html.twig',
+           ['data'=>$data] 
+          );
     }
 
 

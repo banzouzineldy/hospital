@@ -262,52 +262,62 @@
   <script>
 
     $(document).ready(function(){
+
 	 $("#form").submit(function(e){
-        e.preventDefault()
-	  var nom_patient=$('#nom').val();
-      console.log(nom_patient);
-		var prenom_patient=$(' #prenom').val();
-		var genre_patient=$(' #genre').val();
-		var age_patient=$('#age').val();
-		var telephone_patient=$(' #telephone').val();
-           var nationalite_patient=$('.religion_ckb').val(); 
-         let url ="{{path('app_patientedd',{id:data|default(null) != null ?data.id:0})}}"
-		  //var $form={
-			//nom:nom_patient,
-			//prenom:prenom_patient,
-			//genre:genre_patient,
-			//age:age_patient,
-			//telephone:telephone_patient
 
-		   //};   
-          $.ajax({
-			method:'POST',
-			dataType:'json',
-			url:url,
-			 data:{
-			nom:nom_patient,
-			prenom:prenom_patient,
-			genre:genre_patient,
-			age:age_patient,
-			telephone:telephone_patient,
-            nationalite:nationalite_patient
-		   },
-			 success:function(data) { 
-               if(data.status == "ok"){
-                window.location.href = "{{path('app_patient') }}";
-                  }		    
-			  },
-			 error:function(error) {
-				console.log(error.responseText)   
-			 }
+                e.preventDefault()
 
-		});
+              var nom_patient=$('#nom').val();
+            
+                var prenom_patient=$(' #prenom').val();
 
-        });
+                var genre_patient=$(' #genre').val();
+
+                var age_patient=$('#age').val();
+
+                var telephone_patient=$(' #telephone').val();
+
+                var nationalite_patient=$('.religion_ckb').val(); 
+
+                let url ="{{path('app_patientedd',{id:data|default(null) != null ?data.id:0})}}"
+	
+            $.ajax({
+                        method:'POST',
+
+                        dataType:'json',
+
+                        url:url,
+                        
+                        data:{
+                        nom:nom_patient,
+
+                        prenom:prenom_patient,
+
+                        genre:genre_patient,
+
+                        age:age_patient,
+
+                        telephone:telephone_patient,
+
+                        nationalite:nationalite_patient
+                    },
+                    success:function(data) { 
+
+                     if(data.status == "ok"){
+                           window.location.href = "{{path('app_patient') }}";
+                     }		    
+                    },
+                   error:function(error) {
+                        console.log(error.responseText)   
+                    }
+
+	      });
+
+      });
 		
-	}); 
+}); 
   
-  </script>
+ </script>
 
 
 </body>

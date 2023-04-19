@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DoctorsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DoctorsRepository::class)]
@@ -20,22 +22,16 @@ class Doctors
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $datenaissance = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $pays = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $capitale = null;
+    private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $telephone = null;
+    private ?string $email = null;
 
     #[ORM\Column(length: 255)]
     private ?string $genre = null;
@@ -43,11 +39,8 @@ class Doctors
     #[ORM\Column(length: 255)]
     private ?string $file = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $specialite = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    #[ORM\ManyToOne(inversedBy: 'doctors')]
+    private ?specialite $specialite = null;
 
     public function getId(): ?int
     {
@@ -78,18 +71,6 @@ class Doctors
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     public function getDatenaissance(): ?string
     {
         return $this->datenaissance;
@@ -98,42 +79,6 @@ class Doctors
     public function setDatenaissance(string $datenaissance): self
     {
         $this->datenaissance = $datenaissance;
-
-        return $this;
-    }
-
-    public function getPays(): ?string
-    {
-        return $this->pays;
-    }
-
-    public function setPays(string $pays): self
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    public function getCapitale(): ?string
-    {
-        return $this->capitale;
-    }
-
-    public function setCapitale(string $capitale): self
-    {
-        $this->capitale = $capitale;
-
-        return $this;
-    }
-
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
 
         return $this;
     }
@@ -150,6 +95,29 @@ class Doctors
         return $this;
     }
 
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
     public function getGenre(): ?string
     {
         return $this->genre;
@@ -174,27 +142,21 @@ class Doctors
         return $this;
     }
 
-    public function getSpecialite(): ?string
+    public function getSpecialite(): ?specialite
     {
         return $this->specialite;
     }
 
-    public function setSpecialite(string $specialite): self
+    public function setSpecialite(?specialite $specialite): self
     {
         $this->specialite = $specialite;
 
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
+   
 
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
+   
 
-        return $this;
-    }
+   
 }
