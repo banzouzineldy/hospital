@@ -31,6 +31,8 @@ class PlagehoraireController extends AbstractController
       
     {
         //on verifie si l'utilisateur est connectée
+    
+    
         if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->generateUrl('app_login'));
         }else   
@@ -170,6 +172,10 @@ class PlagehoraireController extends AbstractController
              
          ]);
      }
+
+
+    
+
 
 
 

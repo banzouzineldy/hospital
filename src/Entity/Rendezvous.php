@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\RendezvousRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RendezvousRepository::class)]
 class Rendezvous
@@ -14,52 +14,58 @@ class Rendezvous
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $dateRendezvous = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $heureRendezvous = null;
+    #[ORM\Column(length: 255)]
+    private ?string $doctors = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $specialite = null;
 
     #[ORM\Column(length: 255)]
     private ?string $patient = null;
 
-    #[ORM\ManyToOne(inversedBy: 'rendezvouses')]
-    private ?Specialite $specialite = null;
-
-    #[ORM\ManyToOne(inversedBy: 'rendezvouses')]
-    private ?Doctors $doctors = null;
-
-    public function __construct()
-    {
-     $this ->heureRendezvous= new \DateTimeImmutable() ;
-    }
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $dateFin = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getDateRendezvous(): ?string
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->dateRendezvous;
+        return $this->date;
     }
 
-    public function setDateRendezvous(string $dateRendezvous): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->dateRendezvous = $dateRendezvous;
+        $this->date = $date;
 
         return $this;
     }
-    public function getHeureRendezvous(): ?\DateTimeInterface
+
+    public function getDoctors(): ?string
     {
-       
-        return $this->heureRendezvous;
+        return $this->doctors;
     }
 
-    public function setHeureRendezvous(\DateTimeInterface  $heureRendezvous): self
+    public function setDoctors(string $doctors): self
     {
-        $this-> heureRendezvous = $heureRendezvous;
-       
+        $this->doctors = $doctors;
+
+        return $this;
+    }
+
+    public function getSpecialite(): ?string
+    {
+        return $this->specialite;
+    }
+
+    public function setSpecialite(string $specialite): self
+    {
+        $this->specialite = $specialite;
 
         return $this;
     }
@@ -76,29 +82,15 @@ class Rendezvous
         return $this;
     }
 
-    public function getSpecialite(): ?Specialite
+    public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->specialite;
+        return $this->dateFin;
     }
 
-    public function setSpecialite(?Specialite $specialite): self
+    public function setDateFin(\DateTimeInterface $dateFin): self
     {
-        $this->specialite = $specialite;
+        $this->dateFin = $dateFin;
 
         return $this;
     }
-
-    public function getDoctors(): ?Doctors
-    {
-        return $this->doctors;
-    }
-
-    public function setDoctors(?Doctors $doctors): self
-    {
-        $this->doctors = $doctors;
-
-        return $this;
-    }
-    
-
 }

@@ -36,7 +36,6 @@ class PatientController extends AbstractController
          }
          
         array_push($liste_patient, ['patient' => $patient,'nationalite'=> $nationalite]);
-        dd($liste_patient);
         return $this->render('patient/index.html.twig', [
             'patient' => $listepatient,
            // 'nationalitePatient'=>$nationalitePatients,
@@ -141,7 +140,6 @@ class PatientController extends AbstractController
     #[Route('/deletes', name: 'app_deletepatient')]
     public function delete(EntityManagerInterface $entityManager,Request $request): Response
               
-
 
         {   $patient=$entityManager->getRepository(Patient::class)->find(
             ['id'=>$request->request->get('id')]) ;

@@ -43,14 +43,6 @@ class Doctors
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datenaissance = null;
 
-    #[ORM\OneToMany(mappedBy: 'doctors', targetEntity: Rendezvous::class)]
-    private Collection $rendezvouses;
-
-    public function __construct()
-    {
-        $this->rendezvouses = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -165,35 +157,11 @@ class Doctors
         return $this;
     }
 
-    /**
-     * @return Collection<int, Rendezvous>
-     */
-    public function getRendezvouses(): Collection
-    {
-        return $this->rendezvouses;
-    }
+    
 
-    public function addRendezvouse(Rendezvous $rendezvouse): self
-    {
-        if (!$this->rendezvouses->contains($rendezvouse)) {
-            $this->rendezvouses->add($rendezvouse);
-            $rendezvouse->setDoctors($this);
-        }
+   
 
-        return $this;
-    }
-
-    public function removeRendezvouse(Rendezvous $rendezvouse): self
-    {
-        if ($this->rendezvouses->removeElement($rendezvouse)) {
-            // set the owning side to null (unless already changed)
-            if ($rendezvouse->getDoctors() === $this) {
-                $rendezvouse->setDoctors(null);
-            }
-        }
-
-        return $this;
-    }
+  
 
     
 
