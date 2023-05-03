@@ -2,16 +2,19 @@
 <html lang="en">
 
 
-<!-- appointments23:19-->
+<!-- patients23:17-->
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="assts/img/favicon.ico">
-    <title> Hospital</title>
-    <link rel="stylesheet" type="text/css" href="/assts/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/assts/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/assts/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="/assts/css/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <title>Hospital</title>
+      <link rel="stylesheet" type="text/css" href="{{asset('/bootstrap-5.2.0-beta1-dist/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('/assts/css/font-awesome.min.css')}}">
+      <link rel="stylesheet" type="text/css" href="{{asset('/DataTables/datatables.css')}}">
+    <link rel="stylesheet" type="text/css" href="assts/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="assts/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="assts/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="assts/css/style.css">
     <!--[if lt IE 9]>
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
@@ -23,7 +26,7 @@
         <div class="header">
 			<div class="header-left">
 				<a href="index-2.html" class="logo">
-					<img src="/assts/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
+					<img src="assts/img/logo.png" width="35" height="35" alt=""> <span>Hopital</span>
 				</a>
 			</div>
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
@@ -41,7 +44,7 @@
                                     <a href="activities.html">
                                         <div class="media">
 											<span class="avatar">
-												<img alt="John Doe" src="assets/img/user.jpg" class="img-fluid">
+												<img alt="John Doe" src="assts/img/user.jpg" class="img-fluid">
 											</span>
 											<div class="media-body">
 												<p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
@@ -72,41 +75,16 @@
                                         </div>
                                     </a>
                                 </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">G</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
-												<p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">V</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
-												<p class="noti-time"><span class="notification-time">2 days ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
+                                
                             </ul>
                         </div>
-                        <div class="topnav-dropdown-footer">
-                            <a href="activities.html">View all Notifications</a>
-                        </div>
-                    </div>
                 </li>
                 <li class="nav-item dropdown d-none d-sm-block">
                     <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
                 </li>
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
+                        <span class="user-img"><img class="rounded-circle" src="assts/img/user.jpg" width="40" alt="Admin">
 							<span class="status online"></span></span>
                         <span>Admin</span>
                     </a>
@@ -133,24 +111,20 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
                         <li class="menu-title">Main</li>
-                         <li>
+                       <li>
                             <a href=""><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
+						<li>
+                            <a href="/show/doctor"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
+                        </li>
                         <li class="active">
+                            <a href="/patient"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
+                        </li>
+                        <li>
                             <a href="/rendezvous"><i class="fa fa-calendar"></i> <span>Rendez vous</span></a>
                         </li>
-
-                         <li>
-                            <a href="/rendezvous"><i class="fa fa-calendar"></i> <span>Examen</span></a>
-                        </li>
-                         <li>
-                            <a href="/r"><i class=""></i> <span>ActeMedical</span></a>
-                        </li>
-                         <li>
-                        <a href="/calendar"><i class="fa fa-calendar"></i> <span>PlageHoraire</span></a>
-                        </li>
-                        
-                      
+                        <li>
+                       
                     </ul>
                 </div>
             </div>
@@ -159,140 +133,98 @@
             <div class="content">
                 <div class="row">
                     <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Rende vous</h4>
+                        <h4 class="page-title">Doctors</h4> 
                     </div>
                     <div class="col-sm-8 col-9 text-right m-b-20">
-                        <a href="{{path('app_rendezvousliste') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Add RDV</a>
+                        <a href="{{path('app_rendezvous_add')}}"  class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter Docteur</a>
                     </div>
                 </div>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="table-responsive">
-							<table class="table table-striped custom-table">
+							<table class="table table-border table-striped custom-table datatable mb-0">
 								<thead>
 									<tr>
-										<th>Heure</th>
-										<th>Date</th>
+										<th>date</th>
+                                        <th>Heure</th>
 										<th>Patient</th>
-										<th>Doctor</th>
-                                        <th>Specialite</th>
+										<th>doctors</th>
+										<th>specialite</th>
+										<th>motif</th>
 										<th class="text-right">Action</th>
 									</tr>
 								</thead>
 								<tbody>
-                                   
-                                     {% for rdvs in rdv %}
+								    {% for rendezvous in rendezvous %}
 									 <tr>
-                                     <td>{{ rdvs.heure }}</td>
-                                     <td>{{ rdvs.date }}</td>
-                                    <td>
-                                         {% for patients in patient %}
-                                            {% if patients.id == rdvs.patient %}
-                                                {{patients.nom}}
-                                            
-                                            {% endif %}
-                                        {% endfor %}
-                                    </td>
- 
-                                    <td>
-                                     {% for doctors in doctor %}
-                                                {% if doctors.id == rdvs.doctor %}
-                                                    {{doctors.nom}}
-                                                
-                                                {% endif %}
-                                      {% endfor %}
-                                        </td>
-                    
-                                        <td>  
-                                            {% for specialites in specialite %}
-                                                {% if specialites.id == rdvs.specialite %}
-                                                    {{specialites.nom}}
-                                                
-                                                {% endif %}
-                                            {% endfor %} 
-                                        
-                                        </td>
-										{# <td><span class="custom-badge status-red">Inactive</span></td> #}
-										<td class="text-right">	
-                                            <a class="btn btn-primary" href="{{path('app_rendez_vousliste',{'id':rdvs.id})}}"><i class="fa fa-pencil m-r-5"></i>editer</a>
-                                            <a class="btn btn-danger delet" href="#delete_rdv" data-toggle="modal" data-target="" id="{{rdvs.id}}"><i class="fa fa-trash-o m-r-5"></i>delete</a>	
-											
-										</td>
-									</tr>
+                                     
+				           				<td>{{rendezvous.dateRendezvous}}</td>
 
-                                {% endfor %}
-									
+										<td>{{rendezvous.heureRendezvous}}</td>
+
+                                        <td>{{rendezvous.patient}}</td>
+                                    
+
+										<td>{{rendezvous.getDoctors.getNom}}</td>
+
+                                        <td>{{rendezvous.getgetPatient.getNom}}</td>
+                                          
+                                        <td>{{rendezvous.getSpecialite.getNom}}</td>
+                                       {#  <td class="text-right">
+											
+											<a class="btn btn-warning" href="{{path('app_doctor_update',{'id':doctors.id})}}"><i class="fa fa-pencil m-r-5"></i>Modifer</a>
+											<a class="btn btn-danger delete" href="#delete_doctor" data-toggle="modal" data-target="" id="{{doctors.id}}"><i class="fa fa-trash-o m-r-5"></i>Supprimer</a>
+										</td>  #}
+
+									</tr>
+                                    {% endfor %}
+          
 								</tbody>
 							</table>
 						</div>
 					</div>
                 </div>
             </div>
-           
-			<div id="delete_rdv" class="modal fade delete-modal" role="dialog">
+		<div id="delete_doctor" class="modal fade delete-modal" role="dialog">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-body text-center">
 						<img src="assts/img/sent.png" alt="" width="50" height="46">
-						<h3>Are you sure want to delete this Patient?</h3>
+						<h3>Etes vous sure de pouvoir supprimer ce Patient?</h3>
 						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
-							<button type="submit" class="btn btn-danger suppr" >Delete</button>
+							<button type="submit" class="btn btn-danger supprimere" >Delete</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		</div>
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
-    <script src="/assts/js/jquery-3.2.1.min.js"></script>
-	<script src="/assts/js/popper.min.js"></script>
-    <script src="/assts/js/bootstrap.min.js"></script>
-    <script src="/assts/js/jquery.slimscroll.js"></script>
-    <script src="/assts/js/select2.min.js"></script>
-    <script src="/assts/js/app.js"></script>
-	<script>
-            $(function () {
-                $('#datetimepicker3').datetimepicker({
-                    format: 'LT'
-                });
-				$('#datetimepicker4').datetimepicker({
-                    format: 'LT'
-                });
-            });
-     </script>
+    <script src="assts/js/jquery-3.2.1.min.js"></script>
+	<script src="assts/js/popper.min.js"></script>
+    <script src="assts/js/bootstrap.min.js"></script>
+    <script src="assts/js/jquery.slimscroll.js"></script>
+    <script src="assts/js/select2.min.js"></script>
+    <script src="{{asset('/DataTables/datatables.min.js')}}"></script>
+    <script src="assts/js/dataTables.bootstrap4.min.js"></script>
+    <script src="assts/js/moment.min.js"></script>
+    <script src="assts/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="assts/js/app.js"></script>
     <script>
-      $(document).on('click','.delet',function(){
-	
-	var id=$(this).attr("id");
-	
-	let url ="{{path('app_delete_rdv', {id :'id_' })}}";
-	url = url.replace("id_", id);
-	$('.suppr').click(function(){
-	   $.ajax({
-	   method:"POST",
-	  data:{id:id},
-	   url:url, 
-		dataType:'json',
-	   success:function(data) { 
-		   if (data.code=="1") { 
-		   window.location.href = "{{path('app_rendezvous') }}"; 
-			   
-		   }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-	   },
-	   error:function(error) {
-		   console.log(error.responseText)   
-	   }
-   });
-
-	});
    
-});
-    
+ 
+          
+
+
+
+
+  
+
     </script>
+
 
 </body>
 
 
-<!-- appointments23:20-->
+<!-- patients23:19-->
 </html>

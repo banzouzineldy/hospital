@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\DoctorsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DoctorsRepository::class)]
@@ -22,9 +23,6 @@ class Doctors
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $datenaissance = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255)]
@@ -40,7 +38,18 @@ class Doctors
     private ?string $file = null;
 
     #[ORM\ManyToOne(inversedBy: 'doctors')]
-    private ?specialite $specialite = null;
+    private ?Specialite $Specialite = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $datenaissance = null;
+
+    #[ORM\OneToMany(mappedBy: 'doctors', targetEntity: Rendezvous::class)]
+    private Collection $rendezvouses;
+
+    public function __construct()
+    {
+        $this->rendezvouses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -71,17 +80,7 @@ class Doctors
         return $this;
     }
 
-    public function getDatenaissance(): ?string
-    {
-        return $this->datenaissance;
-    }
-
-    public function setDatenaissance(string $datenaissance): self
-    {
-        $this->datenaissance = $datenaissance;
-
-        return $this;
-    }
+   
 
     public function getTelephone(): ?string
     {
@@ -142,17 +141,67 @@ class Doctors
         return $this;
     }
 
-    public function getSpecialite(): ?specialite
+    public function getSpecialite(): ?Specialite
     {
-        return $this->specialite;
+        return $this->Specialite;
     }
 
-    public function setSpecialite(?specialite $specialite): self
+    public function setSpecialite(?Specialite $specialite): self
     {
-        $this->specialite = $specialite;
+        $this->Specialite = $specialite;
 
         return $this;
     }
+
+    public function getDatenaissance(): ?\DateTimeInterface
+    {
+        return $this->datenaissance;
+    }
+
+    public function setDatenaissance(\DateTimeInterface $datenaissance): self
+    {
+        $this->datenaissance = $datenaissance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rendezvous>
+     */
+    public function getRendezvouses(): Collection
+    {
+        return $this->rendezvouses;
+    }
+
+    public function addRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if (!$this->rendezvouses->contains($rendezvouse)) {
+            $this->rendezvouses->add($rendezvouse);
+            $rendezvouse->setDoctors($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRendezvouse(Rendezvous $rendezvouse): self
+    {
+        if ($this->rendezvouses->removeElement($rendezvouse)) {
+            // set the owning side to null (unless already changed)
+            if ($rendezvouse->getDoctors() === $this) {
+                $rendezvouse->setDoctors(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
+    
+
+    
+
+
 
    
 

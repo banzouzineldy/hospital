@@ -17,14 +17,17 @@ class Plagehoraire
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $start = null;
+    #[ORM\Column]
+    private ?string $start = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $end = null;
+    #[ORM\Column]
+    private ?string $end = null;
 
     #[ORM\Column(length: 255)]
     private ?string $utilisateur = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -43,24 +46,24 @@ class Plagehoraire
         return $this;
     }
 
-    public function getStart(): ?\DateTimeInterface
+    public function getStart(): ?string
     {
         return $this->start;
     }
 
-    public function setStart(\DateTimeInterface $start): self
+    public function setStart(string $start): self
     {
         $this->start = $start;
 
         return $this;
     }
 
-    public function getEnd(): ?\DateTimeInterface
+    public function getEnd(): ?string
     {
         return $this->end;
     }
 
-    public function setEnd(\DateTimeInterface $end): self
+    public function setEnd(string $end): self
     {
         $this->end = $end;
 
@@ -78,6 +81,19 @@ class Plagehoraire
 
         return $this;
     }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 
 
 }

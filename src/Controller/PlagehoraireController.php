@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Doctors;
 use App\Entity\Plagehoraire;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Repository\PlagehoraireRepository;
+use PDOException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,18 +17,16 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PlagehoraireController extends AbstractController
-{
+{/* 
     #[Route('/plagehoraire', name: 'app_plagehoraire_liste')]
     public function index(): Response
     {
         return $this->render('plagehoraire/index.html.twig', [
            
         ]);
-    }
+    }  */
 
-
-
-    #[Route('/plage/horaire', name: 'app_plage_horaire', methods: ['GET'])]
+    #[Route('/plagehoraire', name: 'app_plage_horaire', methods: ['GET'])]
     public function liste(EntityManagerInterface $entityManager,PlagehoraireRepository $plagehoraireRepository,Security $security): Response
       
     {
@@ -46,9 +46,9 @@ class PlagehoraireController extends AbstractController
                 $event = [
                     'id' => $result->getId(),
                     'title' => $result->getTitle(),
-    
-                    'start' => $result->getStart()->format('Y-m-d H:i:s'),
-                    'end' => $result->getEnd()->format('Y-m-d H:i:s'),
+                    'start' => $result->getStart(),
+                    'end' => $result->getEnd(),
+                    'description' => $result->getDescription(),
                     
                     //'url' => $this->generateUrl('app_plage_horaire', ['id' => $result->getId()])
                     ];
@@ -56,43 +56,47 @@ class PlagehoraireController extends AbstractController
             }
        
             $jsonEvents = json_encode($events);
-            //dd($jsonEvents);
-            return $this->render('plage_horaire/index.html.twig', [
+           // dd($jsonEvents);
+            return $this->render('plagehoraire/index.html.twig', [
                 'jsonEvents'    => $jsonEvents,
-                'plage_horaire' => $plage_horaire,
-                'records'       => $records,   
+                   
             ]);  
     }
 
 
-
-
-
-
-
-
-
-
     #[Route('/plagehoraire/add', name: 'app_plagehoraire_add',methods:['POST'])]
-    public function add(EntityManagerInterface $entityManager,Request $request): Response
+    public function add(EntityManagerInterface $entityManager,Request $request,Security $security): Response
     {
-       if (!empty($request->request->all()) && $request->request->all()['start']) {
-            $plage=new Plagehoraire();
-            $data=$request->request->all();
-            $plage->setTitle($data['title']);
-            $plage->setStart(new \DateTime($data['start']));
-            $plage->setEnd(new \DateTime($data['end']));
-            $entityManager->persist($plage);
-            $entityManager->flush();
-            return $this->json(
-                ['code'=>'succes',
-                 'message'=>'insertion effectué']); 
-       }
+           
+            try { 
+               //
+
+                    $user=$security->getUser(); 
+                  // $user=$entityManager->getRepository(Doctors::class)->find($data->idDoctors);
+                    $plage=new Plagehoraire();
+                    $plage->setTitle($request->request->all()['title']);
+                    $plage->setStart(date($request->request->all()['start']));
+                    $plage->setEnd(date($request->request->all()['end']));
+                    $plage->setUtilisateur($user->getUserIdentifier()); 
+                    $plage->setDescription($request->request->all()['description']);
+                    $entityManager->persist($plage);
+                    $entityManager->flush();  
+                     return $this->json(['code'=>1]);
+                 
+            } catch (PDOException $e) {
+                return $this->json([
+                    'code'=>1,
+                   'message'=>$e,
+                  
+                 ] ); 
+            }
+           
+        
 
     }
 
-    #[Route('/{id}/edit', name: 'app_horaire_edit')]
-    public function edit(EntityManagerInterface $entity,Request $request,PlagehoraireRepository $repository,$id): Response
+    #[Route('/{id}/edit/plage', name: 'app_horaire_edit_plage',methods: [ 'POST'])]
+    public function edit(EntityManagerInterface $entity,Request $request,PlagehoraireRepository $repository,$id,Security $security): Response
 
     {   
           $plage=$repository->find($id);
@@ -100,14 +104,17 @@ class PlagehoraireController extends AbstractController
         if  (! $plage) {
            
             throw $this->createNotFoundException(
-                'No product found for id '.$id
+                'il nya pas cet id '.$id
             );
         }
+        $user=$security->getUser(); 
         $data=$request->request->all();
         $plage->setTitle($data['title']);
-        $plage->setStart(new \DateTime($data['start']));
-        $plage->setEnd(new \DateTime($data['end']));
-       
+        $plage->setStart(date($request->request->all()['start']));
+        $plage->setEnd(date($request->request->all()['end']));
+        $plage->setUtilisateur($user->getUserIdentifier()); 
+       // $plage->setDescription($request->request->all()['description']);
+        //$plage->setEnd(date($request->request->all()['end']));
           $entity->flush();
         return $this->json([
             'code'=>1,
@@ -117,26 +124,14 @@ class PlagehoraireController extends AbstractController
 
     }
 
-    #[Route('/{id}/plage/edit', name: 'app_rendez_vousliste')]
-    public function forme(EntityManagerInterface $entityManager,PlagehoraireRepository $rdv,$id): Response
-    {  
-        $data=$rdv->findBy(['id' => $id]);
-
-        return $this->render('plagehoraire/edit.html.twig', [
-               'data'=>$data[0]
-            
-        ]);
-        
-    }
-
-    
-    #[Route('/delete', name: 'app_delete_plage_horaire')]
+  
+    #[Route('/delete/plagehoraire/{id}', name: 'app_delete_plage_horaire',methods:['POST'])]
  public function delete(EntityManagerInterface $entityManager,Request $request): Response
            
      {  
-         $rendezvous=$entityManager->getRepository(Plagehoraire::class)->find(
+         $plagehoraire=$entityManager->getRepository(Plagehoraire::class)->find(
         ['id'=>$request->request->get('id')]) ;
-        $entityManager->remove($rendezvous);
+        $entityManager->remove($plagehoraire);
         $entityManager->flush();
      
         return $this->json([
@@ -158,10 +153,10 @@ class PlagehoraireController extends AbstractController
              $entityManager = $doctrine->getManager();
              $user = $this->getUser();
              $plage_horaire = new PlageHoraire();
-             $plage_horaire->setUtilisateur($user->mail);
-             $plage_horaire->setStart(new \DateTime($request->request->all()['start']));
-             $plage_horaire->setEnd(new \DateTime($request->request->all()['end']));
+             $plage_horaire->setStart(date($request->request->all()['start']));
+             $plage_horaire->setEnd(date($request->request->all()['end']));
              $plage_horaire->setTitle($request->request->all()['title']);
+             $plage_horaire->setUtilisateur($user->mail);
              $entityManager->persist($plage_horaire);
              $entityManager->flush();
              $entityManager = $doctrine->getManager();

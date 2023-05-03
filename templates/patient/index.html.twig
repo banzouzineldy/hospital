@@ -156,12 +156,19 @@
 								<tbody>
 								    {% for patients in patient %}
 									 <tr>
-				           				<td>{{patients.nom}}</td>
-										<td>{{patients.prenom}}</td>
-										<td>{{patients.genre}}</td>
-										<td>{{patients.age}}</td> 
-										<td>{{patients.telephone}}</td>
+				           				<td> {{patients.nom}}
+                                        </td>
+
+										<td> {{patients.prenom}}
+                                        </td>
+										<td>{{patients.genre}}
+                                        </td>
+										<td>{{patients.age}}
+                                        </td> 
+										<td>{{patients.telephone}}
+                                        </td>
                                          <td>
+                                         
                                          {% for nationalite in nationalite %}
                                             {% if nationalite.id == patients.nationalite %}
                                                 {{nationalite.nom}}

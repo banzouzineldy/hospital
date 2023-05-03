@@ -1,0 +1,78 @@
+// templates/calendar/index.html.twig
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: '{{ path('calendar_events') }}',
+                eventClick: function(info) {
+                    // Send an AJAX request to fetch event details
+                    var eventUrl = '{{ path('calendar_event', {'id': 'eventId'}) }}'.replace('eventId', info.event.id);
+
+                    $.ajax({
+                        url: eventUrl,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(response) {
+                            // Fill the modal with event data
+                            $('#event-title').html(response.title);
+                            $('#event-start').html(response.start);
+                            $('#event-end').html(response.end);
+                            $('#event-description').html(response.description);
+
+                            // Show the modal
+                            $('#event-modal').modal('show');
+                        }
+                    });
+                }
+            });
+
+            calendar.render();
+        });
+
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    // options de configuration de FullCalendar
+    // ...
+    eventClick: function(info) {
+      var event = info.event;
+      var start = event.start;
+
+      var startLocalDate = start.toISOString().slice(0,10);
+      var startLocalTime = start.toLocaleTimeString().slice(0,-3);
+
+      // Faites quelque chose avec la date et l'heure de début
+      // ...
+    }
+  });
+
+  calendar.render();
+});
+
+
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div id="calendar"></div>
+
+    <div class="modal" id="event-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="event-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Start:</strong> <span id="event-start"></span></p>
+                    <p><strong>End:
+                      </div>

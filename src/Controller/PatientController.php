@@ -23,23 +23,32 @@ class PatientController extends AbstractController
         $natinalite=$nationaliterepository->findAll();
         $listepatient=$patientrepository->findAll();
          $nationalitePatients=[];
-         foreach ($listepatient as $key => $value) {
-           array_push($nationalitePatients,$patientnationaliterepository->findBy(['patient'=>$value->getId()])); 
-        }
+        $liste_patient  = [];
+        // $nat=$patientrepository->getN;
+         foreach ($listepatient as $key => $patient) {
+            $nat=$patient->getNationalite(); 
+            $partnat = explode(",", $nat);
+            foreach ($partnat as $key => $value) {
+                
+                $partnat[$key]= (int) trim($value); 
+                $nationalite[$patient->getId()][]=$nationaliterepository->find($partnat[$key]);     
+            }
+         }
+         
+        array_push($liste_patient, ['patient' => $patient,'nationalite'=> $nationalite]);
+        dd($liste_patient);
         return $this->render('patient/index.html.twig', [
             'patient' => $listepatient,
-            'nationalitePatient'=>$nationalitePatients,
+           // 'nationalitePatient'=>$nationalitePatients,
             'nationalite'=>$natinalite
         ]);
 
     }
 
     #[Route('/ajout', name: 'app_patientad',methods:['POST','GET'])]
-    public function addpatient(EntityManagerInterface $entity,Request $request): Response
+    public function addpatient(EntityManagerInterface $entity,Request $request,PatientRepository $patientRepository): Response
 
     {   
-        if (!empty($request->request->all()) && $request->request->all()['nom'] ) {
-           
             $data= $request->request->all() ;
             $patient=new Patient();
 
@@ -63,8 +72,8 @@ class PatientController extends AbstractController
          'message'=>'insertion effectue'
         ]  
         );
-            
-        }
+           
+        
                  
    
     }
@@ -141,7 +150,7 @@ class PatientController extends AbstractController
          
             return $this->json([
             'code'=>1,
-             'message'=>'Mise a jour effectué'
+             'message'=>'suppression effectué'
  
              ]);
 

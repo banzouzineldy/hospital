@@ -166,9 +166,15 @@
 
 		var age_patient        =    $('#formp #age').val();
 
-		var telephone_patient  =    $('#formp #telephone').val();
+		var telephone_patient  =    $('#formp #telephone').val(); 
 
-        var nationalite_patient =   $('.religion_ckb').val(); 
+         var nationalites = [];
+                var nationalite;
+                $(".religion_ckb").each(function() {
+                    if($(this).prop('checked'))
+                        nationalites.push($(this).val());
+                 nationalite = nationalites.join(', ');
+                });
 
 		console.log(prenom_patient)
 
@@ -190,7 +196,7 @@
 
                 telephone:telephone_patient,
                 
-                nationalite:nationalite_patient
+                nationalite:nationalite
 
 		     },
 
