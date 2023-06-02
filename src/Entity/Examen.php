@@ -14,21 +14,21 @@ class Examen
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $libelle = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->nom;
+        return $this->libelle;
     }
 
-    public function setNom(string $nom): self
+    public function setLibelle(string $libelle): self
     {
-        $this->nom = $nom;
+        $this->libelle = $libelle;
 
         return $this;
     }

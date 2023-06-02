@@ -17,16 +17,16 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PlagehoraireController extends AbstractController
-{/* 
-    #[Route('/plagehoraire', name: 'app_plagehoraire_liste')]
+{ 
+   /*  #[Route('/plagehoraire', name: 'app_plagehoraire_liste')]
     public function index(): Response
     {
-        return $this->render('plagehoraire/index.html.twig', [
+        return $this->render('plagehoraire/ajout.html.twig', [
            
         ]);
-    }  */
+    }   */
 
-    #[Route('/plagehoraire', name: 'app_plage_horaire', methods: ['GET'])]
+   #[Route('/plagehoraire', name: 'app_plage_horaire', methods: ['GET'])]
     public function liste(EntityManagerInterface $entityManager,PlagehoraireRepository $plagehoraireRepository,Security $security): Response
       
     {
@@ -42,7 +42,7 @@ class PlagehoraireController extends AbstractController
            // $entityManager = $doctrine->getManager();
             //on recupere tous les evenements de la base de données
             $plage_horaire =  $plagehoraireRepository->findAll();
-            $records = $plagehoraireRepository->findBy(['utilisateur' => $login]);
+             $records = $plagehoraireRepository->findBy(['utilisateur' =>$login]);
             $events           = []; // tableau pour stocker les événements
             foreach ($records as $result) {
                 $event = [
@@ -67,6 +67,7 @@ class PlagehoraireController extends AbstractController
 
 
     #[Route('/plagehoraire/add', name: 'app_plagehoraire_add',methods:['POST'])]
+      
     public function add(EntityManagerInterface $entityManager,Request $request,Security $security): Response
     {
            
@@ -81,6 +82,7 @@ class PlagehoraireController extends AbstractController
                     $plage->setEnd(date($request->request->all()['end']));
                     $plage->setUtilisateur($user->getUserIdentifier()); 
                     $plage->setDescription($request->request->all()['description']);
+                    $plage->setUtilisateurs($user);
                     $entityManager->persist($plage);
                     $entityManager->flush();  
                      return $this->json(['code'=>1]);
@@ -113,10 +115,8 @@ class PlagehoraireController extends AbstractController
         $data=$request->request->all();
         $plage->setTitle($data['title']);
         $plage->setStart(date($request->request->all()['start']));
-        $plage->setEnd(date($request->request->all()['end']));
-        $plage->setUtilisateur($user->getUserIdentifier()); 
-       // $plage->setDescription($request->request->all()['description']);
-        //$plage->setEnd(date($request->request->all()['end']));
+        $plage->setEnd(date($request->request->all()['end'])); 
+        $plage->setUtilisateurs($user);
           $entity->flush();
         return $this->json([
             'code'=>1,
@@ -158,7 +158,8 @@ class PlagehoraireController extends AbstractController
              $plage_horaire->setStart(date($request->request->all()['start']));
              $plage_horaire->setEnd(date($request->request->all()['end']));
              $plage_horaire->setTitle($request->request->all()['title']);
-             $plage_horaire->setUtilisateur($user->mail);
+             $plage_horaire->setUtilisateur($user->email);
+             $plage_horaire->setUtilisateurs($user);
              $entityManager->persist($plage_horaire);
              $entityManager->flush();
              $entityManager = $doctrine->getManager();

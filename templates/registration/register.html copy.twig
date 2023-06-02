@@ -1,0 +1,135 @@
+
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <title>Hospital</title>
+    <link rel="stylesheet" type="text/css" href="/assts/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/assts/css/style.css">
+    <!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head> 
+    <body>
+    <style>
+      .h1{
+        font-size:20px;
+        color:blue;
+        text-align:center;
+      }
+        .mp {
+        width:100%;
+        position: relative;
+
+            }
+    
+     .mp input{
+       width:100%;
+       padding: 5px 0;
+       padding-left: 10px;
+       border: 1px solid #999 ;
+       border-radius:5px ;
+     
+        }
+
+
+    .mp i{
+         
+         position: absolute;
+         top:11px;
+         right: 10px;
+         font-size: 18px;
+         cursor: pointer;
+
+        }
+
+        .mp i.active::before{
+         
+         content:'\f070';
+         color:#5256ad ;
+
+        }
+      
+    
+    </style>
+  
+    <p class="h1">Inscription</p>
+       <div class="container">
+
+           {% for message in app.flashes('danger') %}
+                        <div class="alert alert-danger messages" id="message">{{ message}}</div>
+                        {% endfor %}
+
+        {{ form_start(registrationForm) }}
+             {{ form_row(registrationForm.nom) }}
+                {{ form_row(registrationForm.prenom) }}
+                   {{ form_row(registrationForm.datenaissance) }}
+                      {{ form_row(registrationForm.adresse) }}
+                       {{ form_row(registrationForm.telephone) }}
+                        {{ form_row(registrationForm.genre) }}
+                         {{ form_row(registrationForm.email) }}
+                         {{ form_row(registrationForm.plainPassword) }}
+                         {#  <div class="mp mt-5">
+                          <input type="password" name="registration_form[plainPassword]" id="registration_form_plainPassword" class="form-control" autocomplete="current-password" required>
+                          <i class="fa fa-eye"></i>
+                          </div> #}
+                           {{ form_row(registrationForm.specialite) }}
+                            {{ form_row(registrationForm.roles) }}
+                              {{ form_row(registrationForm.brochure)}}
+  
+       {{ form_widget(registrationForm.submit) }}
+      {#   {{ form_row(registrationForm.agreeTerms) }} #} 
+
+        
+    {{ form_end(registrationForm) }}
+        
+       </div>
+
+      <script>
+
+
+    var maDiv = document.getElementById("message");
+
+// Utilisez setTimeout pour définir une fonction à exécuter après une seconde
+setTimeout(function() {
+  // Modifiez la propriété innerHTML de la div pour effacer son contenu
+  maDiv.classList.add('d-none');
+}, 3000); 
+
+
+
+  let input= document.querySelector('.mp input');
+
+   let showbtn= document.querySelector('.mp i');
+   showbtn.onclick=function(){ 
+        if(input.type==="password"){
+        input.type="text";
+        showbtn.classList.add('active')
+        }else{
+    input.type="password";
+    showbtn.classList.remove('active')
+        }
+ }
+
+
+
+
+
+
+
+   
+ 
+ </script>
+
+
+    </body>
+
+
+<!-- patients23:19-->
+</html>
+

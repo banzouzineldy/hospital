@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Patient;
+use App\Form\PatienatMiseAjourType;
+use App\Form\PatientType;
 use App\Repository\NationaliteRepository;
 use App\Repository\PatientNationaliteRepository;
 use App\Repository\PatientRepository;
@@ -16,128 +18,101 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class PatientController extends AbstractController
 
 {
-    #[Route('/patient', name: 'app_patient')]
+    #[Route('/patient', name: 'app_patient_liste')]
     public function index(PatientRepository $patientrepository, NationaliteRepository $nationaliterepository,PatientNationaliteRepository $patientnationaliterepository): Response
 
     {   
-        $natinalite=$nationaliterepository->findAll();
-        $listepatient=$patientrepository->findAll();
-         $nationalitePatients=[];
-        $liste_patient  = [];
-        // $nat=$patientrepository->getN;
-         foreach ($listepatient as $key => $patient) {
-            $nat=$patient->getNationalite(); 
-            $partnat = explode(",", $nat);
-            foreach ($partnat as $key => $value) {
-                
-                $partnat[$key]= (int) trim($value); 
-                $nationalite[$patient->getId()][]=$nationaliterepository->find($partnat[$key]);     
-            }
-         }
+         $patients=$patientrepository->findAll();
+         return $this->render('patient/index.html.twig', [
+            'patients'=>$patients
+        ]);  
          
-        array_push($liste_patient, ['patient' => $patient,'nationalite'=> $nationalite]);
-        return $this->render('patient/index.html.twig', [
-            'patient' => $listepatient,
-           // 'nationalitePatient'=>$nationalitePatients,
-            'nationalite'=>$natinalite
-        ]);
 
     }
 
-    #[Route('/ajout', name: 'app_patientad',methods:['POST','GET'])]
-    public function addpatient(EntityManagerInterface $entity,Request $request,PatientRepository $patientRepository): Response
+    #[Route('/ajout/patient', name: 'app_patient_add',methods:['POST','GET'])]
+    public function addpatient(EntityManagerInterface $entityManager,Request $request,NationaliteRepository $nationaliteRepository,PatientRepository $patientRepository): Response
 
-    {   
-            $data= $request->request->all() ;
-            $patient=new Patient();
+    {   $patient=new Patient();
+        $nationalites=$nationaliteRepository->findAll();
 
-            $patient->setNom($data['nom'] );
+        $nationalitefinal=[];
 
-            $patient->setPrenom($data['prenom'] );
+        foreach ($nationalites as $key => $value) {
+            $nationalitefinal=array_merge( $nationalitefinal,[$value->getNom()=>$value->getId()]);
+               
+        }
+        $form=$this->createForm(PatientType::class,$patient,['Nationalites'=>$nationalitefinal]);
 
-            $patient->setGenre($data['genre'] );
-
-            $patient->setAge($data['age'] );
-
-            $patient->setTelephone($data['telephone'] );
-
-            $patient->setNationalite($data['nationalite']);
-            
-            $entity->persist($patient);
-             $entity->flush();
-
-          return $this->json([
-            'code'=>1,
-         'message'=>'insertion effectue'
-        ]  
-        );
-           
+        $form->handleRequest($request);
         
-                 
+        if ($form->isSubmitted() && $form->isValid()) { 
+            
+             $nationaliteid=$form->get('nationalite')->getData();
+             $nationalite=$nationaliteRepository->find($nationaliteid);
+           $patient->setNationalite($nationalite);
+            $patientes=$patientRepository->findOneBy(['nom'=>$patient->getNom(),
+            'telephone'=>$patient->getTelephone()]);
+            if ( $patientes!= null) {
+               $this->addFlash('danger', 'ce patient existe deja.');  
+             
+            }
+            else {
+                $entityManager->persist($patient);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_patient_liste');
+                
+                
+            }
+
+            return $this->redirectToRoute('app_patient_liste');
+            
+          }
+
+          return $this->render('patient/ajout.html.twig', [
+            'form' => $form->createView(),
+        ]);                      
    
     }
 
 
-    #[Route('/form', name: 'app_patientadd')]
-    public function form(PatientRepository $patientrepository, NationaliteRepository $nationaliterepository,PatientNationaliteRepository $patientnationaliterepository): Response
-
-    {    $natinalite=$nationaliterepository->findAll();
-        $listepatient=$patientrepository->findAll();
-        $nationalitePatients=[];
-        foreach ($listepatient as $key => $value) {
-           array_push($nationalitePatients,$patientnationaliterepository->findBy(['patient'=>$value->getId()])); 
-        } 
-        return $this->render('patient/ajout.html.twig', [
-            'patient' => $listepatient,
-            'nationalitePatient'=>$nationalitePatients,
-            'nationalite'=>$natinalite
-        ]);
-
-    }
-    #[Route('/forms/{id}', name: 'app_patients')]
-    public function modifid( PatientRepository $repositorPatient,$id, NationaliteRepository $nationaliterepository,PatientNationaliteRepository $patientnationaliterepository): Response
-
-    {   $data=$repositorPatient->findBy(['id' => $id]);
-        $natinalite=$nationaliterepository->findAll();
-        $listepatient=$repositorPatient->findAll();
-        $nationalitePatients=[];
-         foreach ($listepatient as $key => $value) {
-           array_push($nationalitePatients,$patientnationaliterepository->findBy(['patient'=>$value->getId()])); 
-        }
-          return $this->render('patient/edit.html.twig', [
-            'patient' => $listepatient,
-            'nationalitePatient'=>$nationalitePatients,
-            'nationalite'=>$natinalite,
-            'data' =>$data[0],
-        ]); 
-
-    
-    }
-
-
-    #[Route('/edit/{id}', name: 'app_patientedd')]
-    public function edit(EntityManagerInterface $entity,Request $request,PatientRepository $repository,$id): Response
+    #[Route('/edit/patient/{id}', name: 'app_patient_edit',methods:['POST','GET'])]
+    public function edit(EntityManagerInterface $entityManager,Request $request,PatientRepository $patientRepository,$id,NationaliteRepository $nationaliteRepository): Response
 
     { 
-        $specialite=$repository->find($id);
+        $patient=$patientRepository->find($id);
 
-        if  (!$specialite) {
-           
-            throw $this->createNotFoundException(
-                'No product found for id '.$id
-            );
+        $nationalites=$nationaliteRepository->findAll();
+
+        $nationalitefinal=[];
+
+        foreach ($nationalites as $key => $value) {
+            $nationalitefinal=array_merge( $nationalitefinal,[$value->getNom()=>$value->getId()]);
+               
         }
-        $specialite->setNom($request->request->all()['nom']);
-        $specialite->setPrenom($request->request->all()['prenom']);
-        $specialite->setTelephone($request->request->all()['telephone']);
-        $specialite->setGenre($request->request->all()['genre']);
-        $specialite->setAge($request->request->all()['age']);
-        $specialite->setNationalite($request->request->all()['nationalite']);
-        $entity->flush();
-        $response = new JsonResponse(['status' => "ok"]);
-        return $response;
+        $form=$this->createForm(PatienatMiseAjourType::class,$patient,['Nationalites'=>$nationalitefinal]);
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) { 
+
+            //$nationaliteid->get('nationalite')->getData();
+           // $nationalite=$nationaliteRepository->find($nationaliteid);
+           // $patient->setNationalite($nationalite);
+            $entityManager->flush();
+                // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('app_patient_liste');
+            
+         }
+
+        return $this->render('patient/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+            
+       
     }
-    #[Route('/deletes', name: 'app_deletepatient')]
+    #[Route('/deletes/patient', name: 'app_patient_delete')]
     public function delete(EntityManagerInterface $entityManager,Request $request): Response
               
 
@@ -155,18 +130,6 @@ class PatientController extends AbstractController
 
         }
 
-
-    #[Route('/delete', name: 'app_patientdelete',methods:[ 'POST'])]
-     public function supprimer(EntityManagerInterface $entity,Request $request): Response
-    { 
-        $patient=$entity->getRepository(Patient::class)->find(['id'=>$request->request->get('id')]);
-        $entity->remove($patient);
-        $entity->flush();
-        $response =new JsonResponse(['status' =>"ok"]);
-         return $response; 
-  
-       
-    }
 
 
 }

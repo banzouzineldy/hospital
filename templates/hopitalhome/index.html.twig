@@ -2,155 +2,254 @@
 <html lang="en">
 
 
-<!-- patients23:17-->
+
 <head>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <title>Hospital</title>
-    <link rel="stylesheet" type="text/css" href="assts/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assts/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="assts/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="assts/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="assts/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="assts/css/style.css">
-    <script src="assts/dist/index.global.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Medicative Hospital</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/assts/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/assts/css/style.css">
+
+    <!-- Responsive stylesheet  -->
+    <link rel="stylesheet" type="text/css" href="/assts/css/responsive.css">
+
+    <!-- Favicon -->
+    <link href="img/favicon.png" rel="shortcut icon" type="image/png">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
-
+ 
 <body>
-    <div class="main-wrapper">
-        <div class="header">
-			<div class="header-left">
-				<a href="index-2.html" class="logo">
-					<img src="assts/img/logo.png" width="35" height="35" alt=""> <span>Hopital</span>
-				</a>
-			</div>
-			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
-            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
-            <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
-                    <div class="dropdown-menu notifications">
-                        <div class="topnav-dropdown-header">
-                            <span>Notifications</span>
-                        </div>
-                        <div class="drop-scroll">
-                            <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">
-												<img alt="John Doe" src="assts/img/user.jpg" class="img-fluid">
-											</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
-												<p class="noti-time"><span class="notification-time">4 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">V</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
-												<p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities.html">
-                                        <div class="media">
-											<span class="avatar">L</span>
-											<div class="media-body">
-												<p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
-												<p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-											</div>
-                                        </div>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                </li>
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
-                </li>
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="assts/img/user.jpg" width="40" alt="Admin">
-							<span class="status online"></span></span>
-                        <span>Admin</span>
-                    </a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="profile.html">My Profile</a>
-						<a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-						<a class="dropdown-item" href="settings.html">Settings</a>
-						<a class="dropdown-item" href="login.html">Logout</a>
-					</div>
-                </li>
-            </ul>
-            <div class="dropdown mobile-user-menu float-right">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                        <li class="menu-title">Main</li>
-                        <li>
-                            <a href=""><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
-                        </li>
-                         <li class="active">
-                            <a href="/patient"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
-                        </li>
 
-						<li>
-                            <a href="/show/doctor"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
-                        </li>
-                        
-                        <li>
-                            <a href="/plagehoraire"><i class="fa fa-calendar"></i> <span>Rendez vous</span></a>
-                        </li>
-                        <li>
-                            <a href="/plagehoraire"><i class="fa fa-calendar"></i> <span>PlageHoraire</span></a>
-                        </li>
-                         <li>
-                            <a href="/inscription"><i class="fa fa-user-md"></i> <span>utilisateurs</span></a>
-                        </li>
+    <div class="preloader"></div>
+
+    <!-- Header navbar start -->
+    <div class="header-topbar style-2">
+        <div class="container padding-none">
+            <div class="row">
+                <div class="col-md-8 col-sm-6 welcome-top">
+                   
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <ul class="list-inline text-right icon-style-1">
+                        <li class=" hvr-rectangle-out"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                        <li class=" hvr-rectangle-out"><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li class=" hvr-rectangle-out"><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                        <li class=" hvr-rectangle-out"><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                        <li class=" hvr-rectangle-out"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>
-        </div> 
-    <div class="sidebar-overlay" data-reff=""></div>
-    <script src="assts/js/jquery-3.2.1.min.js"></script>
-	<script src="assts/js/popper.min.js"></script>
-    <script src="assts/js/bootstrap.min.js"></script>
-    <script src="assts/js/jquery.slimscroll.js"></script>
-    <script src="assts/js/select2.min.js"></script>
-    <script src="assts/js/jquery.dataTables.min.js"></script>
-    <script src="assts/js/dataTables.bootstrap4.min.js"></script>
-    <script src="assts/js/moment.min.js"></script>
-    <script src="assts/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="assts/js/app.js"></script>
+        </div>
+    </div>
 
+    <div class="main-navbar conner-style style-2 position-fixed">
+        <div class="container padding-none">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-default">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand dis-none" href="index-2.html"><img src="/assts/img/logo-black.png" alt="">
+                                </a>
+                            <a class="navbar-brand dis-block" href="index-2.html"><img src="/assts/img/logo-black.png" alt="">
+                                </a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" data-hover="dropdown" data-animations-delay="1.8s" data-animations="fadeInUp">
+                            <ul class="nav navbar-nav bg-none navbar-right style-3">
+                                <li class="dropdown active">
+                                    
+                                </li>
+                                <li class="dropdown">
+                                </li>
+                                <li class="dropdown">
+                                   
+                                </li>
+                                <li class="dropdown">
+                                   
+                                </li>
+                                <li class="dropdown">
+                                    
+                                </li>
+                                <li class="dropdown">
+                                    
+                                </li>
+                                <li class="dropdown">
+                                   
+                                </li>
+                                <li>
+                                    <div class="dropdown-buttons">
+                                        
+                                        
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Header navbar end -->
+
+    <!-- Start  bootstrap-touch-slider Slider -->
+    <div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line" data-ride="carousel" data-pause="hover" data-interval="5000" >
+
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#bootstrap-touch-slider" data-slide-to="0" class="active"></li>
+            <li data-target="#bootstrap-touch-slider" data-slide-to="1"></li>
+            <li data-target="#bootstrap-touch-slider" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper For Slides -->
+        <div class="carousel-inner" role="listbox">
+
+            <!-- Third Slide -->
+            <div class="item active">
+
+                <!-- Slide Background -->
+                <img src="/assets/img/fillemedecin.jpg" alt="Slider Images"  class="slide-image"/>
+                <div class="bs-slider-overlay"></div>
+
+                <div class="slide-text slide_style_left">
+                            <h1 data-animation="animated fadeInRight">The <span class="color-defult"> Medicative </span>Hospital</h1>
+                            <p data-animation="animated fadeInLeft">Our team of over 7000 doctors join me in giving you the best <br> of modern healthcare to ensure you stay healthy, always.</p>
+   {#                          <a href="#" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Read more</a> #}
+                            <a href="{{path('app_login')}}" target="_blank"  class="btn btn-primary" data-animation="animated fadeInRight">Se connecter</a>
+                        </div>
+            </div>
+            <!-- End of Slide -->
+
+            <!-- Second Slide -->
+            <div class="item">
+            
+                <!-- Slide Background -->
+                <img src="assts/img/bg/2.jpg" alt="Slider Images" class="slide-image"/>
+                <div class="bs-slider-overlay"></div>
+                <!-- Slide Text Layer -->
+                <div class="slide-text slide_style_center">
+                    <h1 data-animation="animated bounceInDown"> Treat<span class="color-defult"> heart</span> disease.</h1>
+                    <p data-animation="animated lightSpeedIn">consectetur adipisicing elit. Eligendi vel ipsam deleniti dignissimos <br> corporis consequatur possimus eaque voluptates.</p>
+     {#                <a href="#" target="_blank" class="btn btn-default" data-animation="animated fadeInUp">Read More</a> #}
+                    <a href="{{path('app_login')}}" target="_blank"  class="btn btn-primary" data-animation="animated fadeInDown">Se connecter</a>
+                </div>
+            </div>
+            <!-- End of Slide -->
+            
+            <!-- Third Slide -->
+            <div class="item">
+            
+                <!-- Slide Background -->
+                <img src="assets/img/gilmedecin.jpg" alt="Slider Images"  class="slide-image"/>
+                <div class="bs-slider-overlay"></div>
+                <!-- Slide Text Layer -->
+                <div class="slide-text slide_style_right">
+                    <h1 data-animation="animated fadeInLeft">Life Wellness<span class="color-defult"> Programs</span></h1>
+                    <p data-animation="animated fadeInRight">Stay in touch and in shape with periodic tips from our <br>in-house  experts on wellness, fitness and nutrition.</p>
+{#                     <a href="#" target="_blank" class="btn btn-default" data-animation="animated fadeInLeft">Read More</a> #}
+                    <a href="" target="_blank" class="btn btn-primary" data-animation="animated fadeInRight">Se connecter</a>
+                </div>
+            </div>
+            <!-- End of Slide -->
+
+
+        </div><!-- End of Wrapper For Slides -->
+
+        <!-- Left Control -->
+        <a class="left carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="prev">
+            <span class="fa fa-angle-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+
+        <!-- Right Control -->
+        <a class="right carousel-control" href="#bootstrap-touch-slider" role="button" data-slide="next">
+            <span class="fa fa-angle-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+
+    </div> <!-- End  bootstrap-touch-slider Slider -->
+
+    
+    <!-- welcome end -->
+
+    <!-- divider start -->
+    <section class="service-area over-layer-default" style="background-image:url(img/bg/5.jpg);">
+        <div class="container padding-bottom-none padding-top-40">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-sm-12 col-md-4">
+                        <div>
+                            <div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                       
+                            <div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-4">
+                        <div>
+                            <div>
+                               
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- divider end -->
+  
+    
+    <!-- jQuery -->
+    <script type="text/javascript" src="/assts/js/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript" src="/assts/js/bootstrap.min.js"></script>
+
+    <!-- all plugins and JavaScript -->
+    <script type="text/javascript" src="/assts/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="/assts/js/css3-animate-it.js"></script>
+    <script type="text/javascript" src="/assts/js/bootstrap-dropdownhover.min.js"></script>
+    <script type="text/javascript" src="/assts/js/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/assts/js/gallery.js"></script>
+    <script type="text/javascript" src="/assts/js/player.min.js"></script>
+    <script type="text/javascript" src="/assts/js/retina.js"></script>
+    <script type="text/javascript" src="/assts/js/comming-soon.js"></script>
+
+    <!-- Main Custom JS -->
+    <script type="text/javascript" src="/assts/js/script.js"></script>
 
 
 </body>
 
 
-<!-- patients23:19-->
+
 </html>
+

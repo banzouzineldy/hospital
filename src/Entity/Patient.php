@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PatientRepository;
+use DateTimeImmutable;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PatientRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: PatientRepository::class)]
 class Patient
@@ -23,13 +27,25 @@ class Patient
     private ?string $genre = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $age = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $telephone = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nationalite = null;
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: Rdvs::class,orphanRemoval:true)]
+    private Collection $rdvs;
+
+    #[ORM\Column]
+    private ?int $age = null;
+
+    #[ORM\ManyToOne(inversedBy: 'patient')]
+    private ?Nationalite $nationalite = null;
+/*    #[ORM\Column(type: Types::DATE_IMMUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $dateEnregistrement = null;  */
+
+
+    public function __construct()
+    {
+        $this->rdvs = new ArrayCollection();
+    // $this->dateEnregistrement=new DateTimeImmutable();
+    }
 
     #[ORM\ManyToOne(inversedBy: 'patient')]
     #[ORM\JoinColumn(nullable: false)]
@@ -76,18 +92,6 @@ class Patient
         return $this;
     }
 
-    public function getAge(): ?string
-    {
-        return $this->age;
-    }
-
-    public function setAge(string $age): self
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
     public function getTelephone(): ?string
     {
         return $this->telephone;
@@ -100,17 +104,64 @@ class Patient
         return $this;
     }
 
-    public function getNationalite(): ?string
+    /**
+     * @return Collection<int, Rdvs>
+     */
+    public function getRdvs(): Collection
+    {
+        return $this->rdvs;
+    }
+
+    public function addRdv(Rdvs $rdv): self
+    {
+        if (!$this->rdvs->contains($rdv)) {
+            $this->rdvs->add($rdv);
+            $rdv->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRdv(Rdvs $rdv): self
+    {
+        if ($this->rdvs->removeElement($rdv)) {
+            // set the owning side to null (unless already changed)
+            if ($rdv->getPatient() === $this) {
+                $rdv->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getNationalite(): ?Nationalite
     {
         return $this->nationalite;
     }
 
-    public function setNationalite(string $nationalite): self
+    public function setNationalite(?Nationalite $nationalite): self
     {
         $this->nationalite = $nationalite;
 
         return $this;
     }
+
+
+
+
+
 
    
 

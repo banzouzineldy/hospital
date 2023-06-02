@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Specialite;
 use App\Form\SpecialiteType;
+use App\Form\SpecialiteMiseajouType;
 use App\Repository\SpecialiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,39 +13,38 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 class SpecialiteController extends AbstractController
 {
-    #[Route('/specialite', name: 'app_specialite')]
-    public function ajout(EntityManagerInterface $entity,Request $request): Response
+    #[Route('/specialite/ajout', name: 'app_specialite_add')]
+    public function ajout(EntityManagerInterface $entityManager,Request $request,SpecialiteRepository $specialiteRepository): Response
 
-    {    $user=$entity->getRepository(Specialite::class)->findOneBy([
-        "nom" =>$request->request->all()['nom'],
-      
-         ]); 
+    {  
+        $specialite=new Specialite();
 
-         if ($user == null){
-            
-            $user=new Specialite();
-            //$user->setNom($data->nom);
-            $user->setNom($request->request->all()['nom']);
-            $entity->persist($user);
-            $entity->flush(); 
+        $form=$this->createForm(SpecialiteType::class,$specialite);
+        $form->handleRequest($request);
         
-        }else{
-            return $this->json([
-                'code' =>1,
-                'message' => 'cette specialite existe deja'
-            ]);
+        if ($form->isSubmitted() && $form->isValid()) { 
+            $specialites=$specialiteRepository->findOneBy(['nom'=>$specialite->getNom()]);
+            if ( $specialites!= null) {
+                $this->addFlash('danger', 'la specialite existe deja.');  
+              
+            }else {
+                $entityManager->persist($specialite);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_specialite_liste');
+                
+            }      
+            
         }
 
-        return $this->json([
-            'code' => 2,
-            'message' => 'insertion effectuée'
-        ]); 
-       
+        return $this->render('specialite/ajout.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
-    #[Route('/delete/specialite', name: 'app_specialitedelete')]
+    #[Route('/delete/specialite', name: 'app_specialite_delete')]
     public function delete(EntityManagerInterface $entityManager,Request $request): Response
               
         {   
@@ -61,107 +61,40 @@ class SpecialiteController extends AbstractController
         
         }
 
-
-        #[Route('/{id}/edit', name: 'app_specialiteform', methods: ['GET', 'POST'])]
-        public function form(EntityManagerInterface $entityManager,$id,SpecialiteRepository $specialiteRepository): Response
-        {   // $id = (int) $request->request->get('id');
-             $data=$specialiteRepository->findBy(['id' => $id]);
-             //$specialiteliste=$specialiteRepository->findAll(['id' => $id]);
-             return $this->render('specialite/edit.html.twig', [
-               // 'specialite'=>$specialiteliste,
-               'data'=>$data[0]
-               
-                
-            ]);
-        }
-
-
-        #[Route('/edit/{id}', name: 'app_specialiteedit')]
-        public function edit(EntityManagerInterface $entity,Request $request,SpecialiteRepository $repository,$id): Response
+        #[Route('/edit/specialite/{id}', name: 'app_specialite_edit')]
+        public function edit(EntityManagerInterface $entityManager,Request $request,SpecialiteRepository $specialiteRepository,$id): Response
     
         { 
-            $specialite=$repository->find($id);
+            $specialite=$specialiteRepository->find($id);
     
-            if  (!$specialite) {
-               
-                throw $this->createNotFoundException(
-                    'No product found for id '.$id
-                );
+            $form=$this->createForm(SpecialiteMiseajouType::class,$specialite);
+            $form->handleRequest($request);
+            
+            if ($form->isSubmitted() && $form->isValid()) { 
+                $specialite = $form->getData();
+                $entityManager->flush();
+                $this->addFlash('success', 'la modification a reussi'); 
+                return $this->redirectToRoute('app_specialite_liste'); 
+          
             }
-            $specialite->setNom($request->request->all()['nom']);
-            $entity->flush();
-            $response = new JsonResponse(['status' => "ok"]);
-            return $response;
-    
+            return $this->render('specialite/edit.html.twig', [
+                'form' => $form->createView(),
+            ]);
     
         }
 
 
-        #[Route('/liste', name: 'app_specialiteliste')]
+        #[Route('/specialite', name: 'app_specialite_liste')]
         public function index(EntityManagerInterface $entity ,Request $request,SpecialiteRepository $specialiteRepository): Response
         { 
-            $specialite=$specialiteRepository->findAll();
+            $specialites=$specialiteRepository->findAll();
             return $this->render('specialite/index.html.twig', [
-                'specialite' => $specialite,
+                'specialites' => $specialites,
             ]);
         }
 
 
-
-        #[Route('/ajout/specialite', name: 'app_specialitelisteform')]
-        public function ajoutform(EntityManagerInterface $entity ,Request $request,SpecialiteRepository $specialiteRepository): Response
-        { 
-            $specialite=$specialiteRepository->findAll();
-            return $this->render('specialite/ajout.html.twig', [
-               
-            ]);
-        }
-
-
-        /* namespace App\Controller;
-
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Form\LoginFormType;
-
-class SecurityController extends AbstractController
-{
-    /**
-     * @Route("/login", name="app_login")
-     */
-  /*   public function login(Request $request)
-    {
-        $form = $this->createForm(LoginFormType::class);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // vérifiez les informations d'identification de l'utilisateur et récupérez le rôle
-            $data = $form->getData();
-            $username = $data['username'];
-            $password = $data['password'];
-
-            $user = // récupérez l'utilisateur à partir de la base de données en fonction du nom d'utilisateur et du mot de passe
-
-            if (!$user) {
-                // si l'utilisateur n'existe pas, afficher un message d'erreur
-                $this->addFlash('danger', 'Nom d\'utilisateur ou mot de passe incorrect.');
-
-                return $this->redirectToRoute('app_login');
-            }
-
-            // si l'utilisateur existe, connectez-le et redirigez-le vers la page d'accueil
-            $this->get('security.token_storage')->setToken(new UsernamePasswordToken($user, null, 'main', $user->getRoles()));
-            $this->get('session')->set('_security_main', serialize($this->get('security.token_storage')->getToken()));
-
-            return $this->redirectToRoute('app_homepage');
-        }
-
-        return $this->render('security/login.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    } */
+   
 }
 
 

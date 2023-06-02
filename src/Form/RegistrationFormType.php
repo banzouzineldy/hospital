@@ -6,14 +6,18 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -21,9 +25,12 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email',TextType::class,['attr'=>[
-             'class'=>'form-control']])
+             'class'=>'form-control'],
+             
+             'label'=>'email'])
+
             ->add('roles',ChoiceType::class,[
-                 'attr'=>['class'=>'form-control form-control-sm'],
+                 'attr'=>['class'=>'form-control'],
                 'required'=>true,
                 'multiple'=>false,
                 'expanded'=>false,
@@ -61,7 +68,65 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
 
-            
+            ->add('nom',TextType::class, ['attr'=>[
+                'class'=>'form-control']
+                
+                ])
+
+
+            ->add('prenom',TextType::class,['attr'=>[
+                'class'=>'form-control mt-5']
+                ])
+
+
+            ->add('datenaissance',DateType::class, ['widget'=>'single_text',
+                'attr'=>[
+                    'class'=>'form-control mt-5 ']
+            ])
+
+            ->add('telephone', TextType::class, ['attr'=>[
+                'class'=>'form-control mt-5 ']
+                ])
+            ->add('adresse',TextType::class, ['attr'=>[
+                'class'=>'form-control mt-5']
+                ])
+
+            ->add('genre', ChoiceType::class,[
+                'required'=>true,
+                'expanded'=>true,
+                'mapped'=>true,
+                'multiple'=>false,
+                'choices'=>['masculin'=>'M','feminin'=>'F']
+                                 ])
+            ->add('specialite',ChoiceType::class,[
+                'required'=>true,
+               'mapped'=>false,
+               'attr'=>[
+                'class'=>'form-control mt-5'],
+                'choices'=>$options['specialites']
+
+            ])
+
+            ->add('brochure',FileType::class,[
+                'label' => 'telecharger l image',
+                'mapped' => false, //mapped veut dire le champ brochure n'e
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpg',
+                            'image/png',
+                            'image/jpeg'
+                        ],
+                        'mimeTypesMessage' => 'l extension du fichier non accepte'
+                    ])
+                ],
+            ])
+           
+
+            ->add('submit',SubmitType::class,['label'=>'soumettre','attr' => [
+            'class' => 'btn btn-primary mt-5']])
            
         ;
 
@@ -81,5 +146,7 @@ class RegistrationFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+
+        $resolver->setRequired('specialites');
     }
 }

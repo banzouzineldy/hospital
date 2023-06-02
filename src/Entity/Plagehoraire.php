@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\PlagehoraireRepository;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PlagehoraireRepository::class)]
@@ -17,10 +16,10 @@ class Plagehoraire
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 255)]
     private ?string $start = null;
 
-    #[ORM\Column]
+    #[ORM\Column(length: 255)]
     private ?string $end = null;
 
     #[ORM\Column(length: 255)]
@@ -28,6 +27,9 @@ class Plagehoraire
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'plagehoraires')]
+    private ?User $utilisateurs = null;
 
     public function getId(): ?int
     {
@@ -94,6 +96,15 @@ class Plagehoraire
         return $this;
     }
 
+    public function getUtilisateurs(): ?User
+    {
+        return $this->utilisateurs;
+    }
 
+    public function setUtilisateurs(?User $utilisateurs): self
+    {
+        $this->utilisateurs = $utilisateurs;
 
+        return $this;
+    }
 }
