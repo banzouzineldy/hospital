@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Medicative Hospital || Health & Medical HTML Template</title>
+    <title> Hospital</title>
 
     <!-- Custom fonts for this template-->
     <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,6 +24,15 @@
 
 </head>
 
+  <style>
+  .h4{
+    font-size:30px;
+    margin-left:20px;
+    color:black
+  }
+  
+  </style>
+
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -37,144 +46,89 @@
                 <div class="sidebar-brand-icon ">
                     <i class="fas fa-hospital-alt"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">CHU Hôpital</div>
+                <div class="sidebar-brand-text mx-3"> Hopital</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
+           <li class="nav-item active">
+                <a class="nav-link" href="{{path('app_dashboard_agent')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-             <!-- Divider -->
-             <hr class="sidebar-divider">
-             <!-- Nav Item - Nationalites -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-flag"></i>
-                    <span>Nationalites</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Services -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-hospital"></i>
-                    <span>Services</span>
-                </a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Nav Item - Unites -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-hospital-symbol"></i>
-                    <span>Unités</span>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                
+            </div>
+                   <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-calendar"></i>
+                    
+                    <span>AgendaMedecin</span>
                 </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Voir les agenda:</h6>
+                        <a class="collapse-item" href="{{path('app_rendezvous_forme')}}">voir les agenda</a>
+                    </div>
+                </div>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Fonctions -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-stethoscope"></i>
-                    <span>Fonctions</span>
+                  <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Hospitalisation</span>
                 </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Voir les hospitalisations:</h6>
+                        <a class="collapse-item" href="utilities-color.html">C</a>
+                        <a class="collapse-item" href="utilities-border.html">Borders</a>
+                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                    </div>
+                </div>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Spécialités -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-notes-medical"></i>
-                    <span>Spécialités</span>
+
+         <li class="nav-item active
+         ">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Rendezvous</span>
                 </a>
-            </li>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">gere les rendezvous:</h6>
+                        <a class="collapse-item" href="{{path('app_rendezvous_liste')}}">Afficher les rendezvous</a>
+                        {#  <h6 class="collapse-header">Login Screens:</h6>
+                        <a class="collapse-item" href="login.html"></a> #}
+                         <a class="collapse-item" href="{{path('app_rendezvous_ajout')}}">Ajouter un rendezvous</a>
+                      {#   <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Other Pages:</h6>
+                        <a class="collapse-item" href="404.html">404 Page</a>
+                        <a class="collapse-item" href="blank.html">Blank Page</a> #}
+                    </div>
+                </div>
+            </li>   
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+            <li class="nav-item ">
+                <a class="nav-link" href="{{path('app_patient_liste')}}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Patients</span></a>
+            </li>    
 
-            <!-- Nav Item - Qualifications -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-notes-medical"></i>
-                    <span>Qualifications</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Agents -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-user-md"></i>
-                    <span>Agents</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pathologies -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-virus"></i>
-                    <span>Pathologies</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Patients -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fab fa-accessible-icon"></i>
-                    <span>Patients</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Chambres -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-door-closed"></i>
-                    <span>Chambres</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Lits -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-bed"></i>
-                    <span>Lits</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Hospitalisations -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-procedures"></i>
-                    <span>Hospitalisations</span>
-                </a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -232,94 +186,6 @@
                             </div>
                         </li>
 
-                        <!-- Nav Item - Alerts -->
-{#                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li> #}
-
-                        <!-- Nav Item - Messages -->
-                        {# <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
-                                            alt="...">
-                                        <div class="status-indicator"></div>
-                                    </div>
-                                   
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
-                                            alt="...">
-                                        <div class="status-indicator bg-warning"></div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
-                                            alt="...">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    
-                                </a>
-                        
-                            </div>
-                        </li> #}
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -327,7 +193,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">{{user.getPrenom}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="/assets/img/undraw_profile.svg">
                             </a>
@@ -336,7 +202,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                 
                                 </a>
                                 {# <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -347,9 +213,9 @@
                                     Activity Log
                                 </a> #}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ path('app_logout')}}" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Déconnexion
                                 </a>
                             </div>
                         </li>
@@ -368,44 +234,53 @@
                     <div class="col-lg-8 offset-lg-2">
                         <div class="p-5">
                             <div>
-                                <h1 class="h4 text-gray-900 mb-4">Créer un Agent!</h1>
+                                <h1 class="h4 text-blue-900 mb-4">Ajouter un rendezvous</h1>
                             </div>
                             {{ form_start(form) }}
-                              <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                   {{form_row(form.date) }}
 
-                                </div>
-                                <div class="col-sm-6">
-                                  
-                               {{form_row(form.dateFin) }} 
-                                  
-                                </div>
-                              </div>
-
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{form_row(form.patient) }}
+                                <div class="mb-3">
+                                    {{form_row(form.date,{
+                                  'label_attr': {'style': 'color:black; font-size: 18px; p-5;'},
+                                  'attr': {
+                                'class': 'form-group-lab',
+                                'style': 'color:black; font-size:16px;',
+                                    }}) }}
 
                                     </div>
-                                    <div class="col-sm-6">
-                                    {{form_row(form.emailsmedecin) }}   
+                                    <div class="mb-3">
+                                         {{form_row(form.patient,{
+                                    'label_attr': {'style': 'color:black; font-size:18px;'},
+                                    'attr': {
+                                    'class': 'form-group-label',
+                                    'style': 'color:black; font-size:18px;',
+                                    }}) }}
                                     </div>
+                                    <div class="mb-3">
+                                            {{form_row(form.emailsmedecin,{
+                                     'label_attr': {'style': 'color:black; font-size: 18px;'},
+                                    'attr': {
+                                     'class': '',
+                                  'style': 'color:black; font-size:16px;',
+                                     }}) }}   
 
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6">
-                                     {{form_row(form.specialite) }}
                                     </div>
-                                </div>
-                                    
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        {{form_row(form.motif) }}
-    
+                                    <div class="mb-3">
+                                         {{form_row(form.specialite,{
+                                  'label_attr': {'style': 'color:black; font-size: 18px;'},
+                                  'attr': {
+                                'style': 'color:black; font-size:16px;',
+                                     }}) }}
+                                 
                                     </div>
-                                </div>
+                                    <div>
+                                    {{form_row(form.motif,{
+                                  'label_attr': {'style': 'color:black; font-size: 18px;'},
+                                  'attr': {
+                                'class': 'form-group-label',
+                                'style': 'color:black; font-size:16px p-5;',
+                            }}) }}
 
+                                    </div>
                             {{ form_end(form) }}
                         </div>
                     </div>
@@ -443,6 +318,24 @@
 
     </div>
     <!-- End of Page Wrapper -->
+     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Vous voulez quitter la session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
+                    <a class="btn btn-primary" href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </div>
    
     <!-- Bootstrap core JavaScript-->
     <script src="/assets/vendor/jquery/jquery.min.js"></script>

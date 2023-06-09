@@ -5,3 +5,10 @@ controllers:
 kernel:
     resource: ../src/Kernel.php
     type: annotation
+admin_dashboard:
+    path: /admin/dashboard
+    controller: App\Controller\AdminController::dashboard
+
+user_dashboard:
+    path: /user/dashboard
+    controller: App\Controller\UserController::dashboard

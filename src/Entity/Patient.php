@@ -37,14 +37,14 @@ class Patient
 
     #[ORM\ManyToOne(inversedBy: 'patient')]
     private ?Nationalite $nationalite = null;
-/*    #[ORM\Column(type: Types::DATE_IMMUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $dateEnregistrement = null;  */
 
-
+    #[ORM\Column(type: Types::DATETIME_MUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeInterface $dateEnregistrement = null;
     public function __construct()
     {
-        $this->rdvs = new ArrayCollection();
-    // $this->dateEnregistrement=new DateTimeImmutable();
+    $this->rdvs = new ArrayCollection();
+    $this->dateEnregistrement=new DateTimeImmutable();
+   
     }
 
     #[ORM\ManyToOne(inversedBy: 'patient')]
@@ -158,10 +158,17 @@ class Patient
         return $this;
     }
 
+    public function getDateEnregistrement(): ?\DateTimeInterface
+    {
+        return $this->dateEnregistrement;
+    }
 
+    public function setDateEnregistrement(\DateTimeInterface $dateEnregistrement): self
+    {
+        $this->dateEnregistrement = $dateEnregistrement;
 
-
-
+        return $this;
+    }
 
    
 

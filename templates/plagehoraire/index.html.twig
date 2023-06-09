@@ -93,6 +93,25 @@
                     </div>
                 </div>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Agenda</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Calendar:</h6>
+                         <a class="collapse-item" href="{{path('app_plage_horaire')}}">Agenda</a>
+                    </div>
+                </div>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{path('app_examen_liste')}}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>examen</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -106,12 +125,12 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-            <!-- Sidebar Message -->
+            {# <!-- Sidebar Message -->
             <div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+            </div> #}
 
         </ul>
         <!-- End of Sidebar -->
@@ -303,7 +322,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                
                                 </a>
                                {#  <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -311,12 +330,11 @@
                                 </a> #}
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ path('app_logout')}}" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Deconnexion
+                                    Déconnexion
                                 </a>
                             </div>
                         </li>
@@ -610,11 +628,14 @@
             console.log(finalEvent)
            
          var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView:'dayGridMonth',
-                headerToolbar: {
-                    start: 'prev,next today',
-                center:'title',
-                end :'dayGridMonth,timeGridWeek,timeGridDay'
+                
+            initialView:'dayGridMonth',
+            locale:'fr',
+            timeZone:'Europe/Paris',
+            headerToolbar: {
+            start: 'prev,next today',
+            center:'title',
+            end :'dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 events:finalEvent,
                 buttonText:{

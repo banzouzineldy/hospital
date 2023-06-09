@@ -25,24 +25,38 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
 
 class RendezvousController extends AbstractController
 {  
      #[Route('/rendezvous', name: 'app_rendezvous_ajout')]
-   public function index(EntityManagerInterface $entityManager,Request $request,PatientRepository $patientRepository,UserRepository $userRepository,SpecialiteRepository $specialiteRepository,MailerInterface $mailer): Response
-   {  //$this->denyAccessUnlessGranted('ROLE_AGENT');
-     $rdvs=new Rdvs();
+   public function index(EntityManagerInterface $entityManager,Request $request,PatientRepository $patientRepository,UserRepository $userRepository,SpecialiteRepository $specialiteRepository,MailerInterface $mailer,Security $security): Response
+   {    
+    if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+      return new RedirectResponse($this->generateUrl('app_login'));
      
-     $admin='neldynicha@gmail.com';
+     }else {
+      $user=$security->getUser();
+     $roles=['ROLE_AGENT','ROLE_ADMIN'];
+    if (!array_intersect($user->getRoles(), $roles)) {
+      throw new AccessDeniedException('Acces refuse');
+    } 
+//$this->denyAccessUnlessGranted('ROLE_AGENT',);
+    $comptes  =  $user;
+     $rdvs=new Rdvs();
+     //$admin='neldynicha@gmail.com';
      $patients=$patientRepository->findAll();
      $users=$userRepository->findAll();
      $specialites=$specialiteRepository->findAll();
      $specialitesfinal=[];
-     $specialitesfinal=array_merge($specialitesfinal,['selectionner une option'=>0]);
+     $specialitesfinal=array_merge($specialitesfinal,['selectionner un patient'=>0]);
      $userfinal=[];
      $patientfinal=[];
+     $patientfinal=array_merge($patientfinal,['selectionner une option'=>0]);
      foreach ($users as $key => $value) {
         $userfinal =array_merge($userfinal,[$value->getNom().' ' .$value->getPrenom()=>$value->getEmail()]);
              
@@ -63,29 +77,29 @@ class RendezvousController extends AbstractController
       
       if ($form->isSubmitted() && $form->isValid()) { 
         
-        try {
-            $patienteid=$form->get('patient')->getData();
-            $medecinemail=$form->get('emailsmedecin')->getData();
-            $specialiteid=$form->get('specialite')->getData();
-            $useremail=$userRepository->find($medecinemail);
-            $patient=$patientRepository->find($patienteid);
-            $specialite=$specialiteRepository->find($specialiteid);
-            $rdvs->setSpecialite($specialite);
-            $rdvs->setPatient($patient);
-            $entityManager->persist($rdvs);  
-            $entityManager->flush();
-            $email = (new Email())
-              ->from($admin)
-              ->to($medecinemail)
-              ->subject('vous avez un nouveau rendezvous venant de neldy')
-              ->text('c est mon application delhopital');
-            $mailer->send($email);
-            $this->addFlash(
-                'success',
-                'votre demande a ete envoyé avec succes'
-             );
-             return $this->redirectToRoute('app_rendezvous_liste');
-        }
+        try { $admin=$this->getParameter('app.admin.email');
+                $patienteid=$form->get('patient')->getData();
+                $medecinemail=$form->get('emailsmedecin')->getData();
+                $specialiteid=$form->get('specialite')->getData();
+                $useremail=$userRepository->find($medecinemail);
+                $patient=$patientRepository->find($patienteid);
+                $specialite=$specialiteRepository->find($specialiteid);
+                $rdvs->setSpecialite($specialite);
+                $rdvs->setPatient($patient);
+                $entityManager->persist($rdvs);  
+                $entityManager->flush();
+                $email = (new Email())
+                  ->from($admin)
+                  ->to($medecinemail)
+                  ->subject('vous avez un nouveau rendezvous venant de neldy')
+                  ->text('c est mon application delhopital');
+                $mailer->send($email);
+                $this->addFlash(
+                    'success',
+                    'votre demande a ete envoyé avec succes'
+                );
+                return $this->redirectToRoute('app_rendezvous_liste');
+            }
         catch (Exception $e) {
           dd($e->getMessage());
         }
@@ -95,9 +109,15 @@ class RendezvousController extends AbstractController
     
        return $this->render('rendezvous/ajout.html.twig', [
           'form'=>$form->createView(),
+          'user'=>$comptes
            
            
        ]);
+      
+     }
+
+
+     
    }
    // recuperer les agendas des agents
 
@@ -115,7 +135,15 @@ class RendezvousController extends AbstractController
 
    #[Route('/rendezvous/liste', name: 'app_rendezvous_liste')]
    public function liste(RdvsRepository $rdvsRepository,UserRepository $userRepository): Response
-   {  $this->denyAccessUnlessGranted('ROLE_AGENT');
+   {  //$this->denyAccessUnlessGranted('ROLE_AGENT');
+        $user=$this->getUser();
+        $roles=['ROLE_AGENT','ROLE_ADMIN'];
+
+      // $roles=$user->getRoles();
+      if (!array_intersect($user->getRoles(), $roles)) {
+        throw new AccessDeniedException('Acces refuse');
+      } 
+      $comptes  =  $user;
        $rendezvouslistes=$rdvsRepository->findAll(); 
        $userliste=[];
 
@@ -128,16 +156,25 @@ class RendezvousController extends AbstractController
        // dd($user);
        return $this->render('rendezvous/index.html.twig', [
           'rendezvousS'=>$rendezvouslistes,
-          'users'=>$userliste
+          'users'=>$userliste,
+          'comptes'=>$comptes
            
            
        ]);
    }
 // formulaire de modification
 
-   #[Route('/rendezvous/modifif/{id}', name: 'app_rendezvous_edit')]
+   #[Route('/rendezvous/modifif/{id}', name: 'app_rendezvous_edit',methods:['GET','POST'])]
    public function modification(EntityManagerInterface $entityManager,Request $request,PatientRepository $patientRepository,UserRepository $userRepository,SpecialiteRepository $specialiteRepository,RdvsRepository $rdvsRepository,$id): Response
    {  //$this->denyAccessUnlessGranted('ROLE_AGENT');
+    $user=$this->getUser();
+    $roles=['ROLE_AGENT','ROLE_ADMIN'];
+
+   // $roles=$user->getRoles();
+   if (!array_intersect($user->getRoles(), $roles)) {
+     throw new AccessDeniedException('Acces refuse');
+   }
+   $comptes  =  $user;
      $rdvs=$rdvsRepository->find($id);
      $patients=$patientRepository->findAll();
      $users=$userRepository->findAll();
@@ -184,13 +221,14 @@ class RendezvousController extends AbstractController
     
        return $this->render('rendezvous/edit.html.twig', [
           'form'=>$form->createView(),
+          'user'=>$comptes
            
            
        ]);
    }
 
 
-   #[Route('/delete/rendezvous', name: 'app_rendezvous_delete')]
+   #[Route('/delete/rendezvous', name: 'app_rendezvous_delete',methods:['GET','POST'])]
    public function delete(EntityManagerInterface $entityManager,Request $request): Response
              
        {  // $this->denyAccessUnlessGranted('ROLE_AGENT');
@@ -220,7 +258,7 @@ class RendezvousController extends AbstractController
 
        #[Route('/rendezvous/filtre', name: 'app_rendezvous_medecin_filtre',methods:['POST'])]
        public function filtre(SpecialiteRepository $specialiteRepository ,Request $request): Response
-       {  $this->denyAccessUnlessGranted('ROLE_AGENT');
+       { // $this->denyAccessUnlessGranted('ROLE_AGENT');
          $specialitefiltre=[];
           $data=json_decode($request->getContent(),false);
            if (empty($data->id)) {

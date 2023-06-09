@@ -103,7 +103,7 @@ class RegistrationController extends AbstractController
     }
 
 
-    #[Route('/user/{id}', name: 'app_user_update',methods: [ 'POST','GET'])]
+    #[Route('/update/user/{id}', name: 'app_user_update',methods: [ 'POST','GET'])]
     public function  update(EntityManagerInterface $entityManager,Request $request,SpecialiteRepository $specialiteRepository,SluggerInterface $slugger,int $id): Response
     {   
 

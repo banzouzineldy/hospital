@@ -18,7 +18,6 @@ class RdvsMiseAjourType extends AbstractType
        
         $builder
         ->add('date',DateTimeType::class)
-        ->add('dateFin',DateTimeType::class)
         ->add('motif',TextareaType::class)
         ->add('patient',ChoiceType::class,[
             'required'=>true,

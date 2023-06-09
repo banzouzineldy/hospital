@@ -2,28 +2,27 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils,AuthorizationCheckerInterface $authorizationChecker, RouterInterface $router): Response
     {
-       /*  if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-          // Redirigez en fonction du rôle
-            $role = $this->getUser()->getRoles()[0];
-
-            if ($role==='ROLE_AGENT') {
-                 return $this->redirectToRoute('app_dashboard_agent');
-               
-              }
-          
-         
-         } */
+ /*        if ($authorizationChecker->isGranted('ROLE_ADMIN')) {
+            // Rediriger l'utilisateur vers une route spécifique pour les administrateurs
+            return new RedirectResponse($router->generate('admin_dashboard'));
+        } elseif ($authorizationChecker->isGranted('ROLE_USER')) {
+            // Rediriger l'utilisateur vers une route spécifique pour les utilisateurs normaux
+            return new RedirectResponse($router->generate('user_dashboard'));
+            // return new RedirectResponse($this->urlGenerator->generate('app_dashboard_medecin'));
+        } */
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

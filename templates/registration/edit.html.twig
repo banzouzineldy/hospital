@@ -1,427 +1,505 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
-<!-- add-doctor24:06-->
 <head>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    <title> Hospital</title>
-    <link rel="stylesheet" type="text/css" href="/assts/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/assts/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/assts/css/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="/assts/css/bootstrap-datetimepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="/assts/css/style.css">
-    <!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Medicative Hospital || Health & Medical HTML Template</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link href="/asset/img/favicon.png" rel="shortcut icon" type="image/png"> 
+
 </head>
 
-<body>
-    <div class="main-wrapper">
-        <div class="header">
-			<div class="header-left">
-				<a href="index-2.html" class="logo">
-					<img src="assets/img/logo.png" width="35" height="35" alt=""> <span>Preclinic</span>
-				</a>
-			</div>
-			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
-            <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
-            <ul class="nav user-menu float-right">
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right">3</span></a>
-                    <div class="dropdown-menu notifications">
-                        <div class="topnav-dropdown-header">
-                            <span>Notifications</span>
-                        </div>
-                      
-                        <div class="topnav-dropdown-footer">
-                            <a href="activities.html">View all Notifications</a>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item dropdown d-none d-sm-block">
-                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
-                </li>
-                <li class="nav-item dropdown has-arrow">
-                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
-                        <span class="user-img"><img class="rounded-circle" src="assets/img/user.jpg" width="40" alt="Admin">
-							<span class="status online"></span></span>
-                        <span>Admin</span>
-                    </a>
-					<div class="dropdown-menu">
-						<a class="dropdown-item" href="profile.html">My Profile</a>
-						<a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-						<a class="dropdown-item" href="settings.html">Settings</a>
-						<a class="dropdown-item" href="login.html">Logout</a>
-					</div>
-                </li>
-            </ul>
-            <div class="dropdown mobile-user-menu float-right">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile.html">My Profile</a>
-                    <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
-                    <a class="dropdown-item" href="settings.html">Settings</a>
-                    <a class="dropdown-item" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-        <div class="sidebar" id="sidebar">
-            <div class="sidebar-inner slimscroll">
-                <div id="sidebar-menu" class="sidebar-menu">
-                    <ul>
-                            <li>
-                            <a href=""><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
-                        </li>
-						<li class="active">
-                            <a href="/show/doctor"><i class="fa fa-user-md"></i> <span>Doctors</span></a>
-                        </li>
-                        <li class="">
-                            <a href="/patient"><i class="fa fa-wheelchair"></i> <span>Patients</span></a>
-                        </li>
-                        <li>
-                            <a href="/rendezvous"><i class="fa fa-calendar"></i> <span>Rendez vous</span></a>
-                        </li> 
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-wrapper">
-            <div class="content">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">modifier un utilisateur</h4>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                         {{form_start(form) }}
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        {# <label>Nom <span class="text-danger">*</span></label> #}
-                                       
-                                          {{form_row(form.nom) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                       
-                                        {{form_row(form.prenom) }} 
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                       {#  <label>datenaissance <span class="text-danger">*</span></label> #}
-                                         {{form_row(form.datenaissance) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                       {#  <label>Adresse <span class="text-danger">*</span></label> #}
-                                        {{form_row(form.adresse) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        {# <label>Telephone</label> #}
-                                        {{form_row(form.telephone) }}
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        {{form_row(form.email) }}
-                                    </div>
-                                </div>
-								<div class="col-sm-6">
-                                    <div class="form-group">
-                                    
-                                        <div class=>
-                                           	{{form_row(form.genre) }}
-                                        </div>
-                                    </div>
-                                </div>
-								<div class="col-sm-12">
-									 <div class="row">
-										<div class="col-sm-12">
-											<div class="form-group">
-												{{ form_row(form.specialite) }}
-											</div>
-										</div> 
-										{# <div class="col-sm-6 col-md-6 col-lg-3">
-											<div class="form-group">
-												<label>Country</label>
-												<select class="form-control select">
-													<option>USA</option>
-													<option>United Kingdom</option>
-												</select>
-											</div>
-										</div> #}
-										<div class="col-sm-6 col-md-6 col-lg-3">
-											<div class="form-group">
-												{# <label>Specialite</label> #}
-											</div>
-										</div>
+<body id="page-top">
 
-									</div>
-								</div>
-                <div class="col-sm-6">
-                         		{{ form_row(form.plainPassword) }}       
-                                </div> 
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon ">
+                    <i class="fas fa-hospital-alt"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">CHU Hôpital</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+             <!-- Divider -->
+             <hr class="sidebar-divider">
+             <!-- Nav Item - Nationalites -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-flag"></i>
+                    <span>Nationalites</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Services -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-hospital"></i>
+                    <span>Services</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Unites -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-hospital-symbol"></i>
+                    <span>Unités</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Fonctions -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-stethoscope"></i>
+                    <span>Fonctions</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Spécialités -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-notes-medical"></i>
+                    <span>Spécialités</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Qualifications -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-notes-medical"></i>
+                    <span>Qualifications</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Agents -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-user-md"></i>
+                    <span>Agents</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Pathologies -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-virus"></i>
+                    <span>Pathologies</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Patients -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fab fa-accessible-icon"></i>
+                    <span>Patients</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Chambres -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-door-closed"></i>
+                    <span>Chambres</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Lits -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-bed"></i>
+                    <span>Lits</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <!-- Nav Item - Hospitalisations -->
+            <li class="nav-item active">
+                <a class="nav-link" href="">
+                    <i class="fas fa-procedures"></i>
+                    <span>Hospitalisations</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
+                    <!-- Topbar Search -->
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
                             </div>
-							{# <div class="form-group">
-                                <label>Short Biography</label>
-                                <textarea class="form-control" rows="3" cols="30"></textarea>
-                            </div> #}
-                            <div class="form-group">
-                               {#  <label class="display-block">Status</label>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="status" id="doctor_active" value="option1" checked>
-									<label class="form-check-label" for="doctor_active">
-									Active
-									</label>
-								</div> #}
-								{# <div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="status" id="doctor_inactive" value="option2">
-									<label class="form-check-label" for="doctor_inactive">
-									Inactive
-									</label>
-								</div> #}
+                        </div>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                aria-labelledby="searchDropdown">
+                                <form class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control bg-light border-0 small"
+                                            placeholder="Search for..." aria-label="Search"
+                                            aria-describedby="basic-addon2">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="m-t-20 text-center">
-                          {#    {{ form_row(form.submit, { 'label': 'Create Doctor' }) }} #}
-                               
+                        </li>
+
+                        <!-- Nav Item - Alerts -->
+{#                         <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alerts Center
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-donate text-white"></i>
+                                        </div>
+                                    </div>
+                                    
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
-                        {{form_end(form) }}
+                        </li> #}
+
+                        <!-- Nav Item - Messages -->
+                        {# <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="messagesDropdown">
+
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="img/undraw_profile_2.svg"
+                                            alt="...">
+                                        <div class="status-indicator"></div>
+                                    </div>
+                                   
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="img/undraw_profile_3.svg"
+                                            alt="...">
+                                        <div class="status-indicator bg-warning"></div>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="dropdown-list-image mr-3">
+                                        <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+                                            alt="...">
+                                        <div class="status-indicator bg-success"></div>
+                                    </div>
+                                    
+                                </a>
+                        
+                            </div>
+                        </li> #}
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">Admin</span>
+                                <img class="img-profile rounded-circle"
+                                    src="/assets/img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                 
+                                </a>
+                                {# <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Settings
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Activity Log
+                                </a> #}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('app_logout')}}" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Déconnexion
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    
+
+                    <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="p-5">
+                            <div>
+                                <h1 class="h4 text-gray-900 mb-4">Modifier un Agent!</h1>
+                            </div>
+                             
+                              {{form_start(form) }}
+
+                              <div class="form-group row">
+                                  <div class="col-sm-6 mb-3 mb-sm-0">
+                                     {{form_row(form.nom) }}
+
+                                  </div>
+                                  <div class="col-sm-6">
+                                    {{ form_row(form.prenom) }}
+                                  </div>
+                              </div>
+
+                             <div class="form-group row">
+                                  <div class="col-sm-6 mb-3 mb-sm-0">
+                                    {{ form_row(form.datenaissance) }}
+
+                                  </div>
+                                  <div class="col-sm-6">
+                                      {{ form_row(form.adresse) }}
+                                  </div>
+
+                                </div>
+                              
+                                <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                     {{ form_row(form.telephone) }} 
+
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_row(form.genre) }}
+                                </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{ form_row(form.email) }}
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                      {{ form_row(form.plainPassword) }}
+
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    {{ form_row(form.specialite) }}
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                      {{ form_row(form.roles) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                     {{ form_row(form.brochure)}}
+    
+                                    </div>
+                                    <div class="col-sm-6">
+                                         {{ form_widget(form.submit) }}
+                                    </div>
+                                </div>
+                                    
+                               {#  <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{form_row(form.brochure)}}
+    
+                                    </div>
+                                </div> #}
+                               {{ form_end(form) }}
+
+                        </div>
                     </div>
                 </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+
+
+                       
+                    </div>
+
+                    <!-- Content Row -->
+
+                    <div class="row">
+
+                    </div>
+
+
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
-			<div class="notification-box">
-                <div class="msg-sidebar notifications msg-noti">
-                    <div class="topnav-dropdown-header">
-                        <span>Messages</span>
-                    </div>
-                    <div class="drop-scroll msg-list-scroll" id="msg_list">
-                        <ul class="list-box">
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">R</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Richard Miles </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item new-message">
-                                        <div class="list-left">
-                                            <span class="avatar">J</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">John Doe</span>
-                                            <span class="message-time">1 Aug</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">T</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Tarah Shropshire </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">M</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Mike Litorus</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">C</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Catherine Manseau </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">D</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Domenic Houston </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">B</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Buster Wigton </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">R</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Rolland Webber </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">C</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author"> Claire Mapes </span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">M</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Melita Faucher</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">J</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Jeffery Lalor</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">L</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Loren Gatlin</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="chat.html">
-                                    <div class="list-item">
-                                        <div class="list-left">
-                                            <span class="avatar">T</span>
-                                        </div>
-                                        <div class="list-body">
-                                            <span class="message-author">Tarah Shropshire</span>
-                                            <span class="message-time">12:28 AM</span>
-                                            <div class="clearfix"></div>
-                                            <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="topnav-dropdown-footer">
-                        <a href="chat.html">See all messages</a>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2023</span>
                     </div>
                 </div>
-            </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
+        <!-- End of Content Wrapper -->
+
     </div>
-    <div class="sidebar-overlay" data-reff=""></div>
-    <script src="assts/js/jquery-3.2.1.min.js"></script>
-	<script src="assts/js/popper.min.js"></script>
-    <script src="assts/js/bootstrap.min.js"></script>
-    <script src="assts/js/jquery.slimscroll.js"></script>
-    <script src="assts/js/select2.min.js"></script>
-	<script src="assts/js/moment.min.js"></script>
-	<script src="assts/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="assts/js/app.js"></script>
+    <!-- End of Page Wrapper -->
+   
+    <!-- Bootstrap core JavaScript-->
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/assets/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/assets/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/assets/js/demo/chart-area-demo.js"></script>
+    <script src="/assets/js/demo/chart-pie-demo.js"></script>
+    
+    
 </body>
 
-
-<!-- add-doctor24:06-->
 </html>

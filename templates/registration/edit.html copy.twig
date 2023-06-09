@@ -94,7 +94,7 @@
             <div class="content">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <h4 class="page-title">Ajouter u doctor</h4>
+                        <h4 class="page-title">modifier un utilisateur</h4>
                     </div>
                 </div>
                 <div class="row">
@@ -107,7 +107,95 @@
                                        
                                           {{form_row(form.nom) }}
                                     </div>
-                                
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                       
+                                        {{form_row(form.prenom) }} 
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                       {#  <label>datenaissance <span class="text-danger">*</span></label> #}
+                                         {{form_row(form.datenaissance) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                       {#  <label>Adresse <span class="text-danger">*</span></label> #}
+                                        {{form_row(form.adresse) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {# <label>Telephone</label> #}
+                                        {{form_row(form.telephone) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        {{form_row(form.email) }}
+                                    </div>
+                                </div>
+								<div class="col-sm-6">
+                                    <div class="form-group">
+                                    
+                                        <div class=>
+                                           	{{form_row(form.genre) }}
+                                        </div>
+                                    </div>
+                                </div>
+								<div class="col-sm-12">
+									 <div class="row">
+										<div class="col-sm-12">
+											<div class="form-group">
+												{{ form_row(form.specialite) }}
+											</div>
+										</div> 
+										{# <div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												<label>Country</label>
+												<select class="form-control select">
+													<option>USA</option>
+													<option>United Kingdom</option>
+												</select>
+											</div>
+										</div> #}
+										<div class="col-sm-6 col-md-6 col-lg-3">
+											<div class="form-group">
+												{# <label>Specialite</label> #}
+											</div>
+										</div>
+
+									</div>
+								</div>
+                <div class="col-sm-6">
+                         		{{ form_row(form.plainPassword) }}       
+                                </div> 
+                            </div>
+							{# <div class="form-group">
+                                <label>Short Biography</label>
+                                <textarea class="form-control" rows="3" cols="30"></textarea>
+                            </div> #}
+                            <div class="form-group">
+                               {#  <label class="display-block">Status</label>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="status" id="doctor_active" value="option1" checked>
+									<label class="form-check-label" for="doctor_active">
+									Active
+									</label>
+								</div> #}
+								{# <div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="status" id="doctor_inactive" value="option2">
+									<label class="form-check-label" for="doctor_inactive">
+									Inactive
+									</label>
+								</div> #}
+                            </div>
+                            <div class="m-t-20 text-center">
+                          {#    {{ form_row(form.submit, { 'label': 'Create Doctor' }) }} #}
+                               
+                            </div>
                         {{form_end(form) }}
                     </div>
                 </div>
@@ -322,7 +410,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="assts/js/jquery-3.2.1.min.js"></script>

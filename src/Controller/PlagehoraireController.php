@@ -18,13 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PlagehoraireController extends AbstractController
 { 
-   /*  #[Route('/plagehoraire', name: 'app_plagehoraire_liste')]
-    public function index(): Response
-    {
-        return $this->render('plagehoraire/ajout.html.twig', [
-           
-        ]);
-    }   */
 
    #[Route('/plagehoraire', name: 'app_plage_horaire', methods: ['GET'])]
     public function liste(EntityManagerInterface $entityManager,PlagehoraireRepository $plagehoraireRepository,Security $security): Response

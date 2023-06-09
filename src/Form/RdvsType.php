@@ -18,33 +18,49 @@ class RdvsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     { 
         $builder
-            ->add('date',DateTimeType::class)
-            ->add('dateFin',DateTimeType::class)
-            ->add('motif',TextareaType::class)
+            ->add('date',DateTimeType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date',
+                'attr' => [
+                    'class' => 'my-date-field-class form-control form-control-sm ',
+                    'style' => 'color:red; font-size:12px;',
+                ],
+                ])
+            
+            ->add('motif',TextareaType::class,['attr' => [
+                'class' => 'form-control form-control-sm',
+                'style' => 'color:red; font-size:12px;',
+            ],])
+
             ->add('patient',ChoiceType::class,[
-                'required'=>true,
-               'mapped'=>false,
-               'attr'=>[
-                'class'=>'form-control mt-5'],
-                'choices'=>$options['patients']
+                'mapped'=>false,
+                'choices'=>$options['patients'],
+                'label' => 'Patient',
+                'attr'=>[
+                   'class'=>'form-control form-control-sm',
+                   'style' => 'color:black; font-size:20px;']
+                  
 
             ])
             ->add('emailsmedecin',ChoiceType::class,['choices'=>$options['emailmedecins'],
+            'label'=>false,
             
             'attr'=>[
-                'class'=>'form-control mt-5']])
+                'class'=>'form-control form-control-sm']])
 
                 ->add('specialite',ChoiceType::class,
-                
-                [   
+                  [   
                    'mapped'=>false,
                     'choices'=>$options['specialites'],
-            
+                    'label' => 'Specialite',
                      'attr'=>[
-                        'class'=>'form-control mt-5']])
+                        'class'=>'form-control form-control-sm',
+                        'style' => 'color:black; font-size:20px;']
+                        
+                        ])
 
             ->add('submit',SubmitType::class,['label'=>'soumettre','attr' => [
-                'class' => 'btn btn-primary mt-5']])
+                'class' => 'btn btn-primary  form-control ']])
         ;
     }
 

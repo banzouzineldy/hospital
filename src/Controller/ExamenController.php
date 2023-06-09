@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use Exception;
 use App\Entity\Examen;
+use App\Form\ExamenMiseAjourType;
+use App\Form\ExamenType;
 use App\Repository\ExamenRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,44 +16,63 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ExamenController extends AbstractController
 {
-    #[Route('/examen', name: 'app_examen')]
-    public function index(): Response
+    #[Route('/examen/ajout', name: 'app_examen_add')]
+    public function index(EntityManagerInterface $entityManager,ExamenRepository $examenRepository,Request $request): Response
     {
-        return $this->render('examen/index.html.twig', [
-            'controller_name' => 'ExamenController',
-        ]);
-    }
-
-    #[Route('/ajout/examen', name: 'app_examen_ajout')]
-    public function ajout(EntityManagerInterface $entitymanager,Request $request,$id,ExamenRepository $repository): Response
-    {   $user=$entitymanager->getRepository(Examen::class)->findOneBy([
-        "nom" =>$request->request->all()['nom'],
-      
-         ]); 
-
-         if ($user == null){
-            
-            $user=new Examen();
-            //$user->setNom($data->nom);
-            $user->setNom($request->request->all()['nom']);
-            $entitymanager->persist($user);
-            $entitymanager->flush(); 
         
-        }else{
-            return $this->json([
-                'code' =>1,
-                'message' => 'cet utilisateur existe deja'
-            ]);
+        $examen=new Examen();
+        $form=$this->createForm(ExamenType::class,$examen);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) { 
+            try {
+                $examens=$examenRepository->findOneBy(['libelle'=>$examen->getLibelle()]);
+                if ( $examens!= null) {
+                    $this->addFlash('danger', 'lexamen existe deja.');  
+                  
+                }else {
+                    $entityManager->persist($examen);
+                    $entityManager->flush();
+                    return $this->redirectToRoute('app_examen_liste');
+                    
+                }      
+                              
+            } catch (Exception $e) {
+                //throw $th;
+                dd($e->getMessage());
+            }
+           
+        }
+        return $this->render('examen/ajout.html.twig', [
+            'form' => $form->createView(),
+           
+             
+         ]);
         }
 
-        return $this->json([
-            'code' => 2,
-            'message' => 'insertion effectuée'
-        ]);
-    
+         #[Route('/edit/examen/{id}', name: 'app_examen_edit',methods:['GET','POST'])]
+         public function edit(EntityManagerInterface $entityManager,Request $request,ExamenRepository $examenRepository,$id): Response
+     
+         { 
+             $examen=$examenRepository->find($id);
+     
+             $form=$this->createForm(ExamenMiseAjourType::class,$examen);
+             $form->handleRequest($request);
+             
+             if ($form->isSubmitted() && $form->isValid()) { 
+                 $specialite = $form->getData();
+                 $entityManager->flush();
+                 $this->addFlash('success', 'la modification a reussi'); 
+                 return $this->redirectToRoute('app_specialite_liste'); 
+           
+             }
+             return $this->render('examen/edit.html.twig', [
+                 'form' => $form->createView(),
+             ]);
+     
+         }
 
-    }
-    #[Route('/delete/examen', name: 'app_examen_delete')]
+
+        #[Route('/delete/examen', name: 'app_examen_delete')]
     public function delete(EntityManagerInterface $entityManager,Request $request): Response
               
         {   
@@ -61,48 +83,37 @@ class ExamenController extends AbstractController
         
            return $this->json([
            'code'=>1,
-            'message'=>'Mise a jour effectué'
+            'message'=>'suppresion effectué'
 
             ]);
         
         }
 
-        #[Route('/{id}/edit', name: 'app_examen_form', methods: ['GET', 'POST'])]
-        public function form(EntityManagerInterface $entityManager,$id,ExamenRepository $examenrepository): Response
-        {   // $id = (int) $request->request->get('id');
-             $data=$examenrepository->findBy(['id' => $id]);
-             //$specialiteliste=$specialiteRepository->findAll(['id' => $id]);
-             return $this->render('examen/edit.html.twig', [
-               // 'specialite'=>$specialiteliste,
-               'data'=>$data[0]
-               
-                
+
+        #[Route('/examen', name: 'app_examen_liste')]
+        public function liste(ExamenRepository $examenRepository): Response
+                  
+            {   
+                $examen=$examenRepository->findAll();
+
+              return $this->render('examen/index.html.twig', [
+                'examens'=>$examen
             ]);
-        }
+            
+             
 
 
-        #[Route('/edit/{id}', name: 'app_examen')]
-        public function edit(EntityManagerInterface $entity,Request $request,ExamenRepository $examenrepository,$id): Response
-    
-        { 
-            $examen=$examenrepository->find($id);
-    
-            if  (!$examen) {
-               
-                throw $this->createNotFoundException(
-                    'No product found for id '.$id
-                );
+            
             }
-            $examen->setNom($request->request->all()['nom']);
-            $entity->flush();
-            $response = new JsonResponse(['status' => "ok"]);
-            return $response;
+
+
+   
+
+
+       
+
+
     
-    
-        }
-
-
-
 
 
 

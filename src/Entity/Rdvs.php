@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\RdvsRepository;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,9 +18,6 @@ class Rdvs
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateFin = null;
-
     #[ORM\Column(type: Types::TEXT)]
     private ?string $motif = null;
 
@@ -32,12 +30,18 @@ class Rdvs
     #[ORM\ManyToOne(inversedBy: 'rdvs')]
     private ?Specialite $specialite = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE ,options:['default'=>'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeInterface $dateEnregistrement = null;
 
+   /*  #[ORM\Column(type: Types::DATE_IMMUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $dateEnregistrement = null; */
+ 
     public function getId(): ?int
     {
         return $this->id;
     }
      public function __construct(){
+       $this->dateEnregistrement= new DateTimeImmutable();
        
      }
 
@@ -49,18 +53,6 @@ class Rdvs
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getDateFin(): ?\DateTimeInterface
-    {
-        return $this->dateFin;
-    }
-
-    public function setDateFin(\DateTimeInterface $dateFin): self
-    {
-        $this->dateFin = $dateFin;
 
         return $this;
     }
@@ -112,5 +104,21 @@ class Rdvs
 
         return $this;
     }
+
+    public function getDateEnregistrement(): ?\DateTimeInterface
+    {
+        return $this->dateEnregistrement;
+    }
+
+    public function setDateEnregistrement(\DateTimeInterface $dateEnregistrement): self
+    {
+        $this->dateEnregistrement = $dateEnregistrement;
+
+        return $this;
+    }
+
+   
+
+   
 
 }
