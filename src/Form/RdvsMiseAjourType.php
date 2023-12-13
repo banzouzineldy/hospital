@@ -17,32 +17,49 @@ class RdvsMiseAjourType extends AbstractType
     {
        
         $builder
-        ->add('date',DateTimeType::class)
-        ->add('motif',TextareaType::class)
+        ->add('date',DateTimeType::class, [
+            'widget' => 'single_text',
+            'label' => 'Date',
+            'attr' => [
+                'class' => 'my-date-field-class form-control form-control-sm ',
+                'style' => 'color:red; font-size:12px;',
+            ],
+            ])
+        
+        ->add('motif',TextareaType::class,['attr' => [
+            'class' => 'form-control form-control-sm',
+            'style' => 'color:red; font-size:12px;',
+        ],])
+
         ->add('patient',ChoiceType::class,[
-            'required'=>true,
-           'mapped'=>false,
-           'attr'=>[
-            'class'=>'form-control mt-5'],
-            'choices'=>$options['patients']
+            'mapped'=>false,
+            'choices'=>$options['patients'],
+            'label' => 'Patient',
+            'attr'=>[
+               'class'=>'form-control form-control-sm',
+               'style' => 'color:black; font-size:20px;']
+              
 
         ])
         ->add('emailsmedecin',ChoiceType::class,['choices'=>$options['emailmedecins'],
+        'label'=>'medecin',
         
         'attr'=>[
-            'class'=>'form-control mt-5']])
+            'class'=>'form-control form-control-sm']])
 
             ->add('specialite',ChoiceType::class,
-            
-            [   'required'=>true,
+              [   
                'mapped'=>false,
                 'choices'=>$options['specialites'],
-        
+                'label' => 'Specialite',
                  'attr'=>[
-                    'class'=>'form-control mt-5']])
+                    'class'=>'form-control form-control-sm',
+                    'style' => 'color:black; font-size:20px;']
+                    
+                    ])
 
-        ->add('submit',SubmitType::class,['label'=>'modifier','attr' => [
-            'class' => 'btn btn-primary']])
+        ->add('submit',SubmitType::class,['label'=>'reporter','attr' => [
+            'class' => 'btn btn-primary  form-control ']])
     ;
 }
 
@@ -55,10 +72,6 @@ public function configureOptions(OptionsResolver $resolver): void
     $resolver->setRequired('emailmedecins');
     $resolver->setRequired('specialites');
 }
-
-
-
-
 
 
 

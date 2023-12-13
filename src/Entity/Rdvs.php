@@ -33,6 +33,9 @@ class Rdvs
     #[ORM\Column(type: Types::DATETIME_MUTABLE ,options:['default'=>'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $dateEnregistrement = null;
 
+    #[ORM\ManyToOne(inversedBy: 'rdvs')]
+    private ?Doctors $docteur = null;
+
    /*  #[ORM\Column(type: Types::DATE_IMMUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $dateEnregistrement = null; */
  
@@ -113,6 +116,18 @@ class Rdvs
     public function setDateEnregistrement(\DateTimeInterface $dateEnregistrement): self
     {
         $this->dateEnregistrement = $dateEnregistrement;
+
+        return $this;
+    }
+
+    public function getDocteur(): ?Doctors
+    {
+        return $this->docteur;
+    }
+
+    public function setDocteur(?Doctors $docteur): self
+    {
+        $this->docteur = $docteur;
 
         return $this;
     }

@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Patient;
-use App\Form\PatienatMiseAjourType;
 use App\Form\PatientType;
-use App\Repository\NationaliteRepository;
-use App\Repository\PatientNationaliteRepository;
+use App\Form\PatienatMiseAjourType;
 use App\Repository\PatientRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\NationaliteRepository;
+use App\Form\HospitalisationMiseAJourType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\PatientNationaliteRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -47,6 +48,7 @@ class PatientController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
+            dd($form->isValid());
             
              $nationaliteid=$form->get('nationalite')->getData();
              $nationalite=$nationaliteRepository->find($nationaliteid);

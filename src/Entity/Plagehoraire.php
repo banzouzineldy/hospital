@@ -25,9 +25,6 @@ class Plagehoraire
     #[ORM\Column(length: 255)]
     private ?string $utilisateur = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
-
     #[ORM\ManyToOne(inversedBy: 'plagehoraires')]
     private ?User $utilisateurs = null;
 
@@ -80,18 +77,6 @@ class Plagehoraire
     public function setUtilisateur(string $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }

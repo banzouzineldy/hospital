@@ -13,21 +13,21 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-
+use Symfony\Component\Security\Core\Security;
 
 class SpecialiteController extends AbstractController
 {
     #[Route('/specialite/ajout', name: 'app_specialite_add')]
-    public function ajout(EntityManagerInterface $entityManager,Request $request,SpecialiteRepository $specialiteRepository): Response
+    public function ajout(EntityManagerInterface $entityManager,Request $request,SpecialiteRepository $specialiteRepository,Security $security): Response
 
-    {  /*  $user=$this->getUser();
-        $roles=['ROLE_ADMIN'];
-   
-       // $roles=$user->getRoles();
-       if (!array_intersect($user->getRoles(), $roles)) {
-         throw new AccessDeniedException('Acces refuse');
-       } */
-       $this->denyAccessUnlessGranted('ROLE_ADMIN');
+    {  
+       
+       $user=$security->getUser();
+       $comptes=$user;
+       $roles=['ROLE_ADMIN'];
+      if (!array_intersect($user->getRoles(), $roles)) {
+        throw new AccessDeniedException('Acces refuse');
+      } 
         $specialite=new Specialite();
 
         $form=$this->createForm(SpecialiteType::class,$specialite);
@@ -49,6 +49,7 @@ class SpecialiteController extends AbstractController
 
         return $this->render('specialite/ajout.html.twig', [
             'form' => $form->createView(),
+            'user'=>$comptes
         ]);
     }
 
@@ -71,10 +72,14 @@ class SpecialiteController extends AbstractController
         }
 
         #[Route('/edit/specialite/{id}', name: 'app_specialite_edit')]
-        public function edit(EntityManagerInterface $entityManager,Request $request,SpecialiteRepository $specialiteRepository,$id): Response
+        public function edit(Security $security ,EntityManagerInterface $entityManager,Request $request,SpecialiteRepository $specialiteRepository,$id): Response
     
         {  
            $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+           $user=$security->getUser();
+           $comptes=$user;
+           $roles=['ROLE_ADMIN'];
             $specialite=$specialiteRepository->find($id);
     
             $form=$this->createForm(SpecialiteMiseajouType::class,$specialite);
@@ -89,18 +94,26 @@ class SpecialiteController extends AbstractController
             }
             return $this->render('specialite/edit.html.twig', [
                 'form' => $form->createView(),
+                'user'=>$comptes
             ]);
     
         }
 
 
         #[Route('/specialite', name: 'app_specialite_liste')]
-        public function index(EntityManagerInterface $entity ,Request $request,SpecialiteRepository $specialiteRepository): Response
+        public function index( Security $security,EntityManagerInterface $entity ,Request $request,SpecialiteRepository $specialiteRepository): Response
         {  
-           $this->denyAccessUnlessGranted('ROLE_ADMIN');
+          // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+           $user=$security->getUser();
+           $comptes=$user;
+           $roles=['ROLE_ADMIN'];
+          if (!array_intersect($user->getRoles(), $roles)) {
+            throw new AccessDeniedException('Acces refuse');
+          }
             $specialites=$specialiteRepository->findAll();
             return $this->render('specialite/index.html.twig', [
                 'specialites' => $specialites,
+                'user'=>$comptes
             ]);
         }
 

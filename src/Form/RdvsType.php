@@ -43,7 +43,7 @@ class RdvsType extends AbstractType
 
             ])
             ->add('emailsmedecin',ChoiceType::class,['choices'=>$options['emailmedecins'],
-            'label'=>false,
+            'label'=>'medecin',
             
             'attr'=>[
                 'class'=>'form-control form-control-sm']])

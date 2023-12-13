@@ -215,9 +215,9 @@
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
+                                <i class=""></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <span class="badge badge-danger badge-counter"></span>
                             </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -257,9 +257,9 @@
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i>
+                                <i class="fa"></i>
                                 <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
+                                <span class="badge badge-danger badge-counter"></span>
                             </a>
                             <!-- Dropdown - Messages -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -307,7 +307,7 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">{{user.getPrenom}}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">{{users.getPrenom}}</span>
                                 <img class="img-profile rounded-circle"
                                     src="assets/img/undraw_profile.svg">
                             </a>
@@ -336,7 +336,27 @@
 
                     </ul>
                 
-                </nav>
+           </nav>
+
+ <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Déconnexion?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Vous voulez vraiment</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <a class="btn btn-primary" href="{{ path('app_logout')}}">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -371,8 +391,12 @@
 										<th>Adresse</th>
 										<th>Telephone</th>
                                         <th>email</th>
-                                         <th>genre</th>
-                                          <th>specialite</th>
+                                        <th>genre</th>
+                                        <th>service</th>
+                                         <th>specialite</th>
+                                        <th>qualification</th>
+                                         <th>unite</th>
+                                         <th>fonction</th>
 										<th class="text-right">Action</th>
 
 
@@ -403,21 +427,21 @@
 						<td>{{users.email}}</td>
 
                       <td>{{users.genre}}</td>
-                                          
-                        <td>{{users.getSpecialite.getNom}}</td>
-                      <td class="text-right mt-5">
-											
+                       <td>{{users.getService.getLibelle}}</td>                 
+                      <td>{{users.getSpecialite.getNom}}</td>
+                        <td>{{users.getQualification.getLibelle}}</td>
+                        <td>{{users.getUnite.getLibelle}}</td>
+                        <td>{{users.getFonction.getLibelle}}</td> 
+                      <td class="text-right mt-5">					
 						<a class="btn btn-warning" href="{{path('app_user_update',{'id':users.id})}}"><i class="fa fa-pencil m-r-5"></i>Modifer</a>
-						<a class="btn btn-danger delete-user" href="#delete_user" data-toggle="modal" data-target="" id="{{users.id}}"><i class="fa fa-trash-o m-r-5"></i>Supprimer</a>
+						<a class="btn btn-danger delete-user" href="#delete_user" data-toggle="modal" data-target="" id="{{users.id}}"><i class="fas fa-trash"></i>Supprimer</a>
 					</td> 
 
 					</tr>
                   {% endfor %}
-
-
-                                  
-                                    </tbody>
-                                </table>
+                
+                    </tbody>
+                </table>
                             </div>
                         </div>
                     </div>
@@ -428,7 +452,7 @@
 						<img src="/assets/img/sent.png" alt="" width="50" height="46">
 						<h3>voulez vous suprimer cet agent ?</h3>
 						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Fermer</a>
-							<button type="submit" class="btn btn-danger supprimer_user'" >Supprimer</button>
+							<button type="submit" class="btn btn-danger supprimer_user" >Supprimer</button>
 						</div>
 					</div>
 				</div>
@@ -503,10 +527,11 @@
  
 $(document).on('click','.delete-user',function(){
       var id=$(this).attr("id");
+     
       let url ="{{path('app_register_delete',{id :'id_' })}}";
       url = url.replace("id_", id);
       $('.supprimer_user').click(function(){
-        
+       
         $.ajax({
         method:"POST",
         data:{id:id},

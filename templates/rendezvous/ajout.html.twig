@@ -28,7 +28,7 @@
   .h4{
     font-size:30px;
     margin-left:20px;
-    color:black
+    color:blue;
   }
   
   </style>
@@ -238,50 +238,73 @@
                             </div>
                             {{ form_start(form) }}
 
-                                <div class="mb-3">
-                                    {{form_row(form.date,{
-                                  'label_attr': {'style': 'color:black; font-size: 18px; p-5;'},
+                              <div class="form-group row">
+                                  <div class="col-sm-6 mb-3 mb-sm-0">
+                                  
+                                  {{form_row(form.date,{
+                                  'label_attr': {'style': 'color:blue; font-size: 18px; p-5;'},
                                   'attr': {
-                                'class': 'form-group-lab',
-                                'style': 'color:black; font-size:16px;',
+                                'style': 'color:blue; font-size:16px;',
                                     }}) }}
 
-                                    </div>
-                                    <div class="mb-3">
+                                  </div>
+                                  <div class="col-sm-6">
+
                                          {{form_row(form.patient,{
-                                    'label_attr': {'style': 'color:black; font-size:18px;'},
+                                    'label_attr': {'style': 'color:blue; font-size:20px;'},
                                     'attr': {
-                                    'class': 'form-group-label',
-                                    'style': 'color:black; font-size:18px;',
-                                    }}) }}
-                                    </div>
-                                    <div class="mb-3">
-                                            {{form_row(form.emailsmedecin,{
-                                     'label_attr': {'style': 'color:black; font-size: 18px;'},
+                                    'style': 'color:blue; font-size:18px;',
+                                    }}) }}             
+                               
+
+                                  </div>
+                              </div>
+
+                             <div class="form-group row">
+                                  <div class="col-sm-6 mb-3 mb-sm-0">
+                                         {{form_row(form.emailsmedecin,{
+                                     'label_attr': {'style': 'color:blue; font-size: 18px;'},
                                     'attr': {
-                                     'class': '',
-                                  'style': 'color:black; font-size:16px;',
+                                  'style': 'color:blue; font-size:16px;',
                                      }}) }}   
 
-                                    </div>
-                                    <div class="mb-3">
+                                  </div>
+                                  <div class="col-sm-6">
                                          {{form_row(form.specialite,{
-                                  'label_attr': {'style': 'color:black; font-size: 18px;'},
+                                  'label_attr': {'style': 'color:blue; font-size: 18px;'},
                                   'attr': {
-                                'style': 'color:black; font-size:16px;',
+                                'style': 'color:blue; font-size:16px;',
                                      }}) }}
-                                 
-                                    </div>
-                                    <div>
-                                    {{form_row(form.motif,{
-                                  'label_attr': {'style': 'color:black; font-size: 18px;'},
+
+                                  </div>
+
+                                </div>
+                              
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                         {{form_row(form.motif,{
+                                  'label_attr': {'style': 'color:blue; font-size: 18px;'},
                                   'attr': {
-                                'class': 'form-group-label',
-                                'style': 'color:black; font-size:16px p-5;',
-                            }}) }}
+                
+                                'style': 'color:blue; font-size:16px p-5;',
+                            }}) }} 
 
                                     </div>
-                            {{ form_end(form) }}
+
+                                    
+                                    <div class="col-sm-6">
+                                       
+                                    </div>
+                                </div>
+                                    
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{ form_widget(form.submit) }}
+    
+                                    </div>
+                                </div> 
+                               {{ form_end(form) }}
+                                
                         </div>
                     </div>
                 </div>
@@ -323,7 +346,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Quitter?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -356,7 +379,7 @@
     <script>
 
     var champselect_doctor=document.getElementById('rdvs_emailsmedecin');
-          champselect_doctor.classList.add('d-none');
+         champselect_doctor.classList.add('d-none');
      $('#rdvs_specialite').on('change', function(){
        
             let me = $(this);
@@ -384,7 +407,7 @@ const options = {
 };
 
 // Effectuer la requête POST
-fetch('https://localhost:8000/rendezvous/filtre', options)
+fetch('rendezvous/filtre', options)
   .then(response => response.json())
   .then(data => {
     // Traiter la réponse JSON

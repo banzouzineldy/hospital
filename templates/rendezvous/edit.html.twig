@@ -28,7 +28,7 @@
   .h4{
     font-size:30px;
     margin-left:20px;
-    color:black
+    color:blue;
   }
   
   </style>
@@ -213,9 +213,9 @@
                                     Activity Log
                                 </a> #}
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="{{ path('app_logout')}}" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Deconnexion
+                                    Déconnexion
                                 </a>
                             </div>
                         </li>
@@ -234,54 +234,77 @@
                     <div class="col-lg-8 offset-lg-2">
                         <div class="p-5">
                             <div>
-                                <h1 class="h4 text-blue-900 mb-4">Ajouter un rendezvous</h1>
+                                <h1 class="h4 text-blue-900 mb-4">Reporter un rendezvous</h1>
                             </div>
                             {{ form_start(form) }}
 
-                                <div class="mb-3">
-                                    {{form_row(form.date,{
-                                  'label_attr': {'style': 'color:black; font-size: 18px; p-5;'},
+                              <div class="form-group row">
+                                  <div class="col-sm-6 mb-3 mb-sm-0">
+                                  
+                                  {{form_row(form.date,{
+                                  'label_attr': {'style': 'color:blue; font-size: 18px; p-5;'},
                                   'attr': {
-                                'class': 'form-group-lab',
-                                'style': 'color:black; font-size:16px;',
+                                'style': 'color:blue; font-size:16px;',
                                     }}) }}
 
-                                    </div>
-                                    <div class="mb-3">
+                                  </div>
+                                  <div class="col-sm-6">
+
                                          {{form_row(form.patient,{
-                                    'label_attr': {'style': 'color:black; font-size:18px;'},
+                                    'label_attr': {'style': 'color:blue; font-size:20px;'},
                                     'attr': {
-                                    'class': 'form-group-label',
-                                    'style': 'color:black; font-size:18px;',
-                                    }}) }}
-                                    </div>
-                                    <div class="mb-3">
-                                            {{form_row(form.emailsmedecin,{
-                                     'label_attr': {'style': 'color:black; font-size: 18px;'},
+                                    'style': 'color:blue; font-size:18px;',
+                                    }}) }}             
+                               
+
+                                  </div>
+                              </div>
+
+                             <div class="form-group row">
+                                  <div class="col-sm-6 mb-3 mb-sm-0">
+                                         {{form_row(form.emailsmedecin,{
+                                     'label_attr': {'style': 'color:blue; font-size: 18px;'},
                                     'attr': {
-                                     'class': '',
-                                  'style': 'color:black; font-size:16px;',
+                                  'style': 'color:blue; font-size:16px;',
                                      }}) }}   
 
-                                    </div>
-                                    <div class="mb-3">
+                                  </div>
+                                  <div class="col-sm-6">
                                          {{form_row(form.specialite,{
-                                  'label_attr': {'style': 'color:black; font-size: 18px;'},
+                                  'label_attr': {'style': 'color:blue; font-size: 18px;'},
                                   'attr': {
-                                'style': 'color:black; font-size:16px;',
+                                'style': 'color:blue; font-size:16px;',
                                      }}) }}
-                                 
-                                    </div>
-                                    <div>
-                                    {{form_row(form.motif,{
-                                  'label_attr': {'style': 'color:black; font-size: 18px;'},
+
+                                  </div>
+
+                                </div>
+                              
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                         {{form_row(form.motif,{
+                                  'label_attr': {'style': 'color:blue; font-size: 18px;'},
                                   'attr': {
-                                'class': 'form-group-label',
-                                'style': 'color:black; font-size:16px p-5;',
-                            }}) }}
+                
+                                'style': 'color:blue; font-size:16px p-5;',
+                            }}) }} 
 
                                     </div>
-                            {{ form_end(form) }}
+
+                                    
+                                    <div class="col-sm-6">
+                                       
+                                    </div>
+                                </div>
+                                    
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{ form_widget(form.submit) }}
+    
+                                    </div>
+                                </div> 
+                               {{ form_end(form) }}
+                                
                         </div>
                     </div>
                 </div>
@@ -307,7 +330,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2023</span>
+                        <span>Copyright &copy; Neldy Ruth</span>
                     </div>
                 </div>
             </footer>
@@ -318,13 +341,12 @@
 
     </div>
     <!-- End of Page Wrapper -->
-
-       <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Quitter?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -354,8 +376,64 @@
     <!-- Page level custom scripts -->
     <script src="/assets/js/demo/chart-area-demo.js"></script>
     <script src="/assets/js/demo/chart-pie-demo.js"></script>
-    
+    <script>
 
+        
+    var champselect_doctor=document.getElementById('rdvs_mise_ajour_emailsmedecin');
+         champselect_doctor.classList.add('d-none');
+     $('#rdvs_mise_ajour_specialite').on('change', function(){
+       
+            let me = $(this);
+            var id = me.val();
+            console.log(id);
+    
+            if(id == '' ){
+                html  = `<option value="" selected> Sélectionner d'abord un service </option>`;
+                var medecins = $('#rdvs_mise_ajour_emailsmedecin');
+                medecins.empty();
+                medecins.append(html);
+            }else{
+                // Données à envoyer dans la requête POST
+         const data = {
+        id:id
+            };
+            
+
+// Options de la requête
+const options = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+};
+
+
+// Effectuer la requête POST
+fetch('/rendezvous/filtre/modif', options)
+  .then(response => response.json())
+  .then(data => {
+    // Traiter la réponse JSON
+    console.log(data)
+     var emailsdoctor=document.getElementById('rdvs_mise_ajour_emailsmedecin');
+     emailsdoctor.innerHTML="";
+     data.utilisateur.forEach(element => {
+    document.getElementById('rdvs_mise_ajour_emailsmedecin').innerHTML+= `<option value="${element.id}">${element.nom}</option>`
+    
+});
+champselect_doctor.classList.remove('d-none');
+      
+
+  })
+  .catch(error => {
+    // Gérer les erreurs
+    console.error('Erreur:', error);
+  });
+
+
+            }
+       }) 
+    </script>
     
     
 </body>

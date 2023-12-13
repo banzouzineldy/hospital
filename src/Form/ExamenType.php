@@ -7,13 +7,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ExamenType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle')
+            ->add('libelle',TextType::class,['label'=>'nom examen','attr' => [
+                'class' => 'form-control-sm']
+                ])
 
             ->add('submit',SubmitType::class,['label'=>'valider','attr' => [
                 'class' => 'btn btn-primary  form-control ']])

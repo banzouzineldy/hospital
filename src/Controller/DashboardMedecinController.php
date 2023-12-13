@@ -17,7 +17,7 @@ class DashboardMedecinController extends AbstractController
     public function index(Security $security,RdvsRepository $rdvsRepository,PatientRepository $patientRepository,UserRepository $userRepository ): Response
 
     { 
-       // $this->denyAccessUnlessGranted('ROLE_MEDECIN');
+        $this->denyAccessUnlessGranted('ROLE_MEDECIN');
         if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->generateUrl('app_login'));
         }else   

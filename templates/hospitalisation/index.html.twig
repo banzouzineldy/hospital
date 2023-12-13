@@ -1,0 +1,365 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Hospital Medicative</title>
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="assetse/css/app.min.css">
+    <link rel="stylesheet" href="assetse/bundles/datatables/datatables.min.css">
+    <link rel="stylesheet" href="assetse/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+    <!-- Template CSS -->
+    <link rel="stylesheet" href="assetse/css/style.css">
+    <link rel="stylesheet" href="assetse/css/components.css">
+    <!-- Custom style CSS -->
+    <link rel="stylesheet" href="assetse/css/custom.css">
+    <link rel='shortcut icon' type='image/x-icon' href='assetse/img/favicon 1.ico' /
+    </head>
+
+    <body>
+    <div class="loader"></div>
+    <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <div class="form-inline mr-auto">
+            <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+                    collapse-btn"> <i data-feather="align-justify"></i></a></li>
+            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <i data-feather="maximize"></i>
+                </a></li>
+            <li>
+                <form class="form-inline mr-auto">
+                <div class="search-element">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                    <button class="btn" type="submit">
+                    <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                </form>
+            </li>
+            </ul>
+        </div>
+        <ul class="navbar-nav navbar-right">
+            <li class="dropdown dropdown-list-toggle">
+                
+            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+                <div class="dropdown-header">
+                
+                <div class="float-right">
+                    
+                </div>
+                </div>
+                
+                
+            </div>
+            </li>
+            <li class="dropdown dropdown-list-toggle"></a>
+            <div class="dropdown-menu dropdown-list dropdown-menu-right pullDown">
+            
+                <div class="dropdown-list-content dropdown-list-icons">
+                    
+                </div>
+                
+            </div>
+            </li>
+            <li class="dropdown"><a href="#" data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="assets/img/user.png"
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right pullDown">
+                <div class="dropdown-title"></div>
+                <a href="profile.html" class="dropdown-item has-icon"> <i class="far
+                    fa-user"></i> Profile
+                
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="auth-login.html" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                Logout
+                </a>
+            </div>
+            </li>
+        </ul>
+        </nav>
+        <div class="main-sidebar sidebar-style-2">
+        <aside id="sidebar-wrapper">
+            <div class="sidebar-brand">
+            <a href="index.html"> <img alt="image" src="assetse/img/logo.png" class="header-logo" /> <span
+                class="logo-name">Medicative</span>
+            </a>
+            </div>
+            <ul class="sidebar-menu">
+            <li class="menu-header">Main</li>
+            <li class="dropdown active">
+                <a href="index.html" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+            </li>
+        
+            <li class="menu-header">Hospital Elements</li>
+            <li >
+                <a href="" class="nav-link"><i class="fas fa-  fa-hospital"></i><span>Services</span></a>
+            </li>
+            <li>
+                <a href="" "class="nav-link collapsed""><i class="fas fa-fw fa-hospital-symbol"></i><span>Unités</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-notes-medical"></i><span>Spécialités</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-stethoscope"></i><span>Fonctions</span></a>
+            </li>
+            <li class="menu-header">Hospital Personnal</li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-user-md"></i><span>Agents</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-wheelchair"></i><span>Patients</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-diagnoses"></i><span>Pathologies</span></a>
+            </li>
+            </li>
+            <li class="menu-header">Hospitalizations </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-bed"></i><span>Lits</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-door-closed"></i><span>Chambre</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-procedures"></i><span>Hospitalisations</span></a>
+            </li>
+            <li class="menu-header">Medical Appointment </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-calendar-check"></i><span>rendez-vous</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-calendar"></i><span>Plages Horaires</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-x-ray"></i><span>Examens</span></a>
+            </li>
+            <li>
+                <a href="" class="nav-link"><i class="fas fa-fw fa-file-medical"></i><span>Actes médicaux</span></a>
+            </li>
+            
+            
+            </ul>
+        </aside>
+        </div>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <div class="main-content">
+                        <section class="section">   
+                        <div class="row">
+                        <div class="col-sm-4 col-3">
+                            <h4 class="page-title">Hospitalisations</h4> 
+                        </div>
+                        <div class="col-sm-8 col-9 text-right m-b-20">
+                            <a href="{{path('app_hospitalisation_add') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter une Hospitalisation</a>
+                        </div>
+                    </div>
+                    <br>
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-blue">Liste des Hospitalisations</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="tableExport" width="100%" cellspacing="0">
+                                        <thead>
+                                        <tr>
+                                        <th>Patient</th>
+                                        <th>Type_Admission</th>
+                                        <th>Motif_Admission</th>
+                                        <th>Pathologie</th>
+                                        <th>Chambre</th>
+                                        <th>Lit</th>
+                                        <th>Service</th>
+                                        <th>Spécialité</th>
+                                        <th>Date_Entrrée</th>
+                                        <th>Date_Sortie</th>
+                                        <th>Motif_Sortie</th>
+                                        
+                                        <th class="text-right">Action</th>
+                                        </tr>  
+                                        </thead>
+                                        
+                                        <tbody>
+                                        {% for hospitalisations in hospitalisation %}
+                                        <tr>
+                        
+                                            <td>{{hospitalisations.getPatient.getNom ~ ' ' ~ hospitalisations.getPatient.getPrenom }}</td>
+                                            <td>{{hospitalisations.typeAdmission}}</td>
+                                            <td>{{hospitalisations.motifAdmission}}</td>
+                                            <td>{{hospitalisations.getPathologie.getlibelle}}</td>
+                                            <td>{{hospitalisations.getChambre.getNumChambre}}</td>
+                                            <td>{{hospitalisations.getLit.getNumLit}}</td>
+                                           {#  <td>{{hospitalisations.getAgent.getNom ~ ' ' ~ hospitalisations.getAgent.getPrenom }}</td> #}
+                                            <td>{{hospitalisations.getService.getlibelle}}</td>
+                                            <td>{{hospitalisations.getSpecialite.getNom}}</td>
+                                            <td>{{hospitalisations.dateEntree|date('Y-m-d')}}</td>
+                                            <td>{{hospitalisations.dateSortie|date('Y-m-d')}}</td>
+                                            <td>{{hospitalisations.motifSortie}}</td>
+                                                        
+                                            <td class="text-right">
+                                            <div>
+                                                <a class="btn text-blue" href="#"><i class="fas fa-eye"></i></a>	 
+                                                <a class="btn text-blue" href="{{path('app_update_hospitalisation',{'id':hospitalisations.id}) }}"><i class="fas fa-edit "></i></a>
+                                            
+                                                <a class="btn btn-danger delet " href="#delete_hospitalisation" data-toggle="modal" data-target="" id="{{hospitalisations.id}}"> <i class="fa fa-trash"></i></a>
+                                                    
+                                            </div> 
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="delete_hospitalisation" class="modal fade delete-modal" role="dialog">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <img src="/assets/img/sent.png" alt="" width="50" height="46">
+                            <h3>êtes-vous sûr de vouloir supprimer ce patient hospitalisé?</h3>
+                            <div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Close</a>
+                                <button type="submit" class="btn btn-danger supprime_hospitalisation" >Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+            </div>
+            </div>
+                    <!-- /.container-fluid -->
+                
+                <div class="settingSidebar">
+                <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+                </a>
+                <div class="settingSidebar-body ps-container ps-theme-default">
+                    <div class=" fade show active">
+                    <div class="setting-panel-header">Setting Panel
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Select Layout</h6>
+                        <div class="selectgroup layout-color w-50">
+                        <label class="selectgroup-item">
+                            <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                            <span class="selectgroup-button">Light</span>
+                        </label>
+                        <label class="selectgroup-item">
+                            <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                            <span class="selectgroup-button">Dark</span>
+                        </label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                        <div class="selectgroup selectgroup-pills sidebar-color">
+                        <label class="selectgroup-item">
+                            <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                            <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                            data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                        </label>
+                        <label class="selectgroup-item">
+                            <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                            <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                            data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                        </label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <h6 class="font-medium m-b-10">Color Theme</h6>
+                        <div class="theme-setting-options">
+                        <ul class="choose-theme list-unstyled mb-0">
+                            <li title="white" class="active">
+                            <div class="white"></div>
+                            </li>
+                            <li title="cyan">
+                            <div class="cyan"></div>
+                            </li>
+                            <li title="black">
+                            <div class="black"></div>
+                            </li>
+                            <li title="purple">
+                            <div class="purple"></div>
+                            </li>
+                            <li title="orange">
+                            <div class="orange"></div>
+                            </li>
+                            <li title="green">
+                            <div class="green"></div>
+                            </li>
+                            <li title="red">
+                            <div class="red"></div>
+                            </li>
+                        </ul>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <div class="theme-setting-options">
+                        <label class="m-b-0">
+                            <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                            id="mini_sidebar_setting">
+                            <span class="custom-switch-indicator"></span>
+                            <span class="control-label p-l-10">Mini Sidebar</span>
+                        </label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <div class="theme-setting-options">
+                        <label class="m-b-0">
+                            <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                            id="sticky_header_setting">
+                            <span class="custom-switch-indicator"></span>
+                            <span class="control-label p-l-10">Sticky Header</span>
+                        </label>
+                        </div>
+                    </div>
+                    <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                        <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                        <i class="fas fa-undo"></i> Restore Default
+                        </a>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+           {#  <footer class="main-footer">
+                <div class="footer-left">
+                <a href="templateshub.net">2 Coders</a></a>
+                </div>
+                <div class="footer-right">
+                </div> #}
+            </footer>
+            </div>
+        
+        
+        <!-- General JS Scripts -->
+        <script src="assetse/js/app.min.js"></script>
+        <!-- JS Libraies -->
+        <!-- Page Specific JS File -->
+        <script src="assetse/bundles/datatables/datatables.min.js"></script>
+        <script src="assetse/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+        <script src="assetse/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
+        <script src="assetse/bundles/datatables/export-tables/buttons.flash.min.js"></script>
+        <script src="assetse/bundles/datatables/export-tables/jszip.min.js"></script>
+        <script src="assetse/bundles/datatables/export-tables/pdfmake.min.js"></script>
+        <script src="assetse/bundles/datatables/export-tables/vfs_fonts.js"></script>
+        <script src="assetse/bundles/datatables/export-tables/buttons.print.min.js"></script>
+        <script src="assetse/js/page/datatables.js"></script>
+        <!-- Template JS File -->
+        <script src="assetse/js/scripts.js"></script>
+        <!-- Custom JS File -->
+        <script src="assetse/js/custom.js"></script>

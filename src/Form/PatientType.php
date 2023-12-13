@@ -58,7 +58,8 @@ class PatientType extends AbstractType
                      'choices'=>$options['Nationalites']
 
             ])
-            ->add('submit',SubmitType::class,['label'=>'soumettre','attr' => [
+            ->add('submit',SubmitType
+            ::class,['label'=>'enregistrer','attr' => [
                 'class' => 'btn btn-primary mt-5']])
         ;
     }

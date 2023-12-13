@@ -30,6 +30,7 @@ class PlagehoraireController extends AbstractController
             return new RedirectResponse($this->generateUrl('app_login'));
         }else   
             $comptes = $security->getUser();
+            $user=$comptes;
             // Récupérez le login de l'utilisateur connecté
             $login = $comptes->getUserIdentifier();
            // $entityManager = $doctrine->getManager();
@@ -42,8 +43,7 @@ class PlagehoraireController extends AbstractController
                     'id' => $result->getId(),
                     'title' => $result->getTitle(),
                     'start' => $result->getStart(),
-                    'end' => $result->getEnd(),
-                    'description' => $result->getDescription(),
+                    'end' => $result->getEnd()
                     
                     //'url' => $this->generateUrl('app_plage_horaire', ['id' => $result->getId()])
                     ];
@@ -54,6 +54,7 @@ class PlagehoraireController extends AbstractController
            // dd($jsonEvents);
             return $this->render('plagehoraire/index.html.twig', [
                 'jsonEvents'    => $jsonEvents,
+                'user'=>$user
                    
             ]);  
     }
@@ -74,7 +75,6 @@ class PlagehoraireController extends AbstractController
                     $plage->setStart(date($request->request->all()['start']));
                     $plage->setEnd(date($request->request->all()['end']));
                     $plage->setUtilisateur($user->getUserIdentifier()); 
-                    $plage->setDescription($request->request->all()['description']);
                     $plage->setUtilisateurs($user);
                     $entityManager->persist($plage);
                     $entityManager->flush();  

@@ -30,14 +30,14 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+       <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon ">
-                    <i class="fas fa-hospital-alt"></i>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">CHU Hôpital</div>
+                <div class="sidebar-brand-text mx-3"> Admin <sup></sup></div>
             </a>
 
             <!-- Divider -->
@@ -45,139 +45,108 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-             <!-- Divider -->
-             <hr class="sidebar-divider">
-             <!-- Nav Item - Nationalites -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-flag"></i>
-                    <span>Nationalites</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Services -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-hospital"></i>
-                    <span>Services</span>
-                </a>
-            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Nav Item - Unites -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-hospital-symbol"></i>
-                    <span>Unités</span>
-                </a>
-            </li>
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                
+            </div>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Fonctions -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-stethoscope"></i>
-                    <span>Fonctions</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Spécialités -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-notes-medical"></i>
-                    <span>Spécialités</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Qualifications -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-notes-medical"></i>
-                    <span>Qualifications</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Agents -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-user-md"></i>
                     <span>Agents</span>
                 </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">:</h6>
+                          <a class="collapse-item" href="{{ path('app_user_liste') }}">Afficher les agents</a>
+                        <a class="collapse-item" href="cards.html">Qualifications</a>
+                         <a class="collapse-item" href="cards.html">Fonctions</a>
+                    </div>
+                </div>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pathologies -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-virus"></i>
-                    <span>Pathologies</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Patients -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fab fa-accessible-icon"></i>
-                    <span>Patients</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Chambres -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-door-closed"></i>
-                    <span>Chambres</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Lits -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-bed"></i>
-                    <span>Lits</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <!-- Nav Item - Hospitalisations -->
-            <li class="nav-item active">
-                <a class="nav-link" href="">
-                    <i class="fas fa-procedures"></i>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                      <i class="fas fa-procedures"></i>
                     <span>Hospitalisations</span>
                 </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">:</h6>
+                        <a class="collapse-item" href="utilities-color.html">Hospitalisation</a>
+                        <a class="collapse-item" href="utilities-border.html">lit</a>
+                        <a class="collapse-item" href="utilities-animation.html">Chambre</a>
+                       {#  <a class="collapse-item" href="utilities-other.html">Other</a> #}
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+        {#     <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>RendezVous</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Rendezvous:</h6>
+                        <a class="collapse-item" href="{{path('app_rendezvous_forme')}}">Agenda</a>
+                        <a class="collapse-item" href="{{path('app_rendezvous_liste')}}">RendezVous</a>
+                    </div>
+                </div>
+            </li> #}
+
+            <!-- Nav Item - Charts -->
+           {#  <li class="nav-item">
+                <a class="nav-link" href="charts.html">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Patients</span></a>
+            </li> #}
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_specialite_liste')}}">
+                     <i class="fas fa-hospital"></i>
+                    <span>Services</span></a>
+            </li>
+
+             <li class="nav-item">
+                <a class="nav-link" href="tables.html">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Unités</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+            <!-- Sidebar Message -->
             
 
         </ul>
@@ -327,7 +296,8 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">Admin</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">{{user.getPrenom}}
+                                </span>
                                 <img class="img-profile rounded-circle"
                                     src="/assets/img/undraw_profile.svg">
                             </a>
@@ -336,7 +306,7 @@
                                 aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href="#">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                 
+                                    
                                 </a>
                                 {# <a class="dropdown-item" href="#">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -370,12 +340,11 @@
                             <div>
                                 <h1 class="h4 text-gray-900 mb-4">Modifier un Agent!</h1>
                             </div>
-                             
-                              {{form_start(form) }}
+                                {{ form_start(form) }}
 
                               <div class="form-group row">
                                   <div class="col-sm-6 mb-3 mb-sm-0">
-                                     {{form_row(form.nom) }}
+                                    {{ form_row(form.nom) }}
 
                                   </div>
                                   <div class="col-sm-6">
@@ -395,13 +364,13 @@
                                 </div>
                               
                                 <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                     {{ form_row(form.telephone) }} 
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        {{ form_row(form.telephone) }} 
 
-                                </div>
-                                <div class="col-sm-6">
-                                    {{ form_row(form.genre) }}
-                                </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        {{ form_row(form.genre) }}
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -415,19 +384,41 @@
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                    {{ form_row(form.specialite) }}
+                                    {{ form_row(form.service) }}
 
                                     </div>
                                     <div class="col-sm-6">
-                                      {{ form_row(form.roles) }}
+                                      {{ form_row(form.specialite) }}
                                     </div>
                                 </div>
+
+                                  <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    {{ form_row(form.qualification) }}
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                      {{ form_row(form.unite) }}
+                                    </div>
+                                </div> 
+
+                                 <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    {{ form_row(form.fonction) }}
+
+                                    </div> 
+                                    <div class="col-sm-6">
+                                      {{ form_row(form.roles) }}
+                                    </div>
+                                </div> 
 
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                      {{ form_row(form.brochure)}}
     
                                     </div>
+
+                                    
                                     <div class="col-sm-6">
                                          {{ form_widget(form.submit) }}
                                     </div>

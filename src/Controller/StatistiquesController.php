@@ -80,6 +80,7 @@ class StatistiquesController extends AbstractController
             'rendez-Vous' => count($rendezVous),
 
         ];
+       
         $jsonData = json_encode($data);
        
             return $this->render('administration/index.html.twig', [

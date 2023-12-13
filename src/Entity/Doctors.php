@@ -43,6 +43,14 @@ class Doctors
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datenaissance = null;
 
+    #[ORM\OneToMany(mappedBy: 'docteur', targetEntity: Rdvs::class)]
+    private Collection $rdvs;
+
+    public function __construct()
+    {
+        $this->rdvs = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +161,36 @@ class Doctors
     public function setDatenaissance(\DateTimeInterface $datenaissance): self
     {
         $this->datenaissance = $datenaissance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rdvs>
+     */
+    public function getRdvs(): Collection
+    {
+        return $this->rdvs;
+    }
+
+    public function addRdv(Rdvs $rdv): self
+    {
+        if (!$this->rdvs->contains($rdv)) {
+            $this->rdvs->add($rdv);
+            $rdv->setDocteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRdv(Rdvs $rdv): self
+    {
+        if ($this->rdvs->removeElement($rdv)) {
+            // set the owning side to null (unless already changed)
+            if ($rdv->getDocteur() === $this) {
+                $rdv->setDocteur(null);
+            }
+        }
 
         return $this;
     }

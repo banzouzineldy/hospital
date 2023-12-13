@@ -11,6 +11,9 @@ use App\Repository\ActeMedicalRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AutreActeController extends AbstractController
@@ -87,6 +90,32 @@ class AutreActeController extends AbstractController
                 ]);
             
             }
+
+
+            #[Route('/acte/medical', name: 'app_acteMedical_liste')]
+            public function liste(Security $security,ActeMedicalRepository $acteMedicalRepository): Response
+                      
+                {   if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
+    
+                    return new RedirectResponse($this->generateUrl('app_login'));
+                   
+                   }else {
+                    $user=$security->getUser();
+                   $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
+                  if (!array_intersect($user->getRoles(), $roles)) {
+                    throw new AccessDeniedException('Acces refuse');
+                  } 
+    
+                    $examen=$acteMedicalRepository->findAll();
+    
+                  return $this->render('acte_medical/index.html.twig', [
+                    'examens'=>$examen,
+                    'user'=>$user
+                ]);
+                 
+            }
+
+        }
 
 
 

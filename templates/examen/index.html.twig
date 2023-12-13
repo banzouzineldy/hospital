@@ -269,7 +269,7 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="{{ path('app_logout')}}" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-60 small">{{user.getPrenom}}</span>
                                 <img class="img-profile rounded-circle"
@@ -301,6 +301,26 @@
                     </ul>
                 
                 </nav>
+
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Déconnexion?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Vous voulez vraiment</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <a class="btn btn-primary" href="{{ path('app_logout')}}">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </div>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -329,7 +349,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                      <tr>
-									  <th>Libelle</th>
+									  <th>nom</th>
 									  <th class="text-right">Action</th>
 									 </tr>  
                                     </thead>
@@ -342,7 +362,7 @@
 										<td class="text-right">
 										  <div>	 
 											<a class="btn btn-primary" href="{{path('app_examen_edit',{'id':examen.id})}}"><i class="fa fa-pencil m-r-5"></i>Modifier</a>
-                                            <a class="btn btn-danger delet" href="#delete_examen" data-toggle="modal" data-target="" id="{{examen.id}}"><i class="fa fa-trash-o m-r-5"></i>supprimer</a>	
+                                            <a class="btn btn-danger delet" href="#delete_examen" data-toggle="modal" data-target="" id="{{examen.id}}"><i class="fa fa-trash"></i>supprimer</a>	
 												 
 										  </div> 
 										</td>
@@ -427,6 +447,7 @@
     <!-- Page level plugins -->
     <script src="/assets/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="/assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+      <script src="/assets/vendor/fontawesome-free/js/all.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="/assets/js/demo/datatables-demo.js"></script>

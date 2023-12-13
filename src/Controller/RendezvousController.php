@@ -7,6 +7,7 @@ use App\Entity\Rdvs;
 use App\Entity\User;
 use App\Form\RdvsType;
 use App\Entity\Rendezvous;
+use App\Form\RdvsMiseAjourMedecinType;
 use App\Form\RdvsMiseAjourType;
 use Symfony\Component\Mime\Email;
 use App\Repository\RdvsRepository;
@@ -53,10 +54,10 @@ class RendezvousController extends AbstractController
      $users=$userRepository->findAll();
      $specialites=$specialiteRepository->findAll();
      $specialitesfinal=[];
-     $specialitesfinal=array_merge($specialitesfinal,['selectionner un patient'=>0]);
+     $specialitesfinal=array_merge($specialitesfinal,['selectionner un service'=>0]);
      $userfinal=[];
      $patientfinal=[];
-     $patientfinal=array_merge($patientfinal,['selectionner une option'=>0]);
+     $patientfinal=array_merge($patientfinal,['selectionner un patient'=>0]);
      foreach ($users as $key => $value) {
         $userfinal =array_merge($userfinal,[$value->getNom().' ' .$value->getPrenom()=>$value->getEmail()]);
              
@@ -115,8 +116,6 @@ class RendezvousController extends AbstractController
        ]);
       
      }
-
-
      
    }
    // recuperer les agendas des agents
@@ -125,15 +124,25 @@ class RendezvousController extends AbstractController
    public function formrendezvous(PlagehoraireRepository $plagehoraireRepository): Response
    {  
    // $this->denyAccessUnlessGranted('ROLE_AGENT');
+   $user=$this->getUser();
+     $comptes  =  $user;
+        $roles=['ROLE_AGENT','ROLE_ADMIN'];
+
+      // $roles=$user->getRoles();
+      if (!array_intersect($user->getRoles(), $roles)) {
+        throw new AccessDeniedException('Acces refuse');
+      } 
        $plagehoraire=$plagehoraireRepository->findAll();
-       return $this->render('rendezvous/medecinplage.html.twig', [
-            'plagehoraires'=>$plagehoraire
+       return $this->render('medecin/medecinplage.html.twig', [
+            'plagehoraires'=>$plagehoraire,
+            'comptes'=>$comptes
            
        ]);
    }
    // recuperer les doctors ,les patients et les rendezvous
 
    #[Route('/rendezvous/liste', name: 'app_rendezvous_liste')]
+
    public function liste(RdvsRepository $rdvsRepository,UserRepository $userRepository): Response
    {  //$this->denyAccessUnlessGranted('ROLE_AGENT');
         $user=$this->getUser();
@@ -144,7 +153,9 @@ class RendezvousController extends AbstractController
         throw new AccessDeniedException('Acces refuse');
       } 
       $comptes  =  $user;
-       $rendezvouslistes=$rdvsRepository->findAll(); 
+       $rendezvouslistes=$rdvsRepository->findAll();
+          //dd(  $rendezvouslistes); 
+  
        $userliste=[];
 
        foreach ($rendezvouslistes as  $value) {
@@ -153,7 +164,6 @@ class RendezvousController extends AbstractController
           array_push($userliste,$user);   
         } 
         } 
-       // dd($user);
        return $this->render('rendezvous/index.html.twig', [
           'rendezvousS'=>$rendezvouslistes,
           'users'=>$userliste,
@@ -165,7 +175,7 @@ class RendezvousController extends AbstractController
 // formulaire de modification
 
    #[Route('/rendezvous/modifif/{id}', name: 'app_rendezvous_edit',methods:['GET','POST'])]
-   public function modification(EntityManagerInterface $entityManager,Request $request,PatientRepository $patientRepository,UserRepository $userRepository,SpecialiteRepository $specialiteRepository,RdvsRepository $rdvsRepository,$id): Response
+   public function modification(EntityManagerInterface $entityManager,Request $request,PatientRepository $patientRepository,UserRepository $userRepository,SpecialiteRepository $specialiteRepository,RdvsRepository $rdvsRepository,$id,MailerInterface $mailer): Response
    {  //$this->denyAccessUnlessGranted('ROLE_AGENT');
     $user=$this->getUser();
     $roles=['ROLE_AGENT','ROLE_ADMIN'];
@@ -180,8 +190,10 @@ class RendezvousController extends AbstractController
      $users=$userRepository->findAll();
      $specialites=$specialiteRepository->findAll();
      $specialitesfinal=[];
+     $specialitesfinal=array_merge($specialitesfinal,['selectionner un service'=>0]);
      $userfinal=[];
      $patientfinal=[];
+     $patientfinal=array_merge($patientfinal,['selectionner un patient'=>0]);
      foreach ($users as $key => $value) {
         $userfinal =array_merge($userfinal,[$value->getNom().' ' .$value->getPrenom()=>$value->getEmail()]);
              
@@ -200,6 +212,9 @@ class RendezvousController extends AbstractController
       $form->handleRequest($request);
       
       if ($form->isSubmitted() && $form->isValid()) { 
+
+
+        try { $admin=$this->getParameter('app.admin.email');
           $patienteid=$form->get('patient')->getData();
           $medecinemail=$form->get('emailsmedecin')->getData();
           $specialiteid=$form->get('specialite')->getData();
@@ -207,23 +222,33 @@ class RendezvousController extends AbstractController
           $patient=$patientRepository->find($patienteid);
           $specialite=$specialiteRepository->find($specialiteid);
           $rdvs->setSpecialite($specialite);
-          $rdvs->setPatient($patient); 
+          $rdvs->setPatient($patient);
+          $entityManager->persist($rdvs);  
           $entityManager->flush();
+          $email = (new Email())
+            ->from($admin)
+            ->to($medecinemail)
+            ->subject('votre rendez_vous  a ete modifie')
+            ->text('c est mon application delhopital');
+            $mailer->send($email);
             $this->addFlash(
-                'success',
-                'la modification ete effectue avec succes'
-            );
-
-       return $this->redirectToRoute('app_rendezvous_liste');
-
-          
+              'success',
+              'votre demande a ete envoyé avec succes'
+          );
+          return $this->redirectToRoute('app_rendezvous_liste');
+      }
+  catch (Exception $e) {
+    dd($e->getMessage());
+  }
+         
+   return $this->redirectToRoute('app_rendezvous_liste');
+       
        }
     
        return $this->render('rendezvous/edit.html.twig', [
           'form'=>$form->createView(),
           'user'=>$comptes
-           
-           
+              
        ]);
    }
 
@@ -246,15 +271,33 @@ class RendezvousController extends AbstractController
        }
 
        #[Route('/rendezvous/liste/medecin', name: 'app_rendezvous_medecin_liste')]
-       public function list_medecin(RdvsRepository $rdvsRepository,UserRepository $userRepository): Response
-       {  $this->denyAccessUnlessGranted('ROLE_MEDECIN');
-           $rendezvouslistes=$rdvsRepository->findAll(); 
-           return $this->render('rendezvous/medecinrendezvous.html.twig', [
+       public function list_medecin( Security $security, RdvsRepository $rdvsRepository,UserRepository $userRepository,EntityManagerInterface $entityManager): Response
+       {  
+        $user=$security->getUser();
+        $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
+       if (!array_intersect($user->getRoles(), $roles)) {
+         throw new AccessDeniedException('Acces refuse');
+       } 
+       if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
+        return new RedirectResponse($this->generateUrl('app_login'));
+    }
+    else {
+      $comptes   =     $security->getUser();
+        $user     =      $comptes;
+            // Récupérez le login de l'utilisateur connecté
+        $login    =        $comptes->getUserIdentifier();
+        $rendez_vous     =    $rdvsRepository->findAll();
+        $rendezvouslistes = $rdvsRepository->findBy(['emailsmedecin' =>$login]);
+
+           return $this->render('medecin/medecinrendezvous.html.twig', [
               'rendezvousS'=>$rendezvouslistes,
+              'user'=>$user
                   
            ]);
        }
+   
 
+      }
 
        #[Route('/rendezvous/filtre', name: 'app_rendezvous_medecin_filtre',methods:['POST'])]
        public function filtre(SpecialiteRepository $specialiteRepository ,Request $request): Response
@@ -293,6 +336,47 @@ class RendezvousController extends AbstractController
                      
            
        }
+
+
+       #[Route('/rendezvous/filtre/modif', name: 'app_rendezvous_medecin_filtre_medif',methods:['POST'])]
+       public function filtre_modif(SpecialiteRepository $specialiteRepository ,Request $request): Response
+       { // $this->denyAccessUnlessGranted('ROLE_AGENT');
+         $specialitefiltre=[];
+          $data=json_decode($request->getContent(),false);
+           if (empty($data->id)) {
+            return $this->json(['code'=>'l id est introuvable']);
+            
+           }
+          
+           $userliste=$specialiteRepository->find(['id'=>$data->id]);
+           //recuperation des utilisateurs
+           $userfiltre=$userliste->getUser();
+
+           //$utilisateursRoles=$userRepository->findAll();
+           //dd($utilisatursRoles);
+           $utilisateursfinal= [];
+  
+          foreach ($userfiltre as $value) {
+            $roles=$value->getRoles();
+  
+            if (in_array("ROLE_MEDECIN",$roles)) {
+              array_push( $utilisateursfinal,$value);
+              
+            }
+            
+          }
+
+           foreach ( $utilisateursfinal as $key => $value) {
+            array_push($specialitefiltre,['nom'=>$value->getNom().' ' .$value->getPrenom(),'id'=>$value->getEmail()]);
+                 
+          }
+           return $this->json(['code'=>1,
+           'utilisateur'=>$specialitefiltre]);
+                     
+           
+       }
+
+       
 
 
      /*   #[Route('/rendezvous/role', name: 'app_rendezvous_medecin_liste')]

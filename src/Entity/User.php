@@ -50,14 +50,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $genre = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'user')]
     private ?Specialite $specialite = null;
 
     #[ORM\OneToMany(mappedBy: 'utilisateurs', targetEntity: Plagehoraire::class,orphanRemoval:true)]
     private Collection $plagehoraires;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Qualification $qualification = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Unite $unite = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Service $service = null;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Fonction $fonction = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -207,18 +220,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
     public function getSpecialite(): ?Specialite
     {
         return $this->specialite;
@@ -257,6 +258,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $plagehoraire->setUtilisateurs(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getQualification(): ?Qualification
+    {
+        return $this->qualification;
+    }
+
+    public function setQualification(?Qualification $qualification): self
+    {
+        $this->qualification = $qualification;
+
+        return $this;
+    }
+
+    public function getUnite(): ?Unite
+    {
+        return $this->unite;
+    }
+
+    public function setUnite(?Unite $unite): self
+    {
+        $this->unite = $unite;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(?Service $service): self
+    {
+        $this->service = $service;
+
+        return $this;
+    }
+
+    public function getFonction(): ?Fonction
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(?Fonction $fonction): self
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
