@@ -43,7 +43,6 @@
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-        
           <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('uploads/image/' ~ user.getImage())}}"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
@@ -81,7 +80,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Fonction</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="">Creer</a></li>
-                <li><a class="nav-link" href="">afficher</a></li>
+                <li><a class="nav-link" href="{{ path('app_fonction')}}">afficher</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -127,7 +126,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="flag"></i><span>Chambre</span></a>
               <ul class="dropdown-menu">
                 <li><a href="carousel.html">Creer</a></li>
-                <li><a class="nav-link" href="owl-carousel.html">affiche</a></li>
+                <li><a class="nav-link" href="{{ path('app_chambre')}}">affiche</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -135,9 +134,10 @@
                   Lit</span></a>
               <ul class="dropdown-menu">
                 <li><a href="gmaps-advanced-route.html">Creer</a></li>
-                <li><a href="gmaps-draggable-marker.html">Afficher</a></li>
+                <li><a href="{{ path('app_lit')}}">Afficher</a></li>
               </ul>
             </li>  
+             </ul>
         </aside>
       </div>
       <!-- Main Content -->
@@ -218,6 +218,9 @@
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pr-0 pt-3">
                         <div class="card-content">
                           <h5 class="font-15">Hospitalistion</h5>
+                          <h2 class="mb-3 font-18">{{hospitalisation[1]}}</h2>
+                          <p class="mb-0"><span class="col-green"></span>
+                            </p>
                         </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pl-0">

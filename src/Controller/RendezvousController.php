@@ -349,11 +349,7 @@ class RendezvousController extends AbstractController
            }
           
            $userliste=$specialiteRepository->find(['id'=>$data->id]);
-           //recuperation des utilisateurs
            $userfiltre=$userliste->getUser();
-
-           //$utilisateursRoles=$userRepository->findAll();
-           //dd($utilisatursRoles);
            $utilisateursfinal= [];
   
           foreach ($userfiltre as $value) {

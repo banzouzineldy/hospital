@@ -9,21 +9,30 @@ use App\Repository\LitRepository;
 use App\Repository\ChambreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LitController extends AbstractController
 {
     #[Route('/lit', name: 'app_lit')]
-    public function index(EntityManagerInterface $entityManager,LitRepository $litRepository): Response
+    public function index( Security $security,EntityManagerInterface $entityManager,LitRepository $litRepository): Response
     {
-    
+        $user=$security->getUser();
+           $comptes=$user;
+           $roles=['ROLE_ADMIN'];
+          if (!array_intersect($user->getRoles(), $roles)) {
+            throw new AccessDeniedException('Acces refuse');
+          }
+           
         $lits=$litRepository->findAll();
         return $this->render('lit/index.html.twig', [
             'controller_name' => 'LitController',
             'lit' =>$lits,
+            'user'=>$comptes
         ]);
     }
 

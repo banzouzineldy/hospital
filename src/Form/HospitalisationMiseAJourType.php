@@ -107,7 +107,7 @@ class HospitalisationMiseAJourType extends AbstractType
         $resolver->setRequired('pathologies');
         $resolver->setRequired('lits');
         $resolver->setRequired('chambres');
-        $resolver->setRequired('agents');
+        $resolver->setRequired('users');
         $resolver->setRequired('patients');
     }
 }

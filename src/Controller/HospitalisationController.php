@@ -5,16 +5,19 @@ namespace App\Controller;
 use App\Entity\Hospitalisation;
 use App\Form\HospitalisationType;
 use App\Repository\LitRepository;
+use App\Repository\UserRepository;
 use App\Repository\ChambreRepository;
 use App\Repository\PatientRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\PathologieRepository;
 use App\Repository\SpecialiteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Form\HospitalisationMiseAJourType;
 use App\Repository\HospitalisationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HospitalisationController extends AbstractController
@@ -22,7 +25,7 @@ class HospitalisationController extends AbstractController
     
      
     #[Route('/hospitalisation/add', name: 'app_hospitalisation_add',methods: ['GET', 'POST'])]
-    public function add(EntityManagerInterface $entityManager,Request $request,ServiceRepository $serviceRepository,PathologieRepository $pathologieRepository,PatientRepository $patientRepository,AgentRepository $agentRepository,ChambreRepository $chambreRepository,LitRepository $litRepository,SpecialiteRepository $specialiteRepository,SluggerInterface $slugger): Response
+    public function add(EntityManagerInterface $entityManager,Request $request,ServiceRepository $serviceRepository,PathologieRepository $pathologieRepository,PatientRepository $patientRepository,UserRepository $agentRepository,ChambreRepository $chambreRepository,LitRepository $litRepository,SpecialiteRepository $specialiteRepository,SluggerInterface $slugger): Response
     {   
 
         $hospitalisations=new Hospitalisation();
@@ -141,7 +144,7 @@ class HospitalisationController extends AbstractController
 
 
     #[Route('/hospitalisation/{id}', name: 'app_update_hospitalisation',methods: [ 'POST','GET'])]
-    public function  update(EntityManagerInterface $entityManager,Request $request,ServiceRepository $serviceRepository,PathologieRepository $pathologieRepository,PatientRepository $patientRepository,AgentRepository $agentRepository,ChambreRepository $chambreRepository,LitRepository $litRepository,SpecialiteRepository $specialiteRepository,SluggerInterface $slugger,int $id): Response
+    public function  update(EntityManagerInterface $entityManager,Request $request,ServiceRepository $serviceRepository,PathologieRepository $pathologieRepository,PatientRepository $patientRepository,UserRepository $agentRepository,ChambreRepository $chambreRepository,LitRepository $litRepository,SpecialiteRepository $specialiteRepository,SluggerInterface $slugger,int $id): Response
     {   
 
         $user=$entityManager->getRepository(Hospitalisation::class)->find($id);
@@ -262,25 +265,36 @@ class HospitalisationController extends AbstractController
 
 
     #[Route('api/hospitalisation/filtre', name: 'app_hospitalisation_filtre_agent',methods:['POST'])]
-    public function filtre(ServiceRepository $serviceRepository ,Request $request): Response
+    public function filtre(SpecialiteRepository $specialiteRepository ,Request $request): Response
     {  
-      $servicefiltre=[];
-       $data=json_decode($request->getContent(),false);
-        if (empty($data->id)) {
-         return $this->json(['code'=>'l id est introuvable'.$data->id]);
-         
-        } 
-    
-         $userliste=$serviceRepository->find(['id'=>$data->id]);
-        $userfiltre=$userliste->getAgent();
+        $specialitefiltre=[];
+        $data=json_decode($request->getContent(),false);
+         if (empty($data->id)) {
+          return $this->json(['code'=>'l id est introuvable']);
+          
+         }
         
-      
-        foreach ( $userfiltre as $key => $value) {
-         array_push($servicefiltre,['nom'=>$value->getNom().' ' .$value->getPrenom(),'id'=>$value->getId()]);
-              
-       }
-        return $this->json(['code'=>1,
-        'utilisateur'=>$servicefiltre]);
+         $userliste=$specialiteRepository->find(['id'=>$data->id]);
+         //recuperation des utilisateurs
+         $userfiltre=$userliste->getUser();
+         $utilisateursfinal= [];
+
+        foreach ($userfiltre as $value) {
+          $roles=$value->getRoles();
+
+          if (in_array("ROLE_MEDECIN",$roles)) {
+            array_push( $utilisateursfinal,$value);
+            
+          }
+          
+        }
+
+         foreach ( $utilisateursfinal as $key => $value) {
+          array_push($specialitefiltre,['nom'=>$value->getNom().' ' .$value->getPrenom(),'id'=>$value->getEmail()]);
+               
+        }
+         return $this->json(['code'=>1,
+         'utilisateur'=>$specialitefiltre]);
             
             
             

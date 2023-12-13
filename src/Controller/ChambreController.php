@@ -10,21 +10,29 @@ use App\Repository\ChambreRepository;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class ChambreController extends AbstractController
 {
     #[Route('/chambre', name: 'app_chambre')]
-    public function index(EntityManagerInterface $entityManager,ChambreRepository $chambreRepository): Response
-    {
+    public function index(Security $security,EntityManagerInterface $entityManager,ChambreRepository $chambreRepository): Response
+    {    $user=$security->getUser();
+        $comptes=$user;
+        $roles=['ROLE_ADMIN'];
+       if (!array_intersect($user->getRoles(), $roles)) {
+         throw new AccessDeniedException('Acces refuse');
+       }
         $specialitefinal=[];
         $chambres=$chambreRepository->findAll();
         return $this->render('chambre/index.html.twig', [
             'controller_name' => 'ChambreController',
             'chambre' =>$chambres,
+            'user'=>$comptes
         ]);
     }
 

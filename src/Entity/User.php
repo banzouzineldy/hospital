@@ -72,9 +72,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\OneToMany(mappedBy: 'agent', targetEntity: Hospitalisation::class)]
+    private Collection $hospitalisations;
+
     public function __construct()
     {
         $this->plagehoraires = new ArrayCollection();
+        $this->hospitalisations = new ArrayCollection();
        
     }
 
@@ -318,6 +322,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hospitalisation>
+     */
+    public function getHospitalisations(): Collection
+    {
+        return $this->hospitalisations;
+    }
+
+    public function addHospitalisation(Hospitalisation $hospitalisation): self
+    {
+        if (!$this->hospitalisations->contains($hospitalisation)) {
+            $this->hospitalisations->add($hospitalisation);
+            $hospitalisation->setAgent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHospitalisation(Hospitalisation $hospitalisation): self
+    {
+        if ($this->hospitalisations->removeElement($hospitalisation)) {
+            // set the owning side to null (unless already changed)
+            if ($hospitalisation->getAgent() === $this) {
+                $hospitalisation->setAgent(null);
+            }
+        }
 
         return $this;
     }

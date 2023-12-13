@@ -48,6 +48,9 @@ class Hospitalisation
     #[ORM\Column(length: 255,nullable:true)]
     private ?string $motifSortie = null;
 
+    #[ORM\ManyToOne(inversedBy: 'hospitalisations')]
+    private ?User $agent = null;
+
    
 
     public function getId(): ?int
@@ -183,6 +186,18 @@ class Hospitalisation
     public function setMotifSortie(string $motifSortie): self
     {
         $this->motifSortie = $motifSortie;
+
+        return $this;
+    }
+
+    public function getAgent(): ?User
+    {
+        return $this->agent;
+    }
+
+    public function setAgent(?User $agent): self
+    {
+        $this->agent = $agent;
 
         return $this;
     }

@@ -6,17 +6,19 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-  <title>MEDICATIVE</title>
-  <!-- General CSS Files -->
-  <link rel="stylesheet" href="assetse/css/app.min.css">
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="assetse/css/style.css">
-  <link rel="stylesheet" href="assetse/css/components.css">
-  <!-- Custom style CSS -->
-  <link rel="stylesheet" href="assetse/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='assetse/img/favicon.ico' />
+  <title>Hospital Medicative</title>
+<!-- General CSS Files -->
+<link rel="stylesheet" href="assetse/css/app.min.css">
+<link rel="stylesheet" href="assetse/bundles/datatables/datatables.min.css">
+<link rel="stylesheet" href="assetse/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="assetse/bundles/prism/prism.css">
+<!-- Template CSS -->
+<link rel="stylesheet" href="assetse/css/style.css">
+<link rel="stylesheet" href="assetse/css/components.css">
+<!-- Custom style CSS -->
+<link rel="stylesheet" href="assetse/css/custom.css">
+<link rel='shortcut icon' type='image/x-icon' href='assetse/img/favicon 1.ico' />
 </head>
-
 <body>
   <div class="loader"></div>
   <div id="app">
@@ -43,7 +45,6 @@
           </ul>
         </div>
         <ul class="navbar-nav navbar-right">
-        
           <li class="dropdown"><a href="#" data-toggle="dropdown"
               class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('uploads/image/' ~ user.getImage())}}"
                 class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
@@ -81,7 +82,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Fonction</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="">Creer</a></li>
-                <li><a class="nav-link" href="">afficher</a></li>
+                <li><a class="nav-link" href="{{ path('app_fonction')}}">afficher</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -127,7 +128,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="flag"></i><span>Chambre</span></a>
               <ul class="dropdown-menu">
                 <li><a href="carousel.html">Creer</a></li>
-                <li><a class="nav-link" href="owl-carousel.html">affiche</a></li>
+                <li><a class="nav-link" href="{{ path('app_chambre')}}">affiche</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -135,59 +136,59 @@
                   Lit</span></a>
               <ul class="dropdown-menu">
                 <li><a href="gmaps-advanced-route.html">Creer</a></li>
-                <li><a href="gmaps-draggable-marker.html">Afficher</a></li>
+                <li><a href="{{ path('app_lit')}}">Afficher</a></li>
               </ul>
             </li>  
+             </ul>
         </aside>
       </div>
       <!-- Main Content -->
-
       <div class="main-content">
         <section class="section">
-          <div class="section-body">
-            <div class="row">
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h4>Liste des services</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-striped table-hover" id="tableExport" style="width:100%;">
-                               {% for message in app.flashes('danger') %}
-                                <div class="alert alert-danger messages" id="messages">{{ message}}</div>
-                               {% endfor %} 
-                             <thead>
-                                <tr>
-                                    <th>Libelle</th>
-                                   <th class="text-right">Action</th>
-                                 </tr>  
-                        </thead>
-                             <tbody>
-                                       {% for specialite in specialites %}
-									  <tr>
+          <div class="row ">
+            <div class="col-sm-4 col-3">
+                        <h4 class="page-title">Services</h4> 
+            </div>
+                <div class="col-sm-8 col-9 text-right m-b-20">
+                       {#  <a href="{{path('app_ajout/fonction') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter une Fonction</a> #}
+              </div>
+          </div>
+                <br>
+              <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-blue">Liste des Services</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="tableExport" width="100%" cellspacing="0">
+                                    <thead>
+                                      <tr>
+                                        <th>Libelle</th>
+                                        <th>Action</th>
+                                      </tr>  
+                                    </thead>
+                                    
+                              <tbody>
+                          {% for specialite in specialites %}
+									       <tr>
 				           				<td> {{specialite.nom}}</td> 
                                                                              
-										<td class="text-right">
-										  <div>	 
-											<a class="btn btn-primary" href="{{path('app_specialite_edit',{'id':specialite.id})}}"><i class="fa fa-pencil m-r-5"></i>Modifier</a>
-                                            <a class="btn btn-danger delet" href="#delete_rdv" data-toggle="modal" data-target="" id="{{specialite.id}}"><i class="fa fa-trash-o m-r-5"></i>supprimer</a>	
-												 
+										        <td class="text-right">
+										      <div>	 
+											       <a class="btn btn-primary" href="{{path('app_specialite_edit',{'id':specialite.id})}}"><i class="far fa-edit"></i>Modifier</a>
+                           <a class="btn btn-danger delet" href="#delete_rdv" data-toggle="modal" data-target="" id="{{specialite.id}}"><i class="far fa-trash-alt"></i>supprimer</a>		 
 										  </div> 
 										</td>
 									  </tr>
-								 {% endfor %}
-                                  
-                            </tbody>
-                      </table>
-                    </div>
+								 {% endfor %}       
+                       </tbody>
+                  </table>
+                         </div>
+                      </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <div class="settingSidebar">
+
+               <div class="settingSidebar">
           <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
           </a>
           <div class="settingSidebar-body ps-container ps-theme-default">
@@ -279,12 +280,11 @@
           </div>
         </div>
       </div>
-
  <div id="delete_rdv" class="modal fade delete-modal" role="dialog">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-body text-center">
-						<img src="/assets/img/sent.png" alt="" width="50" height="46">
+						<img src="/assetse/img/sent.png" alt="" width="50" height="46">
 						<h3>Voulez vous suprimer ce service?</h3>
 						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Fermer</a>
 							<button type="submit" class="btn btn-danger suppr" >Suprimer</button>
@@ -293,9 +293,10 @@
 				</div>
 			</div>
 		</div>
-        </div>
+    </div>
                   <!-- /.container-fluid -->
     </div>
+               
       <footer class="main-footer">
         <div class="footer-left">
           <a href="templateshub.net"></a></a>
@@ -305,19 +306,27 @@
       </footer>
     </div>
   </div>
+  
   <!-- General JS Scripts -->
   <script src="assetse/js/app.min.js"></script>
   <!-- JS Libraies -->
+  <script src="assetse/bundles/prism/prism.js"></script>
   <!-- Page Specific JS File -->
-  
+  <script src="assetse/bundles/datatables/datatables.min.js"></script>
+  <script src="assetse/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="assetse/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
+  <script src="assetse/bundles/datatables/export-tables/buttons.flash.min.js"></script>
+  <script src="assetse/bundles/datatables/export-tables/jszip.min.js"></script>
+  <script src="assetse/bundles/datatables/export-tables/pdfmake.min.js"></script>
+  <script src="assetse/bundles/datatables/export-tables/vfs_fonts.js"></script>
+  <script src="assetse/bundles/datatables/export-tables/buttons.print.min.js"></script>
+  <script src="assetse/js/page/datatables.js"></script>
   <!-- Template JS File -->
   <script src="assetse/js/scripts.js"></script>
   <!-- Custom JS File -->
   <script src="assetse/js/custom.js"></script>
-         <script src="assetse/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-        <script src="assetse/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
-         <script src="assetse/bundles/datatables/export-tables/buttons.flash.min.js"></script>
 
+  
   <script>
     
      $(document).on('click','.delet',function(){
@@ -349,8 +358,6 @@
     
     
     </script>
-  
-
 
 </body>
 

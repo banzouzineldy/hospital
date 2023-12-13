@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\HospitalisationRepository;
 use App\Repository\RdvsRepository;
 use App\Repository\UserRepository;
 use App\Repository\PatientRepository;
@@ -16,7 +17,7 @@ class StatistiquesController extends AbstractController
     #[Route('/admin', name: 'app_admin_dashboard')]
     public function index(EntityManagerInterface $entityManager,Security $security,
     
-     RdvsRepository $rdvsRepository,PatientRepository $patientRepository,UserRepository $userRepository): Response
+     RdvsRepository $rdvsRepository,PatientRepository $patientRepository,UserRepository $userRepository,HospitalisationRepository $hospitalisation): Response
 
     {  $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $comptes = $security->getUser();
@@ -53,6 +54,7 @@ class StatistiquesController extends AbstractController
             'rendez-Vous' =>$chartData2, 
         ];
         $chartDataAnnuelle = json_encode($chartData);
+        //comptes patients
        $patients=$patientRepository->createQueryBuilder('p')
        ->select('COUNT(p.id)')
         ->getQuery()
@@ -73,11 +75,17 @@ class StatistiquesController extends AbstractController
          ->getQuery()
          ->getSingleResult();
 
+         $hospitalisations=$hospitalisation->createQueryBuilder('p')
+         ->select('COUNT (p.id)')
+         ->getQuery()
+         ->getSingleResult();
+
+
 
 
         $data = [
-            'patients' => count($patients),
-            'rendez-Vous' => count($rendezVous),
+            'patients'     => count($patients),
+            'rendez-Vous'   => count($rendezVous),
 
         ];
        
@@ -85,11 +93,12 @@ class StatistiquesController extends AbstractController
        
             return $this->render('administration/index.html.twig', [
                 'jsonData'                   =>  $jsonData,
-                'utilisateurs'               => $totalutisateurs,
-                'rendezVous'                  =>$rendezVous,
-                'patient'                     =>$patients,
-                'chartDataAnnuelle'          =>$chartDataAnnuelle,
-                'user'                       =>$user
+                'utilisateurs'               =>  $totalutisateurs,
+                'rendezVous'                  => $rendezVous,
+                'patient'                     => $patients,
+                'chartDataAnnuelle'          => $chartDataAnnuelle,
+                'user'                       => $user,
+                'hospitalisation'            =>  $hospitalisations
             
             ]);
     }
