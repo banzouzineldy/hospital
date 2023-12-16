@@ -1,240 +1,128 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title> Hospital</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
-    <!-- Favicon -->
-    <link href="/asset/img/favicon.png" rel="shortcut icon" type="image/png"> 
-
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+<title>Hospital Medicative</title>
+<!-- General CSS Files -->
+<link rel="stylesheet" href="/assetse/css/app.min.css">
+<!-- Template CSS -->
+<link rel="stylesheet" href="/assetse/css/style.css">
+<link rel="stylesheet" href="/assetse/css/components.css">
+<!-- Custom style CSS -->
+<link rel="stylesheet" href="/assetse/css/custom.css">
+<link rel='shortcut icon' type='image/x-icon' href='/assetse/img/favicon 1.ico' />
 </head>
 
-  <style>
-  .h4{
-    font-size:30px;
-    margin-left:20px;
-    color:blue;
-  }
-  
-  </style>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon ">
-                    <i class="fas fa-hospital-alt"></i>
+<body>
+  <div class="loader"></div>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <div class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <i data-feather="maximize"></i>
+              </a></li>
+            <li>
+              <form class="form-inline mr-auto">
+                <div class="search-element">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                  <button class="btn" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
                 </div>
-                <div class="sidebar-brand-text mx-3"> Hopital</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-           <li class="nav-item active">
-                <a class="nav-link" href="{{path('app_dashboard_agent')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+              </form>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                
+          </ul>
+        </div>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('uploads/image/' ~ user.getImage())}}"
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right pullDown">
+              <div class="dropdown-title">{{user.getPrenom}}</div>
+              <div class="dropdown-divider"></div>
+               <a href="{{ path('app_logout') }}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                Deconnexion
+              </a>
             </div>
-                   <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-calendar"></i>
-                    
-                    <span>AgendaMedecin</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Voir les agenda:</h6>
-                        <a class="collapse-item" href="{{path('app_rendezvous_forme')}}">voir les agenda</a>
-                    </div>
-                </div>
-            </li>
-
-                  <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Hospitalisation</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Voir les hospitalisations:</h6>
-                        <a class="collapse-item" href="utilities-color.html">C</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
-
-         <li class="nav-item active
-         ">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Rendezvous</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">gere les rendezvous:</h6>
-                        <a class="collapse-item" href="{{path('app_rendezvous_liste')}}">Afficher les rendezvous</a>
-                        {#  <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html"></a> #}
-                         <a class="collapse-item" href="{{path('app_rendezvous_ajout')}}">Ajouter un rendezvous</a>
-                      {#   <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a> #}
-                    </div>
-                </div>
-            </li>   
-
-            <li class="nav-item ">
-                <a class="nav-link" href="{{path('app_patient_liste')}}">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Patients</span></a>
-            </li>    
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            
-
+          </li>
         </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
-                    <!-- Topbar Search -->
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-60 small">{{user.getPrenom}}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="/assets/img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                 
-                                </a>
-                                {# <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a> #}
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{ path('app_logout')}}" data-toggle="modal" data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Déconnexion
-                                </a>
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    
-
-                    <!-- Nested Row within Card Body -->
-                <div class="row">
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+           <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="{{ path('app_admin_dashboard') }}"> <img alt="image" src="/assetse/img/logo.png" class="header-logo" /> <span
+                class="logo-name">MEDICATIVE</span>
+            </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="menu-header">Main</li>
+            <li class="dropdown active">
+              <a href="{{ path('app_admin_dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="briefcase"></i><span>AgendaMedecin</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{path('app_rendezvous_forme')}}">voir agenda</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Rendez_vous</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{path('app_rendezvous_ajout')}}">Creer</a></li>
+                <li><a class="nav-link" href="{{path('app_rendezvous_liste_agent')}}">afficher</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Patients</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="email-inbox.html">Ajouter</a></li>
+                <li><a class="nav-link" href="{{path('app_patient_liste')}}">Afficher</a></li>
+              </ul>
+            </li>
+            <li class="menu-header">Hospitalisation</li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="image"></i><span>hospitalisations</span></a>
+              <ul class="dropdown-menu">
+             {#    <li><a class="nav-link" href="light-gallery.html">Light Gallery</a></li> #}
+                <li><a href="{{path('app_hospitalisation')}}"> hospitalisations</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="flag"></i><span>Chambre</span></a>
+              <ul class="dropdown-menu">
+                <li><a href="carousel.html">Creer</a></li>
+                <li><a class="nav-link" href="{{ path('app_chambre')}}">affiche</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="map"></i><span>
+                  Lit</span></a>
+              <ul class="dropdown-menu">
+                <li><a href="gmaps-advanced-route.html">Creer</a></li>
+                <li><a href="{{ path('app_lit')}}">Afficher</a></li>
+              </ul>
+            </li>  
+             </ul>
+        </aside> 
+  
+      </div>
+        <div class="container-fluid">
+              
+                       <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <div class="p-5">
                             <div>
-                                <h1 class="h4 text-blue-900 mb-4">Reporter un rendezvous</h1>
+                                <h1 class="h4 text-blue-900 mb-4 modifier">Modifier un rendezvous</h1>
                             </div>
                             {{ form_start(form) }}
 
@@ -262,19 +150,19 @@
 
                              <div class="form-group row">
                                   <div class="col-sm-6 mb-3 mb-sm-0">
-                                         {{form_row(form.emailsmedecin,{
-                                     'label_attr': {'style': 'color:blue; font-size: 18px;'},
+                                        {{form_row(form.emailsmedecin, {'label_attr': {'style': 'color:blue; font-size:20px;'},
                                     'attr': {
-                                  'style': 'color:blue; font-size:16px;',
-                                     }}) }}   
+                                    'style': 'color:blue; font-size:18px;',
+                                    }}) }} 
+                                       
 
                                   </div>
                                   <div class="col-sm-6">
-                                         {{form_row(form.specialite,{
-                                  'label_attr': {'style': 'color:blue; font-size: 18px;'},
-                                  'attr': {
-                                'style': 'color:blue; font-size:16px;',
-                                     }}) }}
+                                         {{form_row(form.specialite, {'label_attr': {'style': 'color:blue; font-size:20px;'},
+                                    'attr': {
+                                    'style': 'color:blue; font-size:18px;',
+                                    }}) }}  
+ 
 
                                   </div>
 
@@ -282,12 +170,10 @@
                               
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                         {{form_row(form.motif,{
-                                  'label_attr': {'style': 'color:blue; font-size: 18px;'},
-                                  'attr': {
-                
-                                'style': 'color:blue; font-size:16px p-5;',
-                            }}) }} 
+                                         {{form_row(form.motif,{'label_attr': {'style': 'color:blue; font-size:20px;'},
+                                    'attr': {
+                                    'style': 'color:blue; font-size:18px;',
+                                    }}) }}
 
                                     </div>
 
@@ -308,79 +194,124 @@
                         </div>
                     </div>
                 </div>
-                  <!-- Content Row -->
-                    <div class="row">
-                       
-                    </div>
 
                     <!-- Content Row -->
-
-                    <div class="row">
-
+                    <div class="settingSidebar">
+                        <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+                        </a>
+                        <div class="settingSidebar-body ps-container ps-theme-default">
+                          <div class=" fade show active">
+                            <div class="setting-panel-header">Setting Panel
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <h6 class="font-medium m-b-10">Select Layout</h6>
+                              <div class="selectgroup layout-color w-50">
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                                  <span class="selectgroup-button">Light</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                                  <span class="selectgroup-button">Dark</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                              <div class="selectgroup selectgroup-pills sidebar-color">
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                                  <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                    data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                                </label>
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                                  <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                    data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <h6 class="font-medium m-b-10">Color Theme</h6>
+                              <div class="theme-setting-options">
+                                <ul class="choose-theme list-unstyled mb-0">
+                                  <li title="white" class="active">
+                                    <div class="white"></div>
+                                  </li>
+                                  <li title="cyan">
+                                    <div class="cyan"></div>
+                                  </li>
+                                  <li title="black">
+                                    <div class="black"></div>
+                                  </li>
+                                  <li title="purple">
+                                    <div class="purple"></div>
+                                  </li>
+                                  <li title="orange">
+                                    <div class="orange"></div>
+                                  </li>
+                                  <li title="green">
+                                    <div class="green"></div>
+                                  </li>
+                                  <li title="red">
+                                    <div class="red"></div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <div class="theme-setting-options">
+                                <label class="m-b-0">
+                                  <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                    id="mini_sidebar_setting">
+                                  <span class="custom-switch-indicator"></span>
+                                  <span class="control-label p-l-10">Mini Sidebar</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <div class="theme-setting-options">
+                                <label class="m-b-0">
+                                  <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                    id="sticky_header_setting">
+                                  <span class="custom-switch-indicator"></span>
+                                  <span class="control-label p-l-10">Sticky Header</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                              <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                                <i class="fas fa-undo"></i> Restore Default
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-
-
+                    <footer class="main-footer">
+                      <div class="footer-left">
+                        <a href="templateshub.net"></a></a>
+                      </div>
+                      <div class="footer-right">
+                      </div>
+                    </footer> 
+                  </div>
                 </div>
-                <!-- /.container-fluid -->
+                      
+  <!-- General JS Scripts -->
+  <script src="/assetse/js/app.min.js"></script>
+  <!-- JS Libraies -->
+  <script src="/assetse/bundles/apexcharts/apexcharts.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="/assetse/js/page/index.js"></script>
+  <!-- Template JS File -->
+  <script src="/assetse/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/assetse/js/custom.js"></script>
+   <script>
 
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Neldy Ruth</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Quitter?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Vous voulez quitter la session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
-                    <a class="btn btn-primary" href="{{ path('app_logout') }}">Déconnexion</a>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-    <!-- Bootstrap core JavaScript-->
-    <script src="/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/assets/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="/assets/vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="/assets/js/demo/chart-area-demo.js"></script>
-    <script src="/assets/js/demo/chart-pie-demo.js"></script>
-    <script>
-
-        
     var champselect_doctor=document.getElementById('rdvs_mise_ajour_emailsmedecin');
-         champselect_doctor.classList.add('d-none');
+      champselect_doctor.classList.add('d-none');
      $('#rdvs_mise_ajour_specialite').on('change', function(){
        
             let me = $(this);
@@ -397,7 +328,6 @@
          const data = {
         id:id
             };
-            
 
 // Options de la requête
 const options = {
@@ -408,9 +338,8 @@ const options = {
   body: JSON.stringify(data)
 };
 
-
 // Effectuer la requête POST
-fetch('/rendezvous/filtre/modif', options)
+fetch('https://localhost:8000/rendezvous/filtre', options)
   .then(response => response.json())
   .then(data => {
     // Traiter la réponse JSON
@@ -433,6 +362,8 @@ champselect_doctor.classList.remove('d-none');
 
             }
        }) 
+    
+    
     </script>
     
     

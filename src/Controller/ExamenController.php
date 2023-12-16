@@ -7,6 +7,7 @@ use App\Entity\Examen;
 use App\Form\ExamenType;
 use App\Form\ExamenMiseAjourType;
 use App\Repository\ExamenRepository;
+use App\Repository\RdvsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Security;
@@ -20,68 +21,113 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class ExamenController extends AbstractController
 {
     #[Route('/examen/ajout', name: 'app_examen_add')]
-    public function index(Security $security, EntityManagerInterface $entityManager,ExamenRepository $examenRepository,Request $request): Response
+    public function index(Security $security, EntityManagerInterface $entityManager,ExamenRepository $examenRepository,Request $request,RdvsRepository $rdvsRepository): Response
     {
         $user=$security->getUser();
         $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
        if (!array_intersect($user->getRoles(), $roles)) {
          throw new AccessDeniedException('Acces refuse');
        } 
-
-        $examen=new Examen();
-        $form=$this->createForm(ExamenType::class,$examen);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) { 
-            try {
-                $examens=$examenRepository->findOneBy(['libelle'=>$examen->getLibelle()]);
-                if ( $examens!= null) {
-                    $this->addFlash('danger', 'ce nom existe deja.');  
-                  
-                }else {
-                    $entityManager->persist($examen);
-                    $entityManager->flush();
-                    return $this->redirectToRoute('app_examen_liste');
-                    
-                }      
-                              
-            } catch (Exception $e) {
-                //throw $th;
-                dd($e->getMessage());
-            }
-           
-        }
+       if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
+        return new RedirectResponse($this->generateUrl('app_login'));
+    }
+     else {
+        $comptes   =     $security->getUser();
+        $user     =      $comptes;
+            // Récupérez le login de l'utilisateur connecté
+        $login    =        $comptes->getUserIdentifier();
+        $rendez_vous     =    $rdvsRepository->findAll();
+        $rendezvouslistes = $rdvsRepository->findBy(['emailsmedecin' =>$login]);
+       
         return $this->render('examen/ajout.html.twig', [
-            'form' => $form->createView(),
-           
+            'rendezvousS'  =>   $rendezvouslistes,
+               'user'     =>       $user  
              
          ]);
+      
+      }
+
+       
         }
 
-         #[Route('/edit/examen/{id}', name: 'app_examen_edit',methods:['GET','POST'])]
-         public function edit(Security $security,EntityManagerInterface $entityManager,Request $request,ExamenRepository $examenRepository,$id): Response
-     
-         {     $user=$security->getUser();
-            $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
-        if (!array_intersect($user->getRoles(), $roles)) {
-            throw new AccessDeniedException('Acces refuse');
-        } 
-             $examen=$examenRepository->find($id);
-     
-             $form=$this->createForm(ExamenMiseAjourType::class,$examen);
-             $form->handleRequest($request);
-             
-             if ($form->isSubmitted() && $form->isValid()) { 
-                 $specialite = $form->getData();
-                 $entityManager->flush();
-                 $this->addFlash('success', 'la modification a reussi'); 
-                 return $this->redirectToRoute('app_examen_liste'); 
-           
-             }
-             return $this->render('examen/edit.html.twig', [
-                 'form' => $form->createView(),
-             ]);
-     
-         }
+        // ajout d un examen
+
+        #[Route('/ajout/examen', name: 'app_examen_add_examen')]
+        public function ajout(EntityManagerInterface $entityManager,Request $request): Response
+                  
+            {  
+ 
+                $examen=$entityManager->getRepository(Examen::class)->findOneBy([
+                    "libelle" =>$request->request->all()['libelle'],
+                  
+                     ]); 
+                     if ($examen == null){ 
+                        $examen=new Examen();
+                         $examen->setLibelle($request->request->all()['libelle']);
+                          $examen->setPatient($request->request->all()['patient']);
+                           $entityManager->persist($examen);
+                           $entityManager->flush();
+                         }else{
+                        return $this->json([
+                            'code' =>1,
+                            'message' => 'cet examen  existe deja'
+                        ]);
+                    }
+            
+                    return $this->json([
+                        'code' => 2,
+                        'message' => 'insertion effectuée'
+                    ]); 
+                   
+            
+            }
+
+            #[Route('/{id}/edit/examen', name: 'app_examen_edit_form',methods:['GET'])]
+            public function edit_form(EntityManagerInterface $entityManager,Security $security,Request $request,ExamenRepository $examenRepository,RdvsRepository $rdvsRepository,$id): Response
+                      
+                {    $user=$security->getUser();
+                    $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
+                   if (!array_intersect($user->getRoles(), $roles)) {
+                     throw new AccessDeniedException('Acces refuse');
+                   } 
+                   $comptes        =        $security->getUser();
+                   $user           =         $comptes;
+                   $login          =        $comptes->getUserIdentifier();
+                   $rendez_vous    =       $rdvsRepository->findAll();
+               $rendezvouslistes   =        $rdvsRepository->findBy(['emailsmedecin' =>$login]);
+                    $data          =        $examenRepository->findBy(['id' => $id]);
+                    return $this->render('examen/edit.html.twig', [
+                      'data'=>$data[0],
+                     'rendezvousS'  =>   $rendezvouslistes,
+                     'user'     =>       $user  
+                   ]);
+                
+                }
+
+                #[Route('/edit/examen/{id}', name: 'app_examen_edit',methods:['POST'])]
+                public function edit(EntityManagerInterface $entityManager,Request $request,$id,ExamenRepository $examenRepository): Response
+                          
+                    {   
+                        $examen=$examenRepository->find($id);
+    
+                        if  (!$examen) {
+                           
+                            throw $this->createNotFoundException(
+                                'No product found for id '.$id
+                            );
+                        }
+                        $examen->setLibelle($request->request->all()['libelle']);
+                        $examen->setPatient($request->request->all()['patient']);
+                        $entityManager->flush();
+                        return $this->json([
+                            'code' => 1,
+                            'message' => 'mise effectue'
+                        ]); 
+                        
+                    }
+
+
+
 
 
         #[Route('/delete/examen', name: 'app_examen_delete')]
@@ -111,6 +157,7 @@ class ExamenController extends AbstractController
                
                }else {
                 $user=$security->getUser();
+                $comptes  =  $user;
                $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
               if (!array_intersect($user->getRoles(), $roles)) {
                 throw new AccessDeniedException('Acces refuse');
@@ -120,7 +167,8 @@ class ExamenController extends AbstractController
 
               return $this->render('examen/index.html.twig', [
                 'examens'=>$examen,
-                'user'=>$user
+                'user'=>$user,
+                'comptes'=>$comptes
             ]);
              
         }

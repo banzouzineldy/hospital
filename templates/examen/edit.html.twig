@@ -4,87 +4,318 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>HOPITAL</title>
-
-    <!-- Custom fonts for this template-->
-    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
-
+<meta charset="UTF-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+<title>Hospital Medicative</title>
+<!-- General CSS Files -->
+<link rel="stylesheet" href="/assetse/css/app.min.css">
+<!-- Template CSS -->
+<link rel="stylesheet" href="/assetse/css/style.css">
+<link rel="stylesheet" href="/assetse/css/components.css">
+<!-- Custom style CSS -->
+<link rel="stylesheet" href="/assetse/css/custom.css">
+<link rel='shortcut icon' type='image/x-icon' href='/assetse/img/favicon 1.ico' />
 </head>
+<body>
+  <div class="loader"></div>
+  <div id="app">
+    <div class="main-wrapper main-wrapper-1">
+      <div class="navbar-bg"></div>
+      <nav class="navbar navbar-expand-lg main-navbar sticky">
+        <div class="form-inline mr-auto">
+          <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn"> <i data-feather="align-justify"></i></a></li>
+            <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
+                <i data-feather="maximize"></i>
+              </a></li>
+            <li>
+              <form class="form-inline mr-auto">
+                <div class="search-element">
+                  <input class="form-control" type="search" placeholder="Search" aria-label="Search" data-width="200">
+                  <button class="btn" type="submit">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
+        <ul class="navbar-nav navbar-right">
+          <li class="dropdown"><a href="#" data-toggle="dropdown"
+              class="nav-link dropdown-toggle nav-link-lg nav-link-user"> <img alt="image" src="{{asset('uploads/image/' ~ user.getImage())}}"
+                class="user-img-radious-style"> <span class="d-sm-none d-lg-inline-block"></span></a>
+            <div class="dropdown-menu dropdown-menu-right pullDown">
+              <div class="dropdown-title">{{user.getPrenom}}</div>
+              <div class="dropdown-divider"></div>
+               <a href="{{ path('app_logout') }}" class="dropdown-item has-icon text-danger"> <i class="fas fa-sign-out-alt"></i>
+                Deconnexion
+              </a>
+            </div>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-sidebar sidebar-style-2">
+         <aside id="sidebar-wrapper">
+          <div class="sidebar-brand">
+            <a href="{{ path('app_dashboard_medecin') }}"> <img alt="image" src="/assetse/img/logo.png" class="header-logo" /> <span
+            class="logo-name">MEDICATIVE</span>
+            </a>
+          </div>
+          <ul class="sidebar-menu">
+            <li class="menu-header">Main</li>
+            <li class="dropdown active">
+              <a href="{{ path('app_dashboard_medecin') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="briefcase"></i><span>rendezVous</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{path('app_rendezvous_medecin_liste')}}">liste des rendez_vous</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Hospitalisation</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="">Creer</a></li>
+                <li><a class="nav-link" href="{{path('app_hospitalisation')}}">afficher</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Agenda</span></a>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{{path('app_plage_horaire')}}">calendrier</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="shopping-bag"></i><span>examen</span></a>
+              <ul class="dropdown-menu">
+              <li><a class="nav-link" href="{{path('app_examen_liste')}}">Ajout</a></lii>
+                <li><a class="nav-link" href="{{path('app_examen_liste')}}">afficher</a></lii>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="map"></i><span>
+                  actemedical</span></a>
+              <ul class="dropdown-menu">
+               {#  <li><a href="gmaps-advanced-route.html">Creer</a></li> #}
+                <li><a href="{{path('app_acteMedical_liste')}}">Afficher</a></li>
+              </ul>
+            </li> 
+            </ul>
 
- <style>
+        </aside>
+          
+      </div>
+                <!-- End of Topbar -->
 
- .examens{
-    width:50%;
-    position: absolute;
-    top: 50px;
-}
- 
- 
- </style>
-
-<body class="bg-gradient-primary">
-
-
-  <div class="container">
-   <div class="card examens border-0 shadow-lg my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image">
-                        <img src="/assets/img/admin.jpg" alt="Slider Images"  class="slide-image" width="300px" height ="300px">
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
                     
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Ajouter!</h1>
-                            </div>
-                                {{form_start(form) }}
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                       {{form_row(form.libelle,{ 'label_attr': {'style': 'color:black; font-size:20px;'},
-                                  'attr': {
-                                'style': 'color:black; font-size:16px;',
-                                     }})}}
 
-                                    </div>
-                                </div>
-                                 {{form_end(form) }}
-                            
-                            <hr>
+                    <!-- Nested Row within Card Body -->
+                
+                       <div class="row">
+                    <div class="col-lg-8 offset-lg-2">
+                        <div class="p-5">
+                            <div>
+                                <h1 class="h4 text-blue-900 mb-4 modifier">modifier un examen</h1>
+                            </div>
+                      <form method="POST" class="" novalidate="" id="form">
+                    <div class="form-group row">
+                     <label class="col-lg-3 col-form-label">Type d,examen:</label>
+                      <div class="col-lg-9">
+                     <div class="row">
+                        <div class="col-md-6">
+                            <input id="examen" type="text" class="form-control" name="libelle" tabindex="1">
+                          </div>
+                      </div>
+                     </div>
+                </div>  
+                    <div class="form-group row">
+                            <label class="col-lg-3 col-form-label">Patient:</label>
+                            <div class="col-lg-9">
+                              <select class="form-control select" id="patient">
+                                <option * disabled selected>selectionner le patient</option>
+                                    {% for rendezvous in rendezvousS %}
+                                      <option value = " {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}"> {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}</option>  
+                                            {% endfor %}
+                                </select> 
+                              </div>
                         </div>
                     </div>
+                  {# <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+                      <label class="custom-control-label" for="remember-me">Remember Me</label>
+                    </div>
+                  </div> #}
+                  
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                      modifier
+                    </button>
+                  </div>
+                </form>         
+                  </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-    </div>
+                    <!-- Content Row -->
+                    <div class="settingSidebar">
+                        <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+                        </a>
+                        <div class="settingSidebar-body ps-container ps-theme-default">
+                          <div class=" fade show active">
+                            <div class="setting-panel-header">Setting Panel
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <h6 class="font-medium m-b-10">Select Layout</h6>
+                              <div class="selectgroup layout-color w-50">
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                                  <span class="selectgroup-button">Light</span>
+                                </label>
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                                  <span class="selectgroup-button">Dark</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                              <div class="selectgroup selectgroup-pills sidebar-color">
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                                  <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                    data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                                </label>
+                                <label class="selectgroup-item">
+                                  <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                                  <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                                    data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <h6 class="font-medium m-b-10">Color Theme</h6>
+                              <div class="theme-setting-options">
+                                <ul class="choose-theme list-unstyled mb-0">
+                                  <li title="white" class="active">
+                                    <div class="white"></div>
+                                  </li>
+                                  <li title="cyan">
+                                    <div class="cyan"></div>
+                                  </li>
+                                  <li title="black">
+                                    <div class="black"></div>
+                                  </li>
+                                  <li title="purple">
+                                    <div class="purple"></div>
+                                  </li>
+                                  <li title="orange">
+                                    <div class="orange"></div>
+                                  </li>
+                                  <li title="green">
+                                    <div class="green"></div>
+                                  </li>
+                                  <li title="red">
+                                    <div class="red"></div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <div class="theme-setting-options">
+                                <label class="m-b-0">
+                                  <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                    id="mini_sidebar_setting">
+                                  <span class="custom-switch-indicator"></span>
+                                  <span class="control-label p-l-10">Mini Sidebar</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="p-15 border-bottom">
+                              <div class="theme-setting-options">
+                                <label class="m-b-0">
+                                  <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                                    id="sticky_header_setting">
+                                  <span class="custom-switch-indicator"></span>
+                                  <span class="control-label p-l-10">Sticky Header</span>
+                                </label>
+                              </div>
+                            </div>
+                            <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                              <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                                <i class="fas fa-undo"></i> Restore Default
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {# <footer class="main-footer">
+                      <div class="footer-left">
+                        <a href="templateshub.net"></a></a>
+                      </div>
+                      <div class="footer-right">
+                      </div>
+                    </footer>  #}
+                  </div>
+                </div>
+                      
+  <!-- General JS Scripts -->
+  <script src="/assetse/js/app.min.js"></script>
+  <!-- JS Libraies -->
+  <script src="/assetse/bundles/apexcharts/apexcharts.min.js"></script>
+  <!-- Page Specific JS File -->
+  <script src="/assetse/js/page/index.js"></script>
+  <!-- Template JS File -->
+  <script src="/assetse/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="/assetse/js/custom.js"></script>
 
+  <script>
+  
+    $(document).ready(function(){ 
+	 $('#form').submit(function(e){
+		e.preventDefault();
+        var $url= '{{ path('app_examen_edit',{id:data|default(null) != null ?data.id:0}) }}';
+		var nom_examen=$('#form #examen').val();
+		var prenom_patient=$('#form #patient').val();
+     console.log( nom_examen);
+    console.log(prenom_patient);
+		var $form={
+			libelle:nom_examen,
+			patient:prenom_patient,
+		   };
+		$.ajax({
+			method:'POST',
+			dataType:'json',
+			url: $url,
+			 data:$form,
+			 success:function(data) { 
+				if (data.code==1) {
+				window.location.href='/examen' 
+					
+				}	    
+			},
+			error:function(error) {
+				console.log(error.responseText)   
+			}
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/assets/vendor/jquery/jquery.min.js"></script>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+		});
 
-    <!-- Core plugin JavaScript-->
-    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+	}); 	 
 
-    <!-- Custom scripts for all pages-->
-    <script src="/assets/js/sb-admin-2.min.js"></script>
+});  
+  
+  
+  </script>
 
-
-
+    
+    
 </body>
 
 </html>

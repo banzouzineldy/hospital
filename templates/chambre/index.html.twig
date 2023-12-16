@@ -179,9 +179,9 @@
                                         
                                         <tbody>
                                           {% for chambres in chambre %}
-                        <tr>
+                                         <tr>
                         
-                              <td>{{chambres.numChambre}}</td>
+                                          <td>{{chambres.numChambre}}</td>
                                             <td>{{chambres.niveau}}</td>
                                             <td>{{chambres.categorie}}</td>
                                             <td>{{chambres.description}}</td>
@@ -190,18 +190,18 @@
                                             <td>{{chambres.status}}</td>
                                 
                                                                                 
-                        <td>
-                          <div>	
-                          <a class="btn text-blue" href="#"><i class="fas fa-eye"></i></a>	 
-                          <a class="btn text-blue" href="{{path('app_chambre_update',{'id':chambres.id}) }}"><i class="fas fa-edit "></i></a>
-                          <a class="btn text-danger delet " href="#delete_chambre" data-toggle="modal" data-target="" id="{{chambres.id}}"> <i class="fa fa-trash"></i></a>
+                                            <td>
+                                        <div>	
+                                    <a class="btn text-blue" href="#"><i class="fas fa-eye"></i></a>	 
+                                  <a class="btn text-blue" href="{{path('app_chambre_update',{'id':chambres.id}) }}"><i class="fas fa-edit "></i></a>
+                                    <a class="btn text-danger delet " href="#delete_chambre" data-toggle="modal" data-target="" id="{{chambres.id}}"> <i class="fa fa-trash"></i></a>
                             
-                          </div> 
-                        </td>
-                        </tr>
-                      {% endfor %}
+                               </div> 
+                             </td>
+                            </tr>
+                          {% endfor %}
                                       
-                                        </tbody>
+                                    </tbody>
                                     </table>
                                 </div>
                             </div>

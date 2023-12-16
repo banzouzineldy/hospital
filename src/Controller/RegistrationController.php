@@ -275,6 +275,21 @@ class RegistrationController extends AbstractController
         }
 
 
+        #[Route('/user/{id}', name: 'app_user_unique',methods:[ 'GET'])]
+        public function userunique(Security $security,EntityManagerInterface $entityManager,$id): Response
+    
+            {   $user=$entityManager->getRepository(User::class)->find($id);
+                $comptes = $security->getUser();
+                $compte=$comptes;
+                
+                return $this->render('registration/user.html.twig', [
+                    'userid'=>$user,
+                    'users'=>$compte
+                ]);
+    
+            }
+
+
 
 
 

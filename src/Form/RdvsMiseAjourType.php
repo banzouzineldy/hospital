@@ -19,7 +19,8 @@ class RdvsMiseAjourType extends AbstractType
         $builder
         ->add('date',DateTimeType::class, [
             'widget' => 'single_text',
-            'label' => 'Date',
+            'label' => 'Dates',
+             'format'=>'yyy-MM-dd HH:mm:ss',
             'attr' => [
                 'class' => 'my-date-field-class form-control form-control-sm ',
                 'style' => 'color:red; font-size:12px;',

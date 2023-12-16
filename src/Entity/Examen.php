@@ -16,6 +16,9 @@ class Examen
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $patient = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Examen
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getPatient(): ?string
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(string $patient): self
+    {
+        $this->patient = $patient;
 
         return $this;
     }

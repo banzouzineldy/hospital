@@ -121,7 +121,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="image"></i><span>hospitalisations</span></a>
               <ul class="dropdown-menu">
              {#    <li><a class="nav-link" href="light-gallery.html">Light Gallery</a></li> #}
-                <li><a href="gallery1.html"> hospitalisations</a></li>
+                <li><a href="{{path('app_hospitalisation')}}"> hospitalisations</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -161,7 +161,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-striped" id="tableExport" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="tableExport" width="100%" cellspacing="0">
                                     <thead>
                                       <tr>
                                         <th>Libelle</th>

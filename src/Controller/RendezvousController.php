@@ -371,6 +371,39 @@ class RendezvousController extends AbstractController
                      
            
        }
+       
+       
+       #[Route('/rendezvous/liste/agent', name: 'app_rendezvous_liste_agent')]
+
+   public function rendezMedecin(RdvsRepository $rdvsRepository,UserRepository $userRepository): Response
+   {  //$this->denyAccessUnlessGranted('ROLE_AGENT');
+        $user=$this->getUser();
+        $roles=['ROLE_AGENT','ROLE_ADMIN'];
+
+      // $roles=$user->getRoles();
+      if (!array_intersect($user->getRoles(), $roles)) {
+        throw new AccessDeniedException('Acces refuse');
+      } 
+      $comptes  =  $user;
+       $rendezvouslistes=$rdvsRepository->findAll();
+          //dd(  $rendezvouslistes); 
+  
+       $userliste=[];
+
+       foreach ($rendezvouslistes as  $value) {
+        $user=$userRepository->findOneBy(['email' =>$value->getEmailsmedecin()]);
+        if (!in_array($user,$userliste) ) {
+          array_push($userliste,$user);   
+        } 
+        } 
+       return $this->render('dashboard_agent/rendezmedecin.html.twig', [
+          'rendezvousS'=>$rendezvouslistes,
+          'users'=>$userliste,
+          'comptes'=>$comptes
+           
+           
+       ]);
+   }
 
        
 

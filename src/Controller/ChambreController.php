@@ -98,8 +98,9 @@ class ChambreController extends AbstractController
         ]);
     }
     #[Route('/chambre/{id}', name: 'app_chambre_update',methods: [ 'POST','GET'])]
-    public function  update(EntityManagerInterface $entityManager,Request $request,ServiceRepository $serviceRepository,UniteRepository $uniteRepository,SluggerInterface $slugger,int $id): Response
-    {   
+    public function  update(Security $security,EntityManagerInterface $entityManager,Request $request,ServiceRepository $serviceRepository,UniteRepository $uniteRepository,SluggerInterface $slugger,int $id): Response
+    {      $users=$security->getUser();
+          $comptes=$users;
 
         $user=$entityManager->getRepository(Chambre::class)->find($id);
         $services=$serviceRepository->findAll();
@@ -140,6 +141,7 @@ class ChambreController extends AbstractController
           }
         return $this->render('chambre/edit.html.twig', [
             'form' => $form->createView(),
+            'user'=>$comptes
         ]);
     }
 

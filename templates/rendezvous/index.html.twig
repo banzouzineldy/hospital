@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/assetse/css/components.css">
 <!-- Custom style CSS -->
 <link rel="stylesheet" href="/assetse/css/custom.css">
-<link rel='shortcut icon' type='image/x-icon' href='/assetse/img/favicon 1.ico' />   
+<link rel='shortcut icon' type='image/x-icon' href='/assetse/img/favicon 1.ico' />
 </head>
 <body>
   <div class="loader"></div>
@@ -28,7 +28,7 @@
         <div class="form-inline mr-auto">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg
-			collapse-btn"> <i data-feather="align-justify"></i></a></li>
+									collapse-btn"> <i data-feather="align-justify"></i></a></li>
             <li><a href="#" class="nav-link nav-link-lg fullscreen-btn">
                 <i data-feather="maximize"></i>
               </a></li>
@@ -121,7 +121,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="image"></i><span>hospitalisations</span></a>
               <ul class="dropdown-menu">
              {#    <li><a class="nav-link" href="light-gallery.html">Light Gallery</a></li> #}
-                <li><a href="gallery1.html"> hospitalisations</a></li>
+                <li><a href="{{path('app_hospitalisation')}}"> hospitalisations</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -147,7 +147,7 @@
         <section class="section">
           <div class="row ">
             <div class="col-sm-4 col-3">
-                        <h4 class="page-title">Services</h4> 
+                        <h4 class="page-title">Rendez_vous</h4> 
             </div>
                 <div class="col-sm-8 col-9 text-right m-b-20">
                        {#  <a href="{{path('app_ajout/fonction') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter une Fonction</a> #}
@@ -157,65 +157,60 @@
               <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-blue">Liste des Services</h6>
+                            <h6 class="m-0 font-weight-bold text-blue">Liste des rendez_vous</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped" id="tableExport" width="100%" cellspacing="0">
+                          <div class="table-responsive">
+                              <table class="table table-bordered" id="tableExport" width="100%" cellspacing="0">
                                     <thead>
-                                      <tr>
-                                       	<th>Date</th>
-										<th>motif</th>
-										<th>patient</th>
-                                        <th>Speialite</th>
-                                        <th>doctor</th>
-                                      </tr>  
-                                    </thead>
+                                          <tr>
+                                              <th>Date</th>
+                                              <th>motif</th>
+                                              <th>patient</th>
+                                                <th>Speialite</th>
+                                                <th>doctor</th>
+                                            </tr>  
+                                      </thead>  
                                     
-                              <tbody>
-                                    {% for rendezvous in rendezvousS %}
+                                       <tbody>
+                                          {% for rendezvous in rendezvousS %}
+                                            <tr> 
 
-                                     	<td> 
-                                        {{rendezvous.date|date('Y-m-d H:i:s')}}
+                              	                 <td> 
+                                              {{rendezvous.date|date('Y-m-d H:i:s')}}
+                                              </td>
 
-                                        </td>
-
-									<td>
+									                            <td>
                                         
-                                     {{rendezvous.motif}}
+                                              {{rendezvous.motif}}
 
-                                     </td>
+                                               </td>
 
-
-                                      <td> 
+                                               <td> 
                                         
-                                    {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}
+                                              {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}
 
-                                     </td>
-                                      <td>    
-                                        {{rendezvous.getSpecialite.nom }}
+                                                </td> 
 
-                                     </td>
-                                          <td>
-                                         {% for  user in users %}
-                                            {% if user.email == rendezvous.emailsmedecin %}
-                                                  {{user.nom ~ '  '~ user.prenom}}
+                                                <td>    
+                                              {{rendezvous.getSpecialite.nom }}
 
-                                            {% endif %} 
-                                          
-                                        {% endfor %}
-                                        </td> 
+                                               </td>
+                                               <td>
+                                                 {% for  user in users %}
+                                                  {% if user.email == rendezvous.emailsmedecin %}
+                                                        {{user.nom ~ '  '~ user.prenom}}
 
-                                        <td class="text-right">
-                                         
-                                         <a class="btn btn-primary" href="{{path('app_rendezvous_edit',{'id':rendezvous.id})}}"><i class="fa fa-pencil"></i>Reporter</a>
-						                <a class="btn btn-danger deletes" href="#delete_rendezvous" data-toggle="modal" data-target="" id="{{rendezvous.id}}"><i class="fa fa-trash"></i>Supprimer</a>
-										</td>
+                                                    {% endif %} 
+                                                
+                                                   {% endfor %}
+                                               </td> 
 
-									 </tr>  
-                             {% endfor %}
-                       </tbody>
-                  </table>
+									                          </tr>  
+                                         {% endfor %}
+                               
+                                      </tbody>
+                               </table>
                          </div>
                       </div>
                   </div>
@@ -316,7 +311,7 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-body text-center">
-						<img src="/assets/img/sent.png" alt="" width="50" height="46">
+						<img src="/assetse/img/sent.png" alt="" width="50" height="46">
 						<h3>Voulez vous suprimer ce service?</h3>
 						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Fermer</a>
 							<button type="submit" class="btn btn-danger suppr" >Suprimer</button>
@@ -327,7 +322,8 @@
 		</div>
     </div>
                   <!-- /.container-fluid -->
-    </div>           
+    </div>
+               
       <footer class="main-footer">
         <div class="footer-left">
           <a href="templateshub.net"></a></a>
@@ -337,26 +333,28 @@
       </footer>
     </div>
   </div>
-    <script src="/assetse/js/scripts.js"></script>
+  
   <!-- General JS Scripts -->
-  <script src="/assetse/js/app.min.js"></script>
+
+   <script src="/assetse/js/app.min.js"></script>
   <!-- JS Libraies -->
   <script src="/assetse/bundles/prism/prism.js"></script>
   <!-- Page Specific JS File -->
-  <script src="assetse/bundles/datatables/datatables.min.js"></script>
-  <script src="assetse/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
-  <script src="assetse/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
-  <script src="assetse/bundles/datatables/export-tables/buttons.flash.min.js"></script>
-  <script src="assetse/bundles/datatables/export-tables/jszip.min.js"></script>
-  <script src="assetse/bundles/datatables/export-tables/pdfmake.min.js"></script>
-  <script src="assetse/bundles/datatables/export-tables/vfs_fonts.js"></script>
-  <script src="assetse/bundles/datatables/export-tables/buttons.print.min.js"></script>
-  <script src="assetse/js/page/datatables.js"></script>
+  <script src="/assetse/bundles/datatables/datatables.min.js"></script>
+  <script src="/assetse/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js"></script>
+  <script src="/assetse/bundles/datatables/export-tables/dataTables.buttons.min.js"></script>
+  <script src="/assetse/bundles/datatables/export-tables/buttons.flash.min.js"></script>
+  <script src="/assetse/bundles/datatables/export-tables/jszip.min.js"></script>
+  <script src="/assetse/bundles/datatables/export-tables/pdfmake.min.js"></script>
+  <script src="/assetse/bundles/datatables/export-tables/vfs_fonts.js"></script>
+  <script src="/assetse/bundles/datatables/export-tables/buttons.print.min.js"></script>
+  <script src="/assetse/js/page/datatables.js"></script>
   <!-- Template JS File -->
-
+  <script src="/assetse/js/scripts.js"></script>
   <!-- Custom JS File -->
-  <script src="assetse/js/custom.js"></script>
-
+  <script src="/assetse/js/custom.js"></script>
+  
+ 
 
 </body>
 
