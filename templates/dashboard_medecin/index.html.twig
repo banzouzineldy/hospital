@@ -8,15 +8,14 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
   <title>MEDICATIVE</title>
   <!-- General CSS Files -->
-  <link rel="stylesheet" href="assetse/css/app.min.css">
+  <link rel="stylesheet" href="/assetse/css/app.min.css">
   <!-- Template CSS -->
-  <link rel="stylesheet" href="assetse/css/style.css">
-  <link rel="stylesheet" href="assetse/css/components.css">
+  <link rel="stylesheet" href="/assetse/css/style.css">
+  <link rel="stylesheet" href="/assetse/css/components.css">
   <!-- Custom style CSS -->
-  <link rel="stylesheet" href="assetse/css/custom.css">
-  <link rel='shortcut icon' type='image/x-icon' href='assetse/img/favicon.ico' />
+  <link rel="stylesheet" href="/assetse/css/custom.css">
+  <link rel='shortcut icon' type='image/x-icon' href='/assetse/img/favicon.ico' />
 </head>
-
 <body>
   <div class="loader"></div>
   <div id="app">
@@ -92,7 +91,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
                   data-feather="shopping-bag"></i><span>examen</span></a>
               <ul class="dropdown-menu">
-              <li><a class="nav-link" href="{{path('{{path('app_examen_add') }}')}}">Ajout</a></lii>
+              <li><a class="nav-link" href="{{path('app_examen_add') }}">Ajout</a></lii>
                 <li><a class="nav-link" href="{{path('app_examen_liste')}}">afficher</a></lii>
               </ul>
             </li>
@@ -100,8 +99,8 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="map"></i><span>
                   actemedical</span></a>
               <ul class="dropdown-menu">
-               {#  <li><a href="gmaps-advanced-route.html">Creer</a></li> #}
-                <li><a href="{{path('app_acteMedical_liste')}}">Afficher</a></li>
+                <li><a href="gmaps-advanced-route.html">Creer</a></li> 
+                <li><a href="{{path('app_acteMedical_liste_acte')}}">liste</a></li>
               </ul>
             </li> 
             </ul>
@@ -363,12 +362,12 @@
     </div>
   </div>
   <!-- General JS Scripts -->
-  <script src="assetse/js/app.min.js"></script>
+  <script src="/assetse/js/app.min.js"></script>
   <!-- JS Libraies -->
   <!-- Template JS File -->
-  <script src="assetse/js/scripts.js"></script>
+  <script src="/assetse/js/scripts.js"></script>
   <!-- Custom JS File -->
-  <script src="assetse/js/custom.js"></script>
+  <script src="/assetse/js/custom.js"></script>
   <script src="/assetse/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
@@ -401,7 +400,7 @@
        var chartDataAnnuelle = {{ chartDataAnnuelle|raw }};
           var ctx = document.getElementById('hopital_annee').getContext('2d');
           var myChart = new Chart(ctx, {
-             type: 'doughnut',
+             type: 'bar',
           data: {
               labels: Object.keys(chartDataAnnuelle),
               datasets: [{

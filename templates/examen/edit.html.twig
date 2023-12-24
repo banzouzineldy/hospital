@@ -124,11 +124,12 @@
                             </div>
                       <form method="POST" class="" novalidate="" id="form">
                     <div class="form-group row">
-                     <label class="col-lg-3 col-form-label">Type d,examen:</label>
+                     <label class="col-lg-3 col-form-label">Type d'examen:</label>
                       <div class="col-lg-9">
                      <div class="row">
                         <div class="col-md-6">
-                            <input id="examen" type="text" class="form-control" name="libelle" tabindex="1">
+                        <input  type="text" class="form-control" id="examen" name="libelle"value="{% if data|default(null) != null %}{{data.libelle}}{% endif %}"
+                        >
                           </div>
                       </div>
                      </div>
@@ -137,11 +138,16 @@
                             <label class="col-lg-3 col-form-label">Patient:</label>
                             <div class="col-lg-9">
                               <select class="form-control select" id="patient">
-                                <option * disabled selected>selectionner le patient</option>
-                                    {% for rendezvous in rendezvousS %}
-                                      <option value = " {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}"> {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}</option>  
-                                            {% endfor %}
-                                </select> 
+                             <option value="">Déroulez la liste</option>
+                             {% for rendezvous in rendezvousS %}    
+                           <option 
+                            {% if data|default(null) != null %}
+                             value ={{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}
+                                    selected
+                                  {% endif %}
+                           " {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}"> {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}</option>  
+                                {% endfor %}
+                        </select> 
                               </div>
                         </div>
                     </div>

@@ -61,7 +61,7 @@
       <div class="main-sidebar sidebar-style-2">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="{{ path('app_admin_dashboard') }}"> <img alt="image" src="assetse/img/logo.png" class="header-logo" /> <span
+            <a href="{{ path('app_admin_dashboard') }}"> <img alt="image" src="/assetse/img/logo.png" class="header-logo" /> <span
                 class="logo-name">MEDICATIVE</span>
             </a>
           </div>
@@ -169,6 +169,7 @@
                                               <th>patient</th>
                                                 <th>Speialite</th>
                                                 <th>doctor</th>
+                                                 <th>dateEnregistrement</th>
                                             </tr>  
                                       </thead>  
                                     
@@ -205,6 +206,11 @@
                                                 
                                                    {% endfor %}
                                                </td> 
+                                                
+                                                  <td>    
+                                              {{rendezvous.dateautomatique|date('Y-m-H:i')}}
+
+                                               </td>
 
 									                          </tr>  
                                          {% endfor %}

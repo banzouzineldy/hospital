@@ -5,19 +5,28 @@ namespace App\Controller;
 use App\Repository\RdvsRepository;
 use App\Repository\UserRepository;
 use App\Repository\PatientRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class DashboardMedecinController extends AbstractController
 {
     #[Route('/medecin', name: 'app_dashboard_medecin')]
-    public function index(Security $security,RdvsRepository $rdvsRepository,PatientRepository $patientRepository,UserRepository $userRepository ): Response
+    public function index(EntityManagerInterface $entityManagerInterface,Security $security,RdvsRepository $rdvsRepository,PatientRepository $patientRepository,UserRepository $userRepository ): Response
 
-    { 
-        $this->denyAccessUnlessGranted('ROLE_MEDECIN');
+    {    $user=$this->getUser();
+        $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
+    
+       // $roles=$user->getRoles();
+       if (!array_intersect($user->getRoles(), $roles)) {
+         throw new AccessDeniedException('Acces refuse');
+       }
+
+        //$this->denyAccessUnlessGranted('ROLE_MEDECIN');
         if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return new RedirectResponse($this->generateUrl('app_login'));
         }else   
@@ -43,7 +52,7 @@ class DashboardMedecinController extends AbstractController
                 }
             }
             foreach ($rendezVous as $d) {
-                $years = $d->getDateEnregistrement()->format('Y-m-d');
+                $years = $d->getDateautomatique()->format('Y-m-d');
                 if (isset($chartData2[$years])) {
                     $chartData2[$years] ++;
                 }else {
@@ -69,7 +78,12 @@ class DashboardMedecinController extends AbstractController
             ->select('COUNT (u.id)')
             ->getQuery()
             ->getSingleResult();
-    
+           // $sql=$entityManagerInterface->getConnection();
+            $countesdates= $rdvsRepository->createQueryBuilder('r')
+             ->select('COUNT(r.dateautomatique)')
+             ->getQuery()
+            ->getSingleResult();
+            
             $utisateurs=$userRepository->createQueryBuilder('u')
             ->select('COUNT (u.id)')
             ->getQuery()
@@ -78,6 +92,7 @@ class DashboardMedecinController extends AbstractController
             $data = [
                 'patients' => count($patients),
                 'rendez-Vous' => count($rendezVous),
+                
     
             ];
             $jsonData = json_encode($data);
@@ -86,7 +101,7 @@ class DashboardMedecinController extends AbstractController
 
             'jsonData'                   =>  $jsonData,
             'utilisateurs'               => $totalutisateurs,
-            'rendezVous'                  =>$rendezVous,
+            'rendezVous'                  =>$countesdates,
             'patient'                     =>$patients,
             'chartDataAnnuelle'          =>$chartDataAnnuelle,
             'user'                      =>$user

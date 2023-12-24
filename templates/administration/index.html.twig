@@ -407,6 +407,7 @@
   <!-- Custom JS File -->
   <script src="assetse/js/custom.js"></script>
     <script src="/assetse/vendor/chart.js/Chart.min.js"></script>
+    <script src="/assetse/bundles/chartjs/chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="/assetse/js/demo/chart-area-demo.js"></script>
@@ -438,7 +439,7 @@
        var chartDataAnnuelle = {{ chartDataAnnuelle|raw }};
           var ctx = document.getElementById('hopital_annee').getContext('2d');
           var myChart = new Chart(ctx, {
-             type: 'doughnut',
+             type: 'bar',
           data: {
               labels: Object.keys(chartDataAnnuelle),
               datasets: [{

@@ -79,7 +79,7 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Rendez_vous</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="{{path('app_rendezvous_ajout')}}">Creer</a></li>
-                <li><a class="nav-link" href="{{path('app_rendezvous_medecin_liste')}}">afficher</a></li>
+                <li><a class="nav-link" href="{{path('app_rendezvous_liste_agent')}}">afficher</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -412,7 +412,7 @@
        var chartDataAnnuelle = {{ chartDataAnnuelle|raw }};
           var ctx = document.getElementById('hopital_annee').getContext('2d');
           var myChart = new Chart(ctx, {
-             type: 'doughnut',
+             type: 'bar',
           data: {
               labels: Object.keys(chartDataAnnuelle),
               datasets: [{

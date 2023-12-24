@@ -40,10 +40,18 @@ class Patient
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
     private ?\DateTimeInterface $dateEnregistrement = null;
+
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: ActeMedical::class)]
+    private Collection $examen;
+
+    #[ORM\OneToMany(mappedBy: 'patient', targetEntity: ActeMedical::class)]
+    private Collection $acteMedicals;
     public function __construct()
     {
     $this->rdvs = new ArrayCollection();
     $this->dateEnregistrement=new DateTimeImmutable();
+    $this->examen = new ArrayCollection();
+    $this->acteMedicals = new ArrayCollection();
    
     }
 
@@ -166,6 +174,66 @@ class Patient
     public function setDateEnregistrement(\DateTimeInterface $dateEnregistrement): self
     {
         $this->dateEnregistrement = $dateEnregistrement;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ActeMedical>
+     */
+    public function getExamen(): Collection
+    {
+        return $this->examen;
+    }
+
+    public function addExaman(ActeMedical $examan): self
+    {
+        if (!$this->examen->contains($examan)) {
+            $this->examen->add($examan);
+            $examan->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExaman(ActeMedical $examan): self
+    {
+        if ($this->examen->removeElement($examan)) {
+            // set the owning side to null (unless already changed)
+            if ($examan->getPatient() === $this) {
+                $examan->setPatient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ActeMedical>
+     */
+    public function getActeMedicals(): Collection
+    {
+        return $this->acteMedicals;
+    }
+
+    public function addActeMedical(ActeMedical $acteMedical): self
+    {
+        if (!$this->acteMedicals->contains($acteMedical)) {
+            $this->acteMedicals->add($acteMedical);
+            $acteMedical->setPatient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActeMedical(ActeMedical $acteMedical): self
+    {
+        if ($this->acteMedicals->removeElement($acteMedical)) {
+            // set the owning side to null (unless already changed)
+            if ($acteMedical->getPatient() === $this) {
+                $acteMedical->setPatient(null);
+            }
+        }
 
         return $this;
     }

@@ -15,10 +15,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Form\HospitalisationMiseAJourType;
 use App\Repository\HospitalisationRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class HospitalisationController extends AbstractController
 {
@@ -131,13 +133,22 @@ class HospitalisationController extends AbstractController
 
 
     #[Route('/hospitalisation', name: 'app_hospitalisation')]
-    public function index(EntityManagerInterface $entityManager,HospitalisationRepository $hospitalisationRepository): Response
+    public function index(Security $security,EntityManagerInterface $entityManager,HospitalisationRepository $hospitalisationRepository): Response
     {
         
+       
+        $user=$this->getUser();
+        $roles=['ROLE_AGENT','ROLE_ADMIN'];
+      if (!array_intersect($user->getRoles(), $roles)) {
+        throw new AccessDeniedException('Acces refuse');
+       } 
+         $comptes  =  $user;
         $hospitalisations=$hospitalisationRepository->findAll();
         return $this->render('hospitalisation/index.html.twig', [
             'controller_name' => 'hospitalisationController',
-            'hospitalisation' =>$hospitalisations,
+            'hospitalisation' =>  $hospitalisations,
+            'comptes'        =>          $comptes
+         
         ]);
     }
 

@@ -124,7 +124,7 @@
                                 <h1 class="h4 text-blue-900 mb-4 modifier">ajouter un examen</h1>
                             </div>
 
-                    <form method="POST" class="needs-validation" novalidate="" id="form">
+                    <form  class="needs-validation" novalidate="" id="form">
                   <div class="form-group">
                     <label for="email">Type d 'examen</label>
                     <input id="examen" type="text" class="form-control" name="libelle" tabindex="1" required autofocus>
@@ -135,10 +135,14 @@
                     <div class="d-block">
                       <label for="password" class="control-label">Patient</label>
                               <select class="form-control select" id="patient">
-  
-                     <option * disabled selected>selectionner le patient</option>
-                        {% for rendezvous in rendezvousS %}
-                           <option value = " {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}"> {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}</option>  
+                             <option value="">Déroulez la liste</option>
+                             {% for rendezvous in rendezvousS %}    
+                           <option 
+                            {% if data|default(null) != null %}
+                             value ={{rendezvous.id}}
+                                    selected
+                                  {% endif %}
+                           " {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}"> {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}</option>  
                                 {% endfor %}
                         </select> 
                     </div>
@@ -294,10 +298,12 @@
 			url:'/ajout/examen',
 			 data:$form,
 			 success:function(data) { 
-				if (data.code==2) {
-				window.location.href='/examen' 
-					
-				}	    
+				if (data.code==1) {
+			   alert(data.message)
+				}else{
+
+       	window.location.href='/examen' 	
+        }	    
 			},
 			error:function(error) {
 				console.log(error.responseText)   

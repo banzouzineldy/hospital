@@ -16,6 +16,13 @@ class ActeMedical
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $patient = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $examen = null; 
+
+ 
     public function getId(): ?int
     {
         return $this->id;
@@ -32,4 +39,32 @@ class ActeMedical
 
         return $this;
     }
+
+    public function getPatient(): ?string
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(string $patient): self
+    {
+        $this->patient = $patient;
+
+        return $this;
+    }
+
+    public function getExamen(): ?string
+    {
+        return $this->examen;
+    }
+
+    public function setExamen(string $examen): self
+    {
+        $this->examen = $examen;
+
+        return $this;
+    }
+
+  
+
+
 }

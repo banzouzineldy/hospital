@@ -386,7 +386,7 @@ class RendezvousController extends AbstractController
       } 
       $comptes  =  $user;
        $rendezvouslistes=$rdvsRepository->findAll();
-          //dd(  $rendezvouslistes); 
+          
   
        $userliste=[];
 

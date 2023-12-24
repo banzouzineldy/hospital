@@ -144,9 +144,11 @@
                                                 <th>PrenomDocteurs</th>
                                                 <th>email</th>
                                                 <th>departement</th>
-                                                <th>description</th>
-                                                <th>date debut</th>
+                                                <th>statut</th>
+                                                  <th>date debut</th>
                                                 <th>date fin</th>
+                                              
+                                           
                                        
                                             </tr>  
                                        </thead>  
@@ -177,14 +179,16 @@
                                                          {{plagehoraire.title  }}
                                                      </td> 
 
+                                                                      <td>
+
+                                                           {{plagehoraire.start |date('Y-m-d H:i:s') }}
+                                                        </td>
+
                                                         <td> 
                                                            {{plagehoraire.end |date('Y-m-d H:i:s') }}
                                                         </td> 
 
-                                                        <td>
-
-                                                           {{plagehoraire.start |date('Y-m-d H:i:s') }}
-                                                        </td>
+                                       
 
                                                         
 									             </tr>

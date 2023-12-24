@@ -18,7 +18,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet">
+  {#   <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet"> #}
 
 </head>
 
@@ -91,44 +91,41 @@
 
 <body class="bg-light">
 <div class="position-absolute top-50 start-100 translate-middle shadow">
- <div class="row">
- <div class="col-6">
-    <img src="/asset/images/4.png" alt="Slider Images"  class="slide-image" width="400px" height ="300px">
-     </div>
-     <div class="col-6">
+    <div class="row">
+        <div class="col-6">
+         <img src="/asset/images/4.png" alt="Slider Images"  class="slide-image" width="400px" height ="300px">
+        </div>
+        <div class="col-6">  
+
         <div class="card-body">
          <form method="post">
-        {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+          {% if error %}
+           <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+          {% endif %}
 
             {% if app.user %}
-        <div class="mb-3">
-            Vous êtes connecté en tant que {{ app.user.userIdentifier }},<a href="{{ path('app_logout') }}">Deconnexion</a>
+           <div class="mb-3">
+              Vous êtes connecté en tant que {{ app.user.userIdentifier }},<a href="{{ path('app_logout') }}">Deconnexion</a>
             </div>
             {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal text">se connecter</h1>
-            <label for="inputEmail">Email</label>
-            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>                           
-            <label for="inputPassword">Password</label>
-            <div class="mp">
-            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-            <i class="fa fa-eye"></i>
-            </div>
+            <h1 class="h3 mb-3 font-weight-normal text">connecter</h1>
+              <label for="inputEmail">Email</label>
+              <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>                           
+              <label for="inputPassword">Password</label>
+             <div class="mp">
+                 <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                   <i class="fa fa-eye"></i>
+              </div>
             <input type="hidden" name="_csrf_token"
-        value="{{ csrf_token('authenticate') }}"
+              value="{{ csrf_token('authenticate') }}"
                                         >
-     <button class="btn btn-primary mt-5" type="submit">
-        <span class="connexion"> Se connecter</span>
-        </button>
-    </form>
+              <button class="btn btn-primary mt-5" type="submit">
+              <span class="connexion"> connecter</span>
+              </button>
+        </form>
             
     </div>
-    </div>
-     </div>
-
- 
  </div>
 
 
@@ -142,7 +139,7 @@
     <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/assets/js/sb-admin-2.min.js"></script>
+  {#   <script src="/assets/js/sb-admin-2.min.js"></script> #}
 
 
     <script>

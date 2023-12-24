@@ -29,7 +29,7 @@ class StatistiquesController extends AbstractController
         $chartData2 = array();
         $chartData3 = array();
         $chartData4 = array();
-         $rendezVous=$rdvsRepository->findAll();
+        $rendezVous=$rdvsRepository->findAll();
         $patients=$patientRepository->findAll();
         foreach ($patients as $d) {
             $year = $d->getDateEnregistrement()->format('Y-m-d');
@@ -40,7 +40,7 @@ class StatistiquesController extends AbstractController
             }
         }
         foreach ($rendezVous as $d) {
-            $years = $d->getDateEnregistrement()->format('Y-m-d');
+            $years = $d->getDateautomatique()->format('Y-m-d');
             if (isset($chartData2[$years])) {
                 $chartData2[$years] ++;
             }else {

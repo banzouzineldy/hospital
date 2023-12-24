@@ -11,21 +11,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class DashboardAgentController extends AbstractController
 {
     #[Route('/agent', name: 'app_dashboard_agent')]
-    public function index(Security $security,RdvsRepository $rdvsRepository,PatientRepository $patientRepository,UserRepository $userRepository): Response
+    public function index(EntityManagerInterface $entityManager,Security $security,RdvsRepository $rdvsRepository,PatientRepository $patientRepository,UserRepository $userRepository): Response
     
-    {  
-        $this->denyAccessUnlessGranted('ROLE_AGENT');
+    {  $user=$this->getUser();
+        $roles=['ROLE_AGENT','ROLE_ADMIN'];
+
+      // $roles=$user->getRoles();
+      if (!array_intersect($user->getRoles(), $roles)) {
+        throw new AccessDeniedException('Acces refuse');
+      } 
+      
+  /*       $this->denyAccessUnlessGranted('ROLE_AGENT');
         // $this->denyAccessUnlessGranted('ROLE_MEDECIN');
          if (!$security->isGranted('IS_AUTHENTICATED_FULLY')) {
 
              return new RedirectResponse($this->generateUrl('app_login'));
             
-            }else   
+            } */else   
              $comptes = $security->getUser();
              $user = $comptes;
              // Récupérez le login de l'utilisateur connecté
@@ -47,7 +55,8 @@ class DashboardAgentController extends AbstractController
                     }
                 }
                 foreach ($rendezVous as $d) {
-                    $years = $d->getDateEnregistrement()->format('Y-m-d');
+                    $years = $d->getDateautomatique
+                    ()->format('Y-m-d');
                     if (isset($chartData2[$years])) {
                         $chartData2[$years] ++;
                     }else {
@@ -59,6 +68,7 @@ class DashboardAgentController extends AbstractController
                     'rendez-Vous' =>$chartData2, 
                 ];
                 $chartDataAnnuelle = json_encode($chartData);
+
                 $patients=$patientRepository->createQueryBuilder('p')
                 ->select('COUNT(p.id)')
                 ->getQuery()
@@ -78,13 +88,22 @@ class DashboardAgentController extends AbstractController
                 ->select('COUNT (u.id)')
                 ->getQuery()
                 ->getSingleResult();
-        
+                  
+                /* sql=$entityManager->getConnection();
+
+                $datas=$sql->createQueryBuilder('a')
+                  ->select('SUBSTRING(a.dateEnregistrement,1,10) as date COUNT as count(a)')
+                  ->groupBy('date')
+                  ->getQuery()
+                  ->getSingleResult();
+ */
                 $data = [
                     'patients' => count($patients),
                     'rendez-Vous' => count($rendezVous),
         
                 ];
                 $jsonData = json_encode($data);
+                
                 
                     return $this->render('dashboard_agent/index.html.twig', [
                         'jsonData'                   =>  $jsonData,

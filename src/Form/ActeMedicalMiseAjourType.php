@@ -18,9 +18,17 @@ class ActeMedicalMiseAjourType extends AbstractType
                 'class' => 'form-control-sm', 
                 'style' => 'color:black; font-size:20px;']
                 ])
+                ->add('libelle',TextType::class,['label'=>'nom examen','attr' => [
+                    'class' => 'form-control-sm', 
+                    'style' => 'color:black; font-size:20px;']
+                    ])
+                    ->add('libelle',TextType::class,['label'=>'nom examen','attr' => [
+                        'class' => 'form-control-sm', 
+                        'style' => 'color:black; font-size:20px;']
+                        ])
 
             ->add('submit',SubmitType::class,['label'=>'valider','attr' => [
-                'class' => 'btn btn-primary  form-control ']])
+                'class' => 'btn btn-primary form-control ']])
         ;
     }
 

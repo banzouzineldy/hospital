@@ -126,7 +126,7 @@
                         <h4 class="page-title">Rendez_vous</h4> 
             </div>
                 <div class="col-sm-8 col-9 text-right m-b-20">
-                       {#  <a href="{{path('app_ajout/fonction') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter une Fonction</a> #}
+                        <a href="{{path('app_rendezvous_ajout') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter un Rendez_vous</a> 
               </div>
           </div>
                 <br>
@@ -168,7 +168,7 @@
                                               {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}
 
                                                 </td>
-
+ 
                                                 <td>    
                                               {{rendezvous.getSpecialite.nom }}
 
@@ -184,8 +184,8 @@
                                                </td> 
                                                   <td class="text-right">
                                          
-                                                    <a class="btn btn-primary" href="{{path('app_rendezvous_edit',{'id':rendezvous.id})}}"><i class="fa fa-pencil"></i>Reporter</a>
-						                                        <a class="btn btn-danger deletes" href="#delete_rendezvous" data-toggle="modal" data-target="" id="{{rendezvous.id}}"><i class="fa fa-trash"></i>Supprimer</a>
+                                                    <a class="btn btn-warning" href="{{path('app_rendezvous_edit',{'id':rendezvous.id})}}"><i class="fa fa-edit"></i></a>
+						                                        <a class="btn btn-danger deletes" href="#delete_rendezvous" data-toggle="modal" data-target="" id="{{rendezvous.id}}"><i class="fa fa-trash"></i></a>
 										                            </td>
 
 									                          </tr>  
@@ -309,8 +309,8 @@
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-body text-center">
-						<img src="/assets/img/sent.png" alt="" width="50" height="46">
-						<h3>voulez vous supprimer ?</h3>
+						<img src="/assetse/img/sent.png" alt="" width="50" height="46">
+						<h3>voulez vous supprimer ce rendezvous?</h3>
 						<div class="m-t-20"> <a href="#" class="btn btn-white" data-dismiss="modal">Fermer</a>
 							<button type="submit" class="btn btn-danger supprimer" >Supprimer</button>
 						</div>

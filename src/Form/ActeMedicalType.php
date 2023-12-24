@@ -19,6 +19,28 @@ class ActeMedicalType extends AbstractType
                 'style' => 'color:black; font-size:20px;']
                 
                 ])
+
+                ->add('patient',ChoiceType::class,[
+                    'mapped'=>false,
+                    'choices'=>$options['patients'],
+                    'label' => 'Patient',
+                    'attr'=>[
+                       'class'=>'form-control form-control-sm',
+                       'style' => 'color:black; font-size:20px;']
+      
+    
+                 ])
+
+                ->add('examen',ChoiceType::class,[
+                    'mapped'=>false,
+                    'choices'=>$options['examen'],
+                    'label' => 'Patient',
+                    'attr'=>[
+                       'class'=>'form-control form-control-sm',
+                       'style' => 'color:black; font-size:20px;']
+                      
+    
+                ])
             ->add('submit',SubmitType::class,['label'=>'valider','attr' => [
                 'class' => 'btn btn-primary  form-control ']])
         ;
@@ -29,5 +51,9 @@ class ActeMedicalType extends AbstractType
         $resolver->setDefaults([
             'data_class' => ActeMedical::class,
         ]);
+
+        $resolver->setRequired('patient');
+        $resolver->setRequired('examen');
+       
     }
 }
