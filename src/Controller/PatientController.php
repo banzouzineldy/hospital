@@ -15,17 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PatientNationaliteRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Security;
 
 class PatientController extends AbstractController
 
 {
     #[Route('/patient', name: 'app_patient_liste')]
-    public function index(PatientRepository $patientrepository, NationaliteRepository $nationaliterepository,PatientNationaliteRepository $patientnationaliterepository): Response
+    public function index(PatientRepository $patientrepository, NationaliteRepository $nationaliterepository,PatientNationaliteRepository $patientnationaliterepository,Security $security): Response
 
-    {   
+    {   //$this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $comptes = $security->getUser();
          $patients=$patientrepository->findAll();
          return $this->render('patient/index.html.twig', [
-            'patients'=>$patients
+            'patients'=>$patients,
+            'comptes'=>$comptes
         ]);  
          
 
@@ -76,7 +79,6 @@ class PatientController extends AbstractController
         ]);                      
    
     }
-
 
     #[Route('/edit/patient/{id}', name: 'app_patient_edit',methods:['POST','GET'])]
     public function edit(EntityManagerInterface $entityManager,Request $request,PatientRepository $patientRepository,$id,NationaliteRepository $nationaliteRepository): Response

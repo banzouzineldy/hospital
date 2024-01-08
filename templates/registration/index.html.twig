@@ -150,7 +150,7 @@
             <h4 class="page-title">Agents</h4> 
             </div>
                 <div class="col-sm-8 col-9 text-right m-b-20">
-                       {#  <a href="{{path('app_ajout/fonction') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter une Fonction</a> #}
+                 <a href="{{path('app_register_add') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter un agent</a> 
               </div>
           </div>
                 <br>
@@ -180,7 +180,7 @@
                                     <tbody>
 
                                     {% for users in user %}
-									       <tr>
+									                    <tr>
                                      
                                                 <td>{{users.nom}}</td>
 
@@ -199,7 +199,7 @@
                                                     <a class="btn btn-warning" href="{{path('app_user_update',{'id':users.id})}}"><i class="fa fa-edit"></i></a>
                                                     <a class="btn btn-danger delete-user" href="#delete_user" data-toggle="modal" data-target="" id="{{users.id}}"><i class="fas fa-trash"></i></a>
                                                     </td> 
-					                        </tr>
+					                           </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>

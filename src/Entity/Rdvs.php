@@ -36,8 +36,11 @@ class Rdvs
     #[ORM\ManyToOne(inversedBy: 'rdvs')]
     private ?Doctors $docteur = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $dateautomatique = null;
+   /*  #[ORM\Column(type: Types::DATE_IMMUTABLE)]
+    private ?\DateTimeImmutable $dateautomatique = null; */
+
+     #[ORM\Column(type: Types::DATE_IMMUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
+    private ?\DateTimeImmutable $dateautomatique = null; 
 
    /*  #[ORM\Column(type: Types::DATE_IMMUTABLE,options:['default'=>'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $dateEnregistrement = null; */
@@ -136,7 +139,7 @@ class Rdvs
         return $this;
     }
 
-    public function getDateautomatique(): ?\DateTimeImmutable
+   /*  public function getDateautomatique(): ?\DateTimeImmutable
     {
         return $this->dateautomatique;
     }
@@ -146,7 +149,19 @@ class Rdvs
         $this->dateautomatique = $dateautomatique;
 
         return $this;
-    }
+    } */
+
+   public function getDateautomatique(): ?\DateTimeImmutable
+   {
+       return $this->dateautomatique;
+   }
+
+   public function setDateautomatique(\DateTimeImmutable $dateautomatique): self
+   {
+       $this->dateautomatique = $dateautomatique;
+
+       return $this;
+   }
 
    
 

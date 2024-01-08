@@ -27,11 +27,13 @@ class ErrorListener
 
         if ($exception instanceof HttpExceptionInterface) {
             $statusCode = $exception->getStatusCode();
-
+            $tatuMessage =$exception->getMessage();
             if ($statusCode == 404) {
-                $response = new Response($this->twig->render('error/404.html.twig'), 404);
+                $response = new Response($this->twig->render('error/404.html.twig '), 404);
             } elseif ($statusCode == 505) {
                 $response = new Response($this->twig->render('error/505.html.twig'), 505);
+            }elseif ($statusCode == 403) {
+                $response = new Response($this->twig->render('error/403.html.twig'), 403);
             }
         }
 

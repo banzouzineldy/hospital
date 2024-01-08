@@ -86,9 +86,6 @@ class HospitalisationController extends AbstractController
     
           if ($form->isSubmitted() && $form->isValid()) { 
            
-            
-
-            
             $serviceid=$form->get('service')->getData();
             $pathologieid=$form->get('pathologie')->getData();
             $patientid=$form->get('patient')->getData();
@@ -135,13 +132,11 @@ class HospitalisationController extends AbstractController
     #[Route('/hospitalisation', name: 'app_hospitalisation')]
     public function index(Security $security,EntityManagerInterface $entityManager,HospitalisationRepository $hospitalisationRepository): Response
     {
-        
-       
         $user=$this->getUser();
-        $roles=['ROLE_AGENT','ROLE_ADMIN'];
-      if (!array_intersect($user->getRoles(), $roles)) {
-        throw new AccessDeniedException('Acces refuse');
-       } 
+        $roles=['ROLE_MEDECIN','ROLE_ADMIN'];
+        if (!array_intersect($user->getRoles(), $roles)) {
+          throw new AccessDeniedException('Acces refuse');
+        } 
          $comptes  =  $user;
         $hospitalisations=$hospitalisationRepository->findAll();
         return $this->render('hospitalisation/index.html.twig', [
@@ -151,7 +146,6 @@ class HospitalisationController extends AbstractController
          
         ]);
     }
-
 
 
     #[Route('/hospitalisation/{id}', name: 'app_update_hospitalisation',methods: [ 'POST','GET'])]

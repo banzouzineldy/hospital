@@ -84,64 +84,57 @@
         </ul>
         </nav>
         <div class="main-sidebar sidebar-style-2">
-            <aside id="sidebar-wrapper">
+           
+         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="{{ path('app_dashboard_agent') }}"> <img alt="image" src="/assetse/img/logo.png" class="header-logo" /> <span
-                class="logo-name">MEDICATIVE</span>
+            <a href="{{ path('app_dashboard_medecin') }}"> <img alt="image" src="assetse/img/logo.png" class="header-logo" /> <span
+            class="logo-name">MEDICATIVE</span>
             </a>
           </div>
           <ul class="sidebar-menu">
             <li class="menu-header">Main</li>
             <li class="dropdown active">
-              <a href="{{ path('app_admin_dashboard') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
+              <a href="{{ path('app_dashboard_medecin') }}" class="nav-link"><i data-feather="monitor"></i><span>Dashboard</span></a>
             </li>
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                  data-feather="briefcase"></i><span>AgendaMedecin</span></a>
+                  data-feather="briefcase"></i><span>rendezVous</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{path('app_rendezvous_forme')}}">voir agenda</a></li>
+                <li><a class="nav-link" href="{{path('app_rendezvous_medecin_liste')}}">liste des rendez_vous</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Rendez_vous</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Hospitalisation</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{{path('app_rendezvous_ajout')}}">Creer</a></li>
-                <li><a class="nav-link" href="{{path('app_rendezvous_liste_agent')}}">afficher</a></li>
+               {#  <li><a class="nav-link" href="">Creer</a></li> #}
+                <li><a class="nav-link" href="{{path('app_hospitalisation')}}">afficher</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Patients</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="mail"></i><span>Agenda</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="email-inbox.html">Ajouter</a></li>
-                <li><a class="nav-link" href="{{path('app_patient_liste')}}">Afficher</a></li>
-              </ul>
-            </li>
-            <li class="menu-header">Hospitalisation</li>
-            <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="image"></i><span>hospitalisations</span></a>
-              <ul class="dropdown-menu">
-             {#    <li><a class="nav-link" href="light-gallery.html">Light Gallery</a></li> #}
-                <li><a href="{{path('app_hospitalisation')}}"> hospitalisations</a></li>
+                <li><a class="nav-link" href="{{path('app_plage_horaire')}}">calendrier</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="flag"></i><span>Chambre</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="shopping-bag"></i><span>examen</span></a>
               <ul class="dropdown-menu">
-                <li><a href="carousel.html">Creer</a></li>
-                <li><a class="nav-link" href="{{ path('app_chambre')}}">affiche</a></li>
+              <li><a class="nav-link" href="{{path('app_examen_add') }}">Ajout</a></lii>
+                <li><a class="nav-link" href="{{path('app_examen_liste')}}">afficher</a></lii>
               </ul>
             </li>
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="map"></i><span>
-                  Lit</span></a>
+                  actemedical</span></a>
               <ul class="dropdown-menu">
-                <li><a href="gmaps-advanced-route.html">Creer</a></li>
-                <li><a href="{{ path('app_lit')}}">Afficher</a></li>
+                <li><a href="{{path('app_acte_medical')}}">Creer</a></li> 
+                <li><a href="{{path('app_acteMedical_liste_acte')}}">liste</a></li>
               </ul>
-            </li>  
-             </ul>
-        </aside>
+            </li> 
+            </ul>
 
+        </aside>
        
         </div>
                     <!-- End of Topbar -->
@@ -157,7 +150,7 @@
                             <h4 class="page-title">Hospitalisations</h4> 
                         </div>
                         <div class="col-sm-8 col-9 text-right m-b-20">
-                            <a href="{{path('app_hospitalisation_add') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter une Hospitalisation</a>
+{#                             <a href="{{path('app_hospitalisation_add') }}" class="btn btn btn-primary btn-rounded float-right"><i class="fa fa-plus"></i> Ajouter une Hospitalisation</a> #}
                         </div>
                     </div>
                     <br>

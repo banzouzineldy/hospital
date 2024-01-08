@@ -53,20 +53,17 @@ class ExamenController extends AbstractController
         // ajout d un examen
 
         #[Route('/ajout/examen', name: 'app_examen_add_examen')]
-        public function ajout(EntityManagerInterface $entityManager,Request $request): Response
+        public function ajout(EntityManagerInterface $entityManager,Request $request,Security $security): Response
                   
             {  
                   if  (!empty($request->request->all()) && $request->request->all()['libelle'] && $request->request->all()['patient'] ) {
-                    
-                    $examen=$entityManager->getRepository(Examen::class)->findOneBy([
-                        "libelle" =>$request->request->all()['libelle'],
-                      
-                         ]); 
-                         if ($examen == null){ 
+                
                             $examen=new Examen();
-    
+
+                            $user=$security->getuser();
                              $examen->setLibelle($request->request->all()['libelle']);
                               $examen->setPatient($request->request->all()['patient']);
+                              $examen->setUtilisateur($user->getUserIdentifier());
                                $entityManager->persist($examen);
                                $entityManager->flush();
                              }else{
@@ -80,10 +77,7 @@ class ExamenController extends AbstractController
                             'code' => 2,
                             'message' => 'insertion effectuée'
                         ]); 
-                       
-                  }
- 
-                 
+                            
             
             }
 
@@ -111,7 +105,7 @@ class ExamenController extends AbstractController
                 }
 
                 #[Route('/edit/examen/{id}', name: 'app_examen_edit',methods:['POST'])]
-                public function edit(EntityManagerInterface $entityManager,Request $request,$id,ExamenRepository $examenRepository): Response
+                public function edit(EntityManagerInterface $entityManager,Request $request,$id,ExamenRepository $examenRepository,Security $security): Response
                           
                     {   
                         $examen=$examenRepository->find($id);
@@ -122,8 +116,10 @@ class ExamenController extends AbstractController
                                 'No product found for id '.$id
                             );
                         }
+                        $user=$security->getuser();
                         $examen->setLibelle($request->request->all()['libelle']);
                         $examen->setPatient($request->request->all()['patient']);
+                        $examen->setUtilisateur($user->getUserIdentifier());
                         $entityManager->flush();
                         return $this->json([
                             'code' => 1,
@@ -131,10 +127,6 @@ class ExamenController extends AbstractController
                         ]); 
                         
                     }
-
-
-
-
 
         #[Route('/delete/examen', name: 'app_examen_delete')]
     public function delete(EntityManagerInterface $entityManager,Request $request): Response
@@ -168,11 +160,18 @@ class ExamenController extends AbstractController
               if (!array_intersect($user->getRoles(), $roles)) {
                 throw new AccessDeniedException('Acces refuse');
               } 
-
+              $login = $comptes->getUserIdentifier();
                 $examen=$examenRepository->findAll();
-
+                $resulexamenfinal=$examenRepository->findBy(['utilisateur'=>$login]);
+             /*  if ($user->getRoles()=='ROLE_ADMIN' ) {
+                 foreach ($resulexamenfinal as $resuadmin) {
+                     $admin=$resuadmin->getUtilisateur();
+                 }
+                 
+               }
+               dd($admin); */
               return $this->render('examen/index.html.twig', [
-                'examens'=>$examen,
+                'examens'=>$resulexamenfinal,
                 'user'=>$user,
                 'comptes'=>$comptes
             ]);

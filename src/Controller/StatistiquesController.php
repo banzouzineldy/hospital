@@ -40,7 +40,7 @@ class StatistiquesController extends AbstractController
             }
         }
         foreach ($rendezVous as $d) {
-            $years = $d->getDateautomatique()->format('Y-m-d');
+            $years = $d->getDateEnregistrement()->format('Y-m-d');
             if (isset($chartData2[$years])) {
                 $chartData2[$years] ++;
             }else {

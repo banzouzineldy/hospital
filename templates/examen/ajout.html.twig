@@ -100,8 +100,9 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="map"></i><span>
                   actemedical</span></a>
               <ul class="dropdown-menu">
+              <li><a href="{{path('app_acte_medical')}}">Creer</a></li> 
                {#  <li><a href="gmaps-advanced-route.html">Creer</a></li> #}
-                <li><a href="{{path('app_acteMedical_liste')}}">Afficher</a></li>
+                <li><a href="{{path('app_acteMedical_liste_acte')}}">Afficher</a></li>
               </ul>
             </li> 
             </ul>
@@ -123,7 +124,6 @@
                             <div>
                                 <h1 class="h4 text-blue-900 mb-4 modifier">ajouter un examen</h1>
                             </div>
-
                     <form  class="needs-validation" novalidate="" id="form">
                   <div class="form-group">
                     <label for="email">Type d 'examen</label>
@@ -159,7 +159,7 @@
                     </button>
                   </div>
                 </form>         
-                        </div>
+                    </div>
                     </div>
                 </div>
 

@@ -16,6 +16,15 @@ class AutreActemedical
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $patient = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $examen = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $utilisateur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +38,42 @@ class AutreActemedical
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function getPatient(): ?string
+    {
+        return $this->patient;
+    }
+
+    public function setPatient(string $patient): self
+    {
+        $this->patient = $patient;
+
+        return $this;
+    }
+
+    public function getExamen(): ?string
+    {
+        return $this->examen;
+    }
+
+    public function setExamen(string $examen): self
+    {
+        $this->examen = $examen;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?string
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(string $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

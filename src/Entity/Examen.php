@@ -25,8 +25,10 @@ class Examen
     #[ORM\Column(type:'datetime_immutable',options:['default'=>'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $dateEnregistrement = null;
 
-    #[ORM\OneToMany(mappedBy: 'examen', targetEntity: ActeMedical::class)]
     private Collection $acteMedicals;
+
+    #[ORM\Column(length: 255)]
+    private ?string $utilisateur = null;
 
      public function __construct (){
         $this->dateEnregistrement= new \DateTimeImmutable();
@@ -77,30 +79,18 @@ class Examen
     /**
      * @return Collection<int, ActeMedical>
      */
-    public function getActeMedicals(): Collection
+    
+     
+    public function getUtilisateur(): ?string
     {
-        return $this->acteMedicals;
+        return $this->utilisateur;
     }
 
-    public function addActeMedical(ActeMedical $acteMedical): self
+    public function setUtilisateur(string $utilisateur): self
     {
-        if (!$this->acteMedicals->contains($acteMedical)) {
-            $this->acteMedicals->add($acteMedical);
-            $acteMedical->setExamen($this);
-        }
-
-        return $this;
-    }
-
-    public function removeActeMedical(ActeMedical $acteMedical): self
-    {
-        if ($this->acteMedicals->removeElement($acteMedical)) {
-            // set the owning side to null (unless already changed)
-            if ($acteMedical->getExamen() === $this) {
-                $acteMedical->setExamen(null);
-            }
-        }
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }
 }
+

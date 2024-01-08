@@ -14,28 +14,42 @@ class ActeMedical
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $libelle = null;
+    private ?string $utilisateur = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $soin = null;
 
     #[ORM\Column(length: 255)]
     private ?string $patient = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $examen = null; 
-
+    private ?string $examen = null;
  
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLibelle(): ?string
+    public function getUtilisateur(): ?string
     {
-        return $this->libelle;
+        return $this->utilisateur;
     }
 
-    public function setLibelle(string $libelle): self
+    public function setUtilisateur(string $utilisateur): self
     {
-        $this->libelle = $libelle;
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
+    public function getSoin(): ?string
+    {
+        return $this->soin;
+    }
+
+    public function setSoin(string $soin): self
+    {
+        $this->soin = $soin;
 
         return $this;
     }
@@ -63,6 +77,10 @@ class ActeMedical
 
         return $this;
     }
+
+ 
+
+ 
 
   
 

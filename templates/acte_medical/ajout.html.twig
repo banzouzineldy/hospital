@@ -100,8 +100,9 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="map"></i><span>
                   actemedical</span></a>
               <ul class="dropdown-menu">
+                <li><a href="{{path('app_acte_medical')}}">Creer</a></li> 
                {#  <li><a href="gmaps-advanced-route.html">Creer</a></li> #}
-                <li><a href="{{path('app_acteMedical_liste')}}">Afficher</a></li>
+                <li><a href="{{path('app_acteMedical_liste_acte')}}">Afficher</a></li>
               </ul>
             </li> 
             </ul>
@@ -120,50 +121,61 @@
                        <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <div class="p-5">
-                            <div>
-                                <h1 class="h4 text-blue-900 mb-4 modifier">ajouter un examen</h1>
-                            </div>
-
-                    <form  class="needs-validation" novalidate="" id="form">
-                  <div class="form-group">
-                    <label for="email">examen</label>
-                    <input id="examen" type="text" class="form-control" name="libelle" tabindex="1" required autofocus>
-                    <div class="invalid-feedback">
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="d-block">
-                      <label for="password" class="control-label">Patient</label>
-                              <select class="form-control select" id="patient">
-                             <option value="">Déroulez la liste</option>
-                             {% for rendezvous in rendezvousS %}    
-                           <option 
-                            {% if data|default(null) != null %}
-                             value ={{rendezvous.id}}
-                                    selected
-                                  {% endif %}
-                           " {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}"> {{rendezvous.getPatient.nom ~ '  '~ rendezvous.getPatient.prenom}}</option>  
-                                {% endfor %}
-                        </select> 
-                    </div>
-                  </div>
-                  {# <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                      <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-                      <label class="custom-control-label" for="remember-me">Remember Me</label>
-                    </div>
-                  </div> #}
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                      Valider
-                    </button>
-                  </div>
-                </form>         
+                           <div>
+                        <h1 class="h4 text-blue-900 mb-4 modifier">ajouter un actemedical</h1>
+                      </div>
+                    <form class="needs-validation" novalidate=""id="forms">
+                       <div class="form-group">
+                           <div class="d-block">
+                              <label for="password" class="control-label">Patient</label>
+                                    <select class="form-control select" id="patient">
+                                        <option value="">Déroulez la liste</option>
+                                          {% for examen in examens %}    
+                                            <option 
+                                                {% if data|default(null) != null %}
+                                                  value ={{examen.id}}
+                                                  selected
+                                                {% endif %}
+                                                " {{examen.patient}}"> {{examen.patient}}
+                                            </option>  
+                                          {% endfor %}
+                                  </select> 
+                              </div>
+                         </div>
+                        <div class="form-group">
+                          <div class="d-block">
+                          <label for="password" class="control-label">examen</label>
+                                  <select class="form-control select" id="examen">
+                                <option value="">Déroulez la liste</option>
+                                {% for examen in examens %}    
+                                <option 
+                                  {% if data|default(null) != null %}
+                                  value ={{examen.id}}
+                                          selected
+                                        {% endif %}
+                                " {{examen.libelle}}"> {{examen.libelle}}</option>  
+                                      {% endfor %}
+                            </select> 
                         </div>
-                    </div>
-                </div>
+                       </div>  
+                       <div class="form-group">
 
-                    <!-- Content Row -->
+                              <label for="email">soin</label>
+                              
+                               <input type="text" class="form-control" name="soin" id="soin" tabindex="1" required autofocus>
+                                <div class="invalid-feedback">
+
+                             </div>
+                        </div> 
+                         <div class="form-group">
+                              <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                              Enregistrer
+                              </button>
+                         </div>
+                    </form>         
+                  </div>
+                    </div>
+                </div>  <!-- Content Row -->
                     <div class="settingSidebar">
                         <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
                         </a>
@@ -277,33 +289,31 @@
   <!-- Custom JS File -->
   <script src="/assetse/js/custom.js"></script>
 
-  <script>
-  
-    $(document).ready(function(){ 
-	 $('#form').submit(function(e){
-		e.preventDefault();
-		var nom_examen=$('#form #examen').val();
-		var prenom_patient=$('#form #patient').val();
-     console.log( nom_examen);
-    console.log(prenom_patient);
-		var $form={
-			libelle:nom_examen,
-			patient:prenom_patient,
-		
 
+  <script>
+
+    $(document).ready(function(){   
+	   $('#forms').submit(function(e){
+		 e.preventDefault();
+		var nom_examen=$('#forms #examen').val();
+		var prenom_patient=$('#forms #patient').val();
+    	var libelle_soin=$('#forms #soin').val();
+    console.log()
+		var $form={
+        soin:libelle_soin,
+      	patient:prenom_patient,
+			  examen:nom_examen,
+    
 		   };
 		$.ajax({
 			method:'POST',
 			dataType:'json',
-			url:'/ajout/examen',
+			url:'/ajout/acte',
 			 data:$form,
 			 success:function(data) { 
-				if (data.code==1) {
-			   alert(data.message)
-				}else{
-
-       	window.location.href='/examen' 	
-        }	    
+				if (data.code==2) {
+        window.location.href='/acte/listes' 
+				}    
 			},
 			error:function(error) {
 				console.log(error.responseText)   

@@ -77,7 +77,7 @@
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Hospitalisation</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="">Creer</a></li>
+              {#   <li><a class="nav-link" href="">Creer</a></li> #}
                 <li><a class="nav-link" href="{{path('app_hospitalisation')}}">afficher</a></li>
               </ul>
             </li>
@@ -99,8 +99,9 @@
               <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="map"></i><span>
                   actemedical</span></a>
               <ul class="dropdown-menu">
+              <li><a href="{{path('app_acte_medical')}}">Creer</a></li> 
                {#  <li><a href="gmaps-advanced-route.html">Creer</a></li> #}
-                <li><a href="{{path('app_acteMedical_liste')}}">Afficher</a></li>
+                <li><a href="{{path('app_acteMedical_liste_acte')}}">Afficher</a></li>
               </ul>
             </li> 
             </ul>
